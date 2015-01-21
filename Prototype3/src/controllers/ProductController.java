@@ -21,7 +21,7 @@ public class ProductController extends SuperController{
 		Product tProduct = (Product)value;
 
 		String insert = "INSERT INTO Product"
-				+ "(PName,PDesc,PPhoto,PPrice) VALUES"
+				+ "(Pname,Pdesc,Pphoto,Pprice) VALUES"
 				+ "(?,?,?,?)";
 		
 		Product tmp = new Product();
@@ -86,10 +86,10 @@ public class ProductController extends SuperController{
 		String sqlSearch = "SELECT * "
 				+ "FROM product "
 				+ "WHERE Pid=ifnull(?,Pid) "
-				+ "AND PName=ifnull(?,PName) "
-				+ "AND PDesc=ifnull(?,PDesc) "
-				+ "AND PPhoto=ifnull(?,PPhoto) "
-				+ "AND PPrice=ifnull(?,PPrice) ";
+				+ "AND Pname=ifnull(?,Pname) "
+				+ "AND Pdesc=ifnull(?,Pdesc) "
+				+ "AND Pphoto=ifnull(?,Pphoto) "
+				+ "AND Pprice=ifnull(?,Pprice) ";
 
 		Object []args = new Object[5];
 		args[0]=tmp.getPid();
@@ -107,10 +107,10 @@ public class ProductController extends SuperController{
 			while (resultSet.next()) {
 				Product p = new Product();
 				p.setPid(resultSet.getInt("Pid"));
-				p.setPname(resultSet.getString("PName"));
-				p.setPdescription(resultSet.getString("PDesc"));
-				p.setPphoto(resultSet.getString("PPhoto"));
-				p.setPprice(resultSet.getFloat("PPrice"));
+				p.setPname(resultSet.getString("Pname"));
+				p.setPdescription(resultSet.getString("Pdesc"));
+				p.setPphoto(resultSet.getString("Pphoto"));
+				p.setPprice(resultSet.getFloat("Pprice"));
 				ProductList.add(p);
 			}
 			return ProductList;
@@ -127,7 +127,7 @@ public class ProductController extends SuperController{
 			return;
 		Product tProduct = (Product)value;
 		String update = "UPDATE Product "
-				+ "SET Pid=? ,PName=? ,PDesc=? ,PPhoto=? ,PPrice=?"
+				+ "SET Pid=? ,Pname=? ,Pdesc=? ,Pphoto=? ,Pprice=?"
 				+ "WHERE Pid=?";
 		Product tmp = new Product();
 		tmp.setPid(id);

@@ -85,7 +85,7 @@ public class DomainController extends SuperController{
 		String sqlSearch = "SELECT * "
 				+ "FROM domain "
 				+ "WHERE Did=ifnull(?,Did) "
-				+ "AND DName LIKE ifnull(?,DName) ";
+				+ "AND Dname LIKE ifnull(?,Dname) ";
 		
 		Object []args = new Object[2];
 		args[0]=tmp.getDid();
@@ -100,7 +100,7 @@ public class DomainController extends SuperController{
 			while (resultSet.next()) {
 				Domain p = new Domain();
 				p.setDid(resultSet.getInt("DId"));
-				p.setdName(resultSet.getString("DName"));
+				p.setdName(resultSet.getString("Dname"));
 				domainList.add(p);
 			}
 			return domainList;
@@ -117,7 +117,7 @@ public class DomainController extends SuperController{
 			return;
 		Domain tDomain = (Domain)value;
 		String update = "UPDATE domain "
-				+ "SET Did=? ,DName=?"
+				+ "SET Did=? ,Dname=?"
 				+ "WHERE Did=?";
 
 		Domain tmp = new Domain();

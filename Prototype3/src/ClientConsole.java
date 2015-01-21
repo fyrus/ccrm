@@ -154,11 +154,6 @@ public class ClientConsole implements ChatIF
         if (cmd.getCom().equals("2"))
         {
         	Customer c1 = new Customer();
-            c1.setcBirthDate("12/12/85");
-            c1.setCid("1");
-            c1.setcLocation("haifa");
-            c1.setCname("yosi");
-            c1.setcPhone("123465");
         	//cmd.setComVal(getValueFromConsole()); // getting value for database
         	cmd.setComVal(c1);
         }
@@ -166,11 +161,6 @@ public class ClientConsole implements ChatIF
         if (cmd.getCom().equals("3"))
         {
         	Customer c1 = new Customer();
-            c1.setcBirthDate("13/13/85");
-            c1.setCid("30");
-            c1.setcLocation("jopa666");
-            c1.setCname("haha");
-            c1.setcPhone("5432566");
         	//cmd.setComVal(getValueFromConsole()); // getting value for database
         	cmd.setComVal(c1);
         	cmd.setComExtra("3", "306");

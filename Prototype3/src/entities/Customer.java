@@ -12,9 +12,9 @@ public class Customer implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 7750541670568873020L;
 	//customer ID
-	private String cid;
+	private String cId;
 	//customer name
-	private String cname;
+	private String cName;
 	//customer birth date
 	private String cBirthDate;
 	//customer address location
@@ -28,8 +28,8 @@ public class Customer implements java.io.Serializable{
 	 * Default constructor - blank customer
 	 */
 	public Customer(){
-		cid="";
-		cname="";
+		cId="";
+		cName="";
 		cBirthDate="";
 		cLocation="";
 		cPhone="";
@@ -44,8 +44,8 @@ public class Customer implements java.io.Serializable{
 	 * @param phone customer phone
 	 */
 	public Customer(String id,String name,String bd,String loc,String phone){
-		cid=id;
-		cname=name;
+		cId=id;
+		cName=name;
 		cBirthDate=bd;
 		cLocation=loc;
 		cPhone=phone;
@@ -54,26 +54,26 @@ public class Customer implements java.io.Serializable{
 	/**
 	 * @return the customer id
 	 */
-	public String getCid() {
-		return cid;
+	public String getcId() {
+		return cId;
 	}
 	/**
 	 * @param cid the customer id to set
 	 */
-	public void setCid(String cid) {
-		this.cid = cid;
+	public void setcId(String cid) {
+		this.cId = cid;
 	}
 	/**
 	 * @return the customer name
 	 */
-	public String getCname() {
-		return cname;
+	public String getcName() {
+		return cName;
 	}
 	/**
 	 * @param cname the customer name to set
 	 */
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setcName(String cname) {
+		this.cName = cname;
 	}
 	/**
 	 * @return the customer birth date

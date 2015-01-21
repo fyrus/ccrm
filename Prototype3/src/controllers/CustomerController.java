@@ -21,30 +21,32 @@ public class CustomerController extends SuperController{
 		Customer tCustomer = (Customer)value;
 
 		String insert = "INSERT INTO customer"
-				+ "(Cid,Cname, Cbd, CLocation, CPhone) VALUES"
+				+ "(Cid,Cname, Cbd, Clocation, Cphone) VALUES"
 				+ "(?,?,?,?,?)";
 		
 		Customer tmp = new Customer();
-		tmp.setCid(tCustomer.getCid());
+		tmp.setcId(tCustomer.getcId());
 		
-		if (tCustomer.getCid().compareTo("") == 0)
+		if (tCustomer.getcId().compareTo("") == 0){
+			System.out.println("cant insert no id");
 			return;
+		}
 
 		if(searchInDB(tmp) != null)
 		{
-			System.out.println("Customer with id " + tCustomer.getCid() + " already exists");
+			System.out.println("Customer with id " + tCustomer.getcId() + " already exists");
 		}
 		else{
 			Object []args = new Object[5];
-			args[0]=tCustomer.getCid();
-			args[1]=tCustomer.getCname();
+			args[0]=tCustomer.getcId();
+			args[1]=tCustomer.getcName();
 			args[2]=tCustomer.getcBirthDate();
 			args[3]=tCustomer.getcLocation();
 			args[4]=tCustomer.getcPhone();
 			if(superAddToDB(insert,args))
-				System.out.println("Customer with id " + tCustomer.getCid() + " was added");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was added");
 			else
-				System.out.println("Customer with id " + tCustomer.getCid() + " was not added");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was not added");
 		}
 	}
 
@@ -56,21 +58,21 @@ public class CustomerController extends SuperController{
 		
 		Customer tCustomer = (Customer)value;
 		Customer tmp = new Customer();
-		tmp.setCid(tCustomer.getCid());
+		tmp.setcId(tCustomer.getcId());
 		
-		if (tCustomer.getCid().compareTo("") == 0)
+		if (tCustomer.getcId().compareTo("") == 0)
 			return;
 
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("no Customer with id " + tCustomer.getCid() + " found");
+			System.out.println("no Customer with id " + tCustomer.getcId() + " found");
 		}
 		else{
-			String sqlRemove = "DELETE FROM customer WHERE Cid = " + tCustomer.getCid();
+			String sqlRemove = "DELETE FROM customer WHERE Cid = " + tCustomer.getcId();
 			if(superRemoveFromDB(sqlRemove))
-				System.out.println("Customer with id " + tCustomer.getCid() + " was removed");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was removed");
 			else
-				System.out.println("Customer with id " + tCustomer.getCid() + " was not removed");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was not removed");
 		}
 
 	}
@@ -90,29 +92,31 @@ public class CustomerController extends SuperController{
 				+ "FROM customer "
 				+ "WHERE Cbd=ifnull(?,Cbd) "
 				+ "AND Cid=ifnull(?,Cid) "
-				+ "AND CLocation=ifnull(?,CLocation) "
+				+ "AND Clocation=ifnull(?,Clocation) "
 				+ "AND Cname=ifnull(?,Cname) "
 				+ "AND Cphone=ifnull(?,Cphone) ";
 		
 		Object []args = new Object[5];
 		args[0]=tmp.getcBirthDate();
-		args[1]=tmp.getCid();
+		args[1]=tmp.getcId();
 		args[2]=tmp.getcLocation();
-		args[3]=tmp.getCname();
+		args[3]=tmp.getcName();
 		args[4]=tmp.getcPhone();
 		
 		ResultSet resultSet;
 		
 		try {
 			resultSet = superSearchInDB(sqlSearch, args);
-			if(resultSet == null)
+			if(resultSet == null){
+				System.out.println("no customers found");
 				return null;
+			}
 			while (resultSet.next()) {
 				Customer p = new Customer();
-				p.setCid(resultSet.getString("Cid"));
-				p.setCname(resultSet.getString("Cname"));
+				p.setcId(resultSet.getString("Cid"));
+				p.setcName(resultSet.getString("Cname"));
 				p.setcBirthDate(resultSet.getString("Cbd"));
-				p.setcLocation(resultSet.getString("CLocation"));
+				p.setcLocation(resultSet.getString("Clocation"));
 				p.setcPhone(resultSet.getString("Cphone"));
 				customerList.add(p);
 			}
@@ -135,28 +139,28 @@ public class CustomerController extends SuperController{
 			return;
 		Customer tCustomer = (Customer)value;
 		String update = "UPDATE customer "
-				+ "SET Cid=? ,Cname=? ,Cbd=? ,CLocation=? ,CPhone=?"
+				+ "SET Cid=? ,Cname=? ,Cbd=? ,Clocation=? ,Cphone=?"
 				+ "WHERE Cid=?";
 
 		Customer tmp = new Customer();
-		tmp.setCid(id);
+		tmp.setcId(id);
 		//check if customer exists
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("Customer with id " + tCustomer.getCid() + " cannot be found");
+			System.out.println("Customer with id " + tCustomer.getcId() + " cannot be found");
 		}
 		else{
 			Object []args = new Object[6];
-			args[0]=tCustomer.getCid();
-			args[1]=tCustomer.getCname();
+			args[0]=tCustomer.getcId();
+			args[1]=tCustomer.getcName();
 			args[2]=tCustomer.getcBirthDate();
 			args[3]=tCustomer.getcLocation();
 			args[4]=tCustomer.getcPhone();
 			args[5]=id;
 			if(superUpdateDb(update,args))
-				System.out.println("Customer with id " + tCustomer.getCid() + " was updated");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was updated");
 			else
-				System.out.println("Customer with id " + tCustomer.getCid() + " was not updated");
+				System.out.println("Customer with id " + tCustomer.getcId() + " was not updated");
 		}
 
 	}

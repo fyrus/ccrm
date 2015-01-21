@@ -88,10 +88,25 @@ public class MainFrame extends JFrame implements ChatIF{
 				p1.setPdescription(tfBday.getText());
 				p1.setPname(tfName.getText());
 				p1.setPphoto(tfLocation.getText());
-				p1.setPprice(Float.parseFloat(tfPhone.getText()));
-				p1.setPid(-1);
-				cmd.setComVal(p1);
-				cmd.setComNum(Com.ADD_PRODUCT);
+				//p1.setPprice(Float.parseFloat(tfPhone.getText()));
+				
+				Customer c1 = new Customer();
+				c1.setcBirthDate(tfBday.getText());
+				c1.setcLocation(tfLocation.getText());
+				c1.setcName(tfName.getText());
+				c1.setcPhone(tfPhone.getText());
+				c1.setcId(tfId.getText());
+				
+				RegisteredCustomer r1 = new RegisteredCustomer();
+				r1.setcBirthDate(tfBday.getText());
+				r1.setcLocation(tfLocation.getText());
+				r1.setcName(tfName.getText());
+				r1.setcPhone(tfPhone.getText());
+				r1.setcId(tfId.getText());
+				
+				cmd.setComVal(r1);
+				cmd.setComExtra(tfChangeid.getText(), null);
+				cmd.setComNum(Com.ADD_REGISTEREDCUSTOMER);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -105,8 +120,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				Product p1 = new Product();
 				Location l1 = new Location();
 				Customer c1 = new Customer();
-				cmd.setComVal(p1);
-				cmd.setComNum(Com.SEARCH_PRODUCT);
+				RegisteredCustomer r1 = new RegisteredCustomer();
+				cmd.setComVal(r1);
+				cmd.setComNum(Com.SEARCH_REGISTEREDCUSTOMER);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
@@ -190,11 +206,15 @@ public class MainFrame extends JFrame implements ChatIF{
 		if (msg instanceof ArrayList<?>) {
 			for(Object key:((ArrayList<?>)msg).toArray()){
 				if(key instanceof Customer){
-					sb.append("Customer id: "+ ((Customer)key).getCid() + "\n");
-					sb.append("Customer name: "+ ((Customer)key).getCname() + "\n");
+					sb.append("Customer id: "+ ((Customer)key).getcId() + "\n");
+					sb.append("Customer name: "+ ((Customer)key).getcName() + "\n");
 					sb.append("Customer phone: "+ ((Customer)key).getcPhone() + "\n");
-					sb.append("Customer Location: "+ ((Customer)key).getcLocation() + "\n");
-					sb.append("Customer date: "+ ((Customer)key).getcBirthDate() + "\n\n");
+					sb.append("Customer location: "+ ((Customer)key).getcLocation() + "\n");
+					sb.append("Customer date: "+ ((Customer)key).getcBirthDate() + "\n");
+				}
+				
+				if(key instanceof RegisteredCustomer){
+					sb.append("Customer pid: "+ ((RegisteredCustomer)key).getPermission() + "\n");
 				}
 				
 				if(key instanceof Domain){

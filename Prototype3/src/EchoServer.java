@@ -185,6 +185,30 @@ public class EchoServer extends AbstractServer {
 			ProductController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
 			//---product---
+			
+			//---registeredRegisteredCustomer---
+		case ADD_REGISTEREDCUSTOMER:
+			action="'add registeredcustomer'";
+			System.out.println("Message received: " + action + " from " + client);
+			RegisteredCustomerController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_REGISTEREDCUSTOMER:
+			action="'search registeredcustomer'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) RegisteredCustomerController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_REGISTEREDCUSTOMER:
+			action="'delete registeredcustomer'";
+			System.out.println("Message received: " + action + " from " + client);
+			RegisteredCustomerController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_REGISTEREDCUSTOMER:
+			action="'update registeredcustomer'";
+			System.out.println("Message received: " + action + " from " + client);
+			RegisteredCustomerController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
+			break;
+			//---registeredRegisteredCustomer end---
 
 
 		default:

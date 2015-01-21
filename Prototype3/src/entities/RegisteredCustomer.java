@@ -17,6 +17,7 @@ public class RegisteredCustomer extends Customer{
 	 */
 	private static final long serialVersionUID = 2148216109702053679L;
 	private List<Permission> permits;
+	private int Permissions;
 	
 	/**
 	 * Default constructor - blank registered customer
@@ -24,6 +25,7 @@ public class RegisteredCustomer extends Customer{
 	public RegisteredCustomer(){
 		super();
 		permits=null;
+		Permissions=0;
 	}
 	/**
 	 * New registered customer constructor
@@ -56,6 +58,14 @@ public class RegisteredCustomer extends Customer{
 	 */
 	public void clearPermits(){
 		permits.clear();
+	}
+	
+	public void setPermissions(int permissions){
+		this.Permissions = permissions;
+	}
+	
+	public int getPermission(){
+		return this.Permissions;
 	}
 	
 }
