@@ -30,18 +30,18 @@ public class DomainController extends SuperController{
 		if (tDomain.getdName().compareTo("") == 0)
 			return;
 
-		String sqlstr = "SELECT * FROM domain WHERE Did=" + tDomain.getDid();
+		String sqlstr = "SELECT * FROM domain WHERE Dname=" + tDomain.getdName();
 		if(superSearchInDB(sqlstr,null) != null)
 		{
-			System.out.println("Domain with id " + tDomain.getDid() + " already exists");
+			System.out.println("Domain with name " + tDomain.getdName() + " already exists");
 		}
 		else{
 			Object []args = new Object[1];
 			args[0]=tDomain.getdName();
 			if(superAddToDB(insert,args))
-				System.out.println("Domain with id " + tDomain.getDid() + " was added");
+				System.out.println("Domain with name " + tDomain.getdName() + " was added");
 			else
-				System.out.println("Domain with id " + tDomain.getDid() + " was not added");
+				System.out.println("Domain with name " + tDomain.getdName() + " was not added");
 		}
 	}
 

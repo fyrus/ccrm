@@ -64,6 +64,7 @@ public class EchoServer extends AbstractServer {
 		Com comm = cmd.getCom();	//prepare the switch with Com enum
 
 		//comm switch for the commands we got from the client
+		//uses controllers to put and get data from the database
 		switch(comm){
 
 		//---user---
@@ -185,7 +186,7 @@ public class EchoServer extends AbstractServer {
 			ProductController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
 			//---product---
-			
+
 			//---registeredRegisteredCustomer---
 		case ADD_REGISTEREDCUSTOMER:
 			action="'add registeredcustomer'";
@@ -209,6 +210,30 @@ public class EchoServer extends AbstractServer {
 			RegisteredCustomerController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
 			break;
 			//---registeredRegisteredCustomer end---
+
+			//---product---
+		case ADD_PERMISSION:
+			action="'add Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_PERMISSION:
+			action="'search Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) PermissionController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_PERMISSION:
+			action="'delete Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_PERMISSION:
+			action="'update Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
+			break;
+			//---product---
 
 
 		default:

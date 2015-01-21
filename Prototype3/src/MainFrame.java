@@ -104,9 +104,13 @@ public class MainFrame extends JFrame implements ChatIF{
 				r1.setcPhone(tfPhone.getText());
 				r1.setcId(tfId.getText());
 				
-				cmd.setComVal(r1);
+				Permission pp = new Permission();
+				pp.setCid(Integer.parseInt(tfName.getText()));
+				pp.setDid(Integer.parseInt(tfBday.getText()));
+				
+				cmd.setComVal(pp);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_REGISTEREDCUSTOMER);
+				cmd.setComNum(Com.ADD_PERMISSION);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -121,8 +125,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				Location l1 = new Location();
 				Customer c1 = new Customer();
 				RegisteredCustomer r1 = new RegisteredCustomer();
-				cmd.setComVal(r1);
-				cmd.setComNum(Com.SEARCH_REGISTEREDCUSTOMER);
+				Permission pp = new Permission();
+				cmd.setComVal(pp);
+				cmd.setComNum(Com.SEARCH_PERMISSION);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
@@ -233,6 +238,12 @@ public class MainFrame extends JFrame implements ChatIF{
 					sb.append(((Product)key).getPname() + "\n");
 					sb.append(((Product)key).getPphoto() + "\n");
 					sb.append(((Product)key).getPprice() + "\n");
+				}
+				
+				if(key instanceof Permission){
+					sb.append(((Permission)key).getPid() + "\n");
+					sb.append(((Permission)key).getCid() + "\n");
+					sb.append(((Permission)key).getDid() + "\n");
 				}
 				
 				sb.append("\n");
