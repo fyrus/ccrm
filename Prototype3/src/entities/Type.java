@@ -13,6 +13,7 @@ public class Type implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -6532477867573593224L;
 	private int tid;
+	private int did;
 	private String tName;
 	private List<Product> products;
 	
@@ -75,15 +76,27 @@ public class Type implements java.io.Serializable {
 		this.tid = tid;
 	}
 	/**
+	 * @return the type did
+	 */
+	public int getDid() {
+		return did;
+	}
+	/**
+	 * @param tid the type id to set
+	 */
+	public void setDid(int did) {
+		this.did = did;
+	}
+	/**
 	 * @return the type Name
 	 */
-	public String gettName() {
+	public String getTname() {
 		return tName;
 	}
 	/**
 	 * @param tName the type Name to set
 	 */
-	public void settName(String tName) {
+	public void setTname(String tName) {
 		this.tName = tName;
 	}
 	

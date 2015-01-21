@@ -41,21 +41,21 @@ public class PermissionController extends SuperController{
 		
 		Permission tPermission = (Permission)value;
 		Permission tmp = new Permission();
-		tmp.setDid(tPermission.getDid());
+		tmp.setPid(tPermission.getPid());
 		
-		if (tPermission.getDid() == 0)
+		if (tPermission.getPid() == 0)
 			return;
 
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("no Permission with id " + tPermission.getDid() + " found");
+			System.out.println("no Permission with id " + tPermission.getPid() + " found");
 		}
 		else{
-			String sqlRemove = "DELETE FROM Permission WHERE Did = " + tPermission.getDid();
+			String sqlRemove = "DELETE FROM Permission WHERE Pid = " + tPermission.getPid();
 			if(superRemoveFromDB(sqlRemove))
-				System.out.println("Permission with id " + tPermission.getDid() + " was removed");
+				System.out.println("Permission with id " + tPermission.getPid() + " was removed");
 			else
-				System.out.println("Permission with id " + tPermission.getDid() + " was not removed");
+				System.out.println("Permission with id " + tPermission.getPid() + " was not removed");
 		}
 
 	}
@@ -119,10 +119,11 @@ public class PermissionController extends SuperController{
 			System.out.println("Permission with id " + tPermission.getDid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[3];
+			Object []args = new Object[4];
 			args[0]=tmp.getPid();
 			args[1]=tmp.getCid();
 			args[2]=tmp.getDid();
+			args[3]=id;
 			if(superUpdateDb(update,args))
 				System.out.println("Permission with id " + tPermission.getDid() + " was updated");
 			else
