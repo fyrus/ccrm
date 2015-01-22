@@ -97,6 +97,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				c1.setcPhone(tfPhone.getText());
 				c1.setcId(tfId.getText());
 				
+				
+				
 				RegisteredCustomer r1 = new RegisteredCustomer();
 				r1.setcBirthDate(tfBday.getText());
 				r1.setcLocation(tfLocation.getText());
@@ -115,8 +117,17 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				d1.setdName(tfName.getText());
 				
+				
+				Customer c2 = new Customer();
+				c2.setcId("123");
+				
+				Customer c3 = new Customer();
+				c3.setcId("678");
+				
 				MarketingCampaign m1 = new MarketingCampaign();
 				m1.setCdate(tfBday.getText());
+				m1.AddCustomer(c2);
+				m1.AddCustomer(c3);
 				
 				cmd.setComVal(m1);
 				cmd.setComExtra(tfChangeid.getText(), null);

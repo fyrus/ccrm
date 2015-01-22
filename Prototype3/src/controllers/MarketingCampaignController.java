@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entities.Customer;
 import entities.MarketingCampaign;
+import entities.MarketingCustomer;
 
 /**
  *controller for the MarketingCampaign class
@@ -40,7 +42,18 @@ public class MarketingCampaignController extends SuperController{
 							+"LIMIT 1";
 					resultSet = superSearchInDB(sqlstr, null);	//get the new Cid
 					resultSet.next();
-					System.out.println("MarketingCampaign with id " + resultSet.getInt("Cid") + " was added");
+					int mcid = resultSet.getInt("Cid");
+					System.out.println("MarketingCampaign with id " + mcid + " was added");
+					
+					ArrayList<Customer> cust = tMarketingCampaign.getCust();
+					MarketingCustomer mc = new MarketingCustomer();
+					
+					//insert all the customers for the campaign
+					for(Object key:cust.toArray()){
+						mc.setCustomerid(((Customer)key).getcId());
+						mc.setCampaignid(mcid);
+						MarketingCustomerController.addToDB(mc);
+					}
 				}
 				else
 					System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not added");
@@ -78,6 +91,12 @@ public class MarketingCampaignController extends SuperController{
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was removed");
 			else
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not removed");
+			
+			sqlRemove = "DELETE FROM marketing_customers WHERE Campaignid = " + tMarketingCampaign.getCid();
+			if(superRemoveFromDB(sqlRemove))
+				System.out.println("marketing_customers with id " + tMarketingCampaign.getCid() + " was removed");
+			else
+				System.out.println("marketing_customers with id " + tMarketingCampaign.getCid() + " was not removed");
 		}
 
 	}
