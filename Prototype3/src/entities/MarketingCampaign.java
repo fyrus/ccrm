@@ -23,7 +23,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	private static final long serialVersionUID = 3694368127324301985L;
 	
 	
-	private int cmpid;
+	private int cid;
 	private String cdate;
 	private List<Customer> cust;
 	
@@ -32,7 +32,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * empty constructor
 	 */
 	public MarketingCampaign(){
-		cmpid=0;
+		cid=0;
 		cdate="";
 		cust=null;
 	}
@@ -43,8 +43,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param cmpid
 	 * @param cdate
 	 */
-	public MarketingCampaign(int cmpid,String cdate){
-		this.cmpid=cmpid;
+	public MarketingCampaign(int cid, String cdate){
+		this.cid=cid;
 		this.cdate=cdate;
 		cust=null;
 	}
@@ -55,28 +55,31 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param cdate
 	 * @param cust
 	 */
-	public MarketingCampaign(int cmpid,String cdate,List<Customer> cust){
-		this.cmpid=cmpid;
+	public MarketingCampaign(int cid,String cdate,List<Customer> cust){
+		this.cid=cid;
 		this.cdate=cdate;
 		this.cust=cust;
 	}
 
 
 	/**
-	 * @return the cmpid
+	 * @return the cid
 	 */
-	public int getCmpid() {
-		return cmpid;
+	public int getCid() {
+		return cid;
 	}
 
 
 	/**
-	 * @param cmpid the cmpid to set
+	 * @param cid the cid to set
 	 */
-	public void setCmpid(int cmpid) {
-		this.cmpid = cmpid;
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
-
+	
+	/**
+	 * @return the mcid
+	 */
 
 	/**
 	 * @return the cdate
