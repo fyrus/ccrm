@@ -59,27 +59,27 @@ public class ActivateMarketingCampaign extends JPanel {
 		JLabel lblMarketingPatternId = new JLabel("Marketing Pattern ID:");
 		lblMarketingPatternId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMarketingPatternId.setForeground(Color.WHITE);
-		lblMarketingPatternId.setBounds(131, 120, 160, 16);
+		lblMarketingPatternId.setBounds(130, 86, 160, 16);
 		add(lblMarketingPatternId);
 		
 		JLabel lblStartDate = new JLabel("Start Date:");
 		lblStartDate.setForeground(Color.WHITE);
 		lblStartDate.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblStartDate.setBounds(131, 177, 85, 16);
+		lblStartDate.setBounds(130, 143, 85, 16);
 		add(lblStartDate);
 		
 		JLabel lblEndDate = new JLabel("End Date:");
 		lblEndDate.setForeground(Color.WHITE);
 		lblEndDate.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEndDate.setBounds(131, 237, 70, 16);
+		lblEndDate.setBounds(130, 203, 70, 16);
 		add(lblEndDate);
 		
 		final JDateChooser tfstartDate = new JDateChooser();
-		tfstartDate.setBounds(301, 171, 147, 22);
+		tfstartDate.setBounds(300, 137, 147, 22);
 		add(tfstartDate);
 		
 		final JDateChooser tfendDate = new JDateChooser();
-		tfendDate.setBounds(301, 231, 149, 22);
+		tfendDate.setBounds(300, 197, 149, 22);
 		add(tfendDate);
 		
 		JButton btnActivate = new JButton("Activate");
@@ -98,7 +98,7 @@ public class ActivateMarketingCampaign extends JPanel {
 		});
 		btnActivate.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnActivate.setBackground(new Color(230, 230, 250));
-		btnActivate.setBounds(103, 297, 188, 36);
+		btnActivate.setBounds(102, 263, 188, 36);
 		add(btnActivate);
 		
 		btnCancel = new JButton("Cancel");
@@ -113,13 +113,19 @@ public class ActivateMarketingCampaign extends JPanel {
 		});
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
-		btnCancel.setBounds(365, 297, 188, 36);
+		btnCancel.setBounds(364, 263, 188, 36);
 		add(btnCancel);
 		
 		tfmp_id = new JTextField();
-		tfmp_id.setBounds(303, 118, 145, 22);
+		tfmp_id.setBounds(302, 84, 145, 22);
 		add(tfmp_id);
 		tfmp_id.setColumns(10);
+		
+		JButton btnCreateCustomerLists = new JButton("Create Customer Lists For SalesMans");
+		btnCreateCustomerLists.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
+		btnCreateCustomerLists.setBackground(new Color(230, 230, 250));
+		btnCreateCustomerLists.setBounds(203, 321, 244, 36);
+		add(btnCreateCustomerLists);
 
 	}
 }
