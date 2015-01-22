@@ -118,7 +118,7 @@ public class RegisteredCustomerController extends SuperController{
 				RegisteredCustomer p = new RegisteredCustomer();
 				p.setcId(resultSet.getString("Cid"));
 				p.setcName(resultSet.getString("Cname"));
-				p.setcBirthDate(resultSet.getString("Cbd"));
+				p.setcBirthDate(resultSet.getDate("Cbd"));
 				p.setcLocation(resultSet.getString("Clocation"));
 				p.setcPhone(resultSet.getString("Cphone"));
 				p.setPermissions(resultSet.getInt("Pid"));

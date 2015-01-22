@@ -133,8 +133,8 @@ public class MarketingCampaignController extends SuperController{
 			while (resultSet.next()) {
 				MarketingCampaign p = new MarketingCampaign();
 				p.setCid(resultSet.getInt("Cid"));
-				p.setStartdate(resultSet.getString("Startdate"));
-				p.setEnddate(resultSet.getString("Enddate"));
+				p.setStartdate(resultSet.getDate("Startdate"));
+				p.setEnddate(resultSet.getDate("Enddate"));
 				MarketingCampaignList.add(p);
 			}
 			return MarketingCampaignList;

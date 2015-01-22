@@ -30,6 +30,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.sql.Date;
 
 /**
  * @author Nastia
@@ -138,7 +139,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 				}
 				else
 				{
-					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),tfcBD.getDateFormatString(),"",tfcPhone.getText());
+					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),new Date(tfcBD.getDate().getTime()),"",tfcPhone.getText());
 					cmd=new Command();
 					cmd.setComNum(Com.ADD_CUSTOMER);
 					cmd.setComVal(customer);

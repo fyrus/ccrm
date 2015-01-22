@@ -115,7 +115,7 @@ public class CustomerController extends SuperController{
 				Customer p = new Customer();
 				p.setcId(resultSet.getString("Cid"));
 				p.setcName(resultSet.getString("Cname"));
-				p.setcBirthDate(resultSet.getString("Cbd"));
+				p.setcBirthDate(resultSet.getDate("Cbd"));
 				p.setcLocation(resultSet.getString("Clocation"));
 				p.setcPhone(resultSet.getString("Cphone"));
 				customerList.add(p);

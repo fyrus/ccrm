@@ -3,6 +3,7 @@
  */
 package entities;
 
+import java.sql.Date;
 import java.util.*;
 
 /**
@@ -35,7 +36,7 @@ public class RegisteredCustomer extends Customer{
 	 * @param loc customer location
 	 * @param phone customer phone
 	 */
-	public RegisteredCustomer(String id,String name,String bd,String loc,String phone){
+	public RegisteredCustomer(String id,String name,Date bd,String loc,String phone){
 		super(id,name,bd,loc,phone);
 		permits=new ArrayList<Permission>();
 	}

@@ -3,6 +3,8 @@
  */
 package entities;
 
+import java.sql.Date;
+
 /**
  * This class is the customer relations class
  * @author Yossi
@@ -41,7 +43,7 @@ public class CustomerRelations extends User {
 	 * this method will return Customer type
 	 * need to be changed in the class diagram
 	 */
-	Customer setPotentialCustomerDetails(String cid,String cname,String cbd ,String clocation ,String cphone){
+	Customer setPotentialCustomerDetails(String cid,String cname,Date cbd ,String clocation ,String cphone){
 		// set customer details
 		Customer cust = new Customer(cid,cname,cbd , clocation ,cphone);
 		return cust;

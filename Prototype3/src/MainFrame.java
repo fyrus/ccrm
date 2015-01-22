@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
 
 import javax.swing.JTextArea;
 
@@ -87,7 +89,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				
 				
 				Customer c1 = new Customer();
-				c1.setcBirthDate(tfBday.getText());
+				c1.setcBirthDate(new Date(875675687L));
 				c1.setcLocation(tfLocation.getText());
 				c1.setcName(tfName.getText());
 				c1.setcPhone(tfPhone.getText());
@@ -96,7 +98,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				
 				
 				RegisteredCustomer r1 = new RegisteredCustomer();
-				r1.setcBirthDate(tfBday.getText());
+				r1.setcBirthDate(new Date(875675687L));
 				r1.setcLocation(tfLocation.getText());
 				r1.setcName(tfName.getText());
 				r1.setcPhone(tfPhone.getText());
@@ -118,11 +120,12 @@ public class MainFrame extends JFrame implements ChatIF{
 				c2.setcId("123");
 				
 				Customer c3 = new Customer();
-				c3.setcId("678");
+				c3.setcId("6788889");
+				c3.setcBirthDate(new Date(Calendar.getInstance().getTimeInMillis()));
 				
 				MarketingCampaign m1 = new MarketingCampaign();
-				m1.setStartdate(tfBday.getText());
-				m1.setEnddate(tfBday.getText());
+				m1.setStartdate(new Date(0));
+				m1.setEnddate(new Date(0));
 				m1.AddCustomer(c2);
 				m1.AddCustomer(c3);
 				
@@ -139,9 +142,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				p1.setPphoto("cccc");
 				p1.setPprice(10);
 				
-				cmd.setComVal(m1);
+				cmd.setComVal(c3);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_MARKETINGCAMPAIGN);
+				cmd.setComNum(Com.ADD_CUSTOMER);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -161,8 +164,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				MarketingCampaign m1 = new MarketingCampaign();
 				Sale s1 = new Sale();
-				cmd.setComVal(m1);
-				cmd.setComNum(Com.SEARCH_MARKETINGCAMPAIGN);
+				cmd.setComVal(c1);
+				cmd.setComNum(Com.SEARCH_CUSTOMER);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});

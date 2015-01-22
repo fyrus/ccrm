@@ -122,9 +122,7 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 						tfpPrice.getText().equals("") )
 				{
 					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.","New Product",0);
-					tfpName.setText("");
-					tfpPrice.setText("");
-					tfapDescription.setText("");
+					
 				}
 				else
 				{

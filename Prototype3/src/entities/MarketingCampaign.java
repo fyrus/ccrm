@@ -24,8 +24,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	
 	private int cid;
-	private String startdate;
-	private String enddate;
+	private Date startdate;
+	private Date enddate;
 	private ArrayList<Customer> cust;
 	
 	
@@ -34,8 +34,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	 */
 	public MarketingCampaign(){
 		cid=0;
-		startdate="";
-		enddate="";
+		startdate=new Date(0);
+		enddate=new Date(0);
 		cust=new ArrayList<Customer>();
 	}
 	
@@ -45,7 +45,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param cmpid
 	 * @param startdate
 	 */
-	public MarketingCampaign(int cid, String startdate, String enddate){
+	public MarketingCampaign(int cid, Date startdate, Date enddate){
 		this.cid=cid;
 		this.startdate=startdate;
 		this.enddate=enddate;
@@ -58,7 +58,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param startdate
 	 * @param cust
 	 */
-	public MarketingCampaign(int cid, String startdate, String enddate,ArrayList<Customer> cust){
+	public MarketingCampaign(int cid, Date startdate, Date enddate,ArrayList<Customer> cust){
 		this.cid=cid;
 		this.startdate=startdate;
 		this.enddate=enddate;
@@ -88,7 +88,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * @return the startdate
 	 */
-	public String getStartdate() {
+	public Date getStartdate() {
 		return startdate;
 	}
 
@@ -96,14 +96,14 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * @param startdate the startdate to set
 	 */
-	public void setStartdate(String startdate) {
+	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
 	
 	/**
 	 * @return the enddate
 	 */
-	public String getEnddate() {
+	public Date getEnddate() {
 		return enddate;
 	}
 
@@ -111,7 +111,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * @param enddate the enddate to set
 	 */
-	public void setEnddate(String enddate) {
+	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}
 
