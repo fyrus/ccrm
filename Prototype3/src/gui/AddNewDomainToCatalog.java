@@ -18,7 +18,9 @@ import javax.swing.JTextField;
 
 import client.ChatClient;
 import common.ChatIF;
+import common.Com;
 import common.Command;
+import entities.Domain;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -37,8 +39,10 @@ public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 	private JTextField tfdName;
 	public JButton btnCancel;
 
+	private Domain domain;
 	private ChatClient client;
 	private Command cmd;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -69,14 +73,21 @@ public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 			public void actionPerformed(ActionEvent e) {
 				if(tfdName.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Error! Domain name is empty.","New Domain",0);
-					
-					tfdName.setText("");
+					JOptionPane.showMessageDialog(null, "Error! Domain name is empty.","New Domain",0);				
 				}
 				else
 				{
-					cmd=new Command();
+					System.out.println("Log: before new domain");
+					domain=new Domain();
+					System.out.println("Log: after new domain");
+					domain.setdName(tfdName.getText());
+					System.out.println("Log: after set name");
+					cmd=new Command(Com.ADD_DOMAIN,domain);
+					client.handleMessageFromClientUI(cmd);
 					
+					JOptionPane.showMessageDialog(null, "Domain has been added to Database.","New Domain",1);
+					
+					tfdName.setText("");
 				}
 			}
 		});
