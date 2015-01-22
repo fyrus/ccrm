@@ -41,7 +41,7 @@ public class SalesMan extends User {
 	 * @param address
 	 * @param phone
 	 */
-	public SalesMan(String uid,String name,String password,String address,String phone){
+	public SalesMan(int uid,String name,String password,String address,String phone){
 		super(uid,name,password,address,phone);
 		setRole("SalesMan");
 	}

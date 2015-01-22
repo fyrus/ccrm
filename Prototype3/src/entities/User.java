@@ -13,7 +13,7 @@ public class User implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1774519195002151807L;
-	private String uid;
+	private int uid;
 	private String password;
 	private String name;
 	private String address;
@@ -25,7 +25,7 @@ public class User implements java.io.Serializable{
 	 * Default empty constructor
 	 */
 	public User(){
-		uid="";
+		uid=0;
 		password="";
 		name="";
 		address="";
@@ -42,7 +42,7 @@ public class User implements java.io.Serializable{
 	 * @param address user address
 	 * @param phone user phone
 	 */
-	public User(String uid,String name,String password,String address,String phone){
+	public User(int uid,String name,String password,String address,String phone){
 		this.uid=uid;
 		this.name=name;
 		this.password=password;
@@ -69,14 +69,14 @@ public class User implements java.io.Serializable{
 	/**
 	 * @return the user id
 	 */
-	public String getUid() {
+	public int getUid() {
 		return uid;
 	}
 
 	/**
 	 * @param uid the user id to set
 	 */
-	public void setUid(String uid) {
+	public void setUid(int uid) {
 		this.uid = uid;
 	}
 

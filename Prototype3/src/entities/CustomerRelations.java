@@ -31,7 +31,7 @@ public class CustomerRelations extends User {
 	 * @param address user address
 	 * @param phone user phone
 	 */
-	public CustomerRelations(String uid,String name,String password,String address,String phone){
+	public CustomerRelations(int uid,String name,String password,String address,String phone){
 		super(uid,name,password,address,phone);
 		this.setRole("CustomerRelations");
 	}

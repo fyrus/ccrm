@@ -40,7 +40,7 @@ public class MarketingMan extends User {
 	 * @param address
 	 * @param phone
 	 */
-	public MarketingMan(String uid,String name,String password,String address,String phone){
+	public MarketingMan(int uid,String name,String password,String address,String phone){
 		super(uid,name,password,address,phone);
 		setRole("Marketing Man");
 	}

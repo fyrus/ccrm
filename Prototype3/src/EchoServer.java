@@ -87,7 +87,7 @@ public class EchoServer extends AbstractServer {
 		case UPDATE_USER:
 			action="'update User'";
 			System.out.println("Message received: " + action + " from " + client);
-			UserController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
+			UserController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
 			//---User end---
 
@@ -233,7 +233,7 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			PermissionController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
-			//---Permission---
+			//---Permission end---
 
 			//---Type---
 		case ADD_TYPE:
@@ -257,7 +257,31 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			TypeController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
-			//---Type---
+			//---Type end---
+
+			//---MarketingCampaign---
+		case ADD_MARKETINGCAMPAIGN:
+			action="'add MarketingCampaign'";
+			System.out.println("Message received: " + action + " from " + client);
+			MarketingCampaignController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_MARKETINGCAMPAIGN:
+			action="'search MarketingCampaign'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) MarketingCampaignController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_MARKETINGCAMPAIGN:
+			action="'delete MarketingCampaign'";
+			System.out.println("Message received: " + action + " from " + client);
+			MarketingCampaignController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_MARKETINGCAMPAIGN:
+			action="'update MarketingCampaign'";
+			System.out.println("Message received: " + action + " from " + client);
+			MarketingCampaignController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
+			break;
+			//---MarketingCampaign end---
 
 
 		default:

@@ -115,9 +115,12 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				d1.setdName(tfName.getText());
 				
-				cmd.setComVal(d1);
+				MarketingCampaign m1 = new MarketingCampaign();
+				m1.setCdate(tfBday.getText());
+				
+				cmd.setComVal(m1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_DOMAIN);
+				cmd.setComNum(Com.ADD_MARKETINGCAMPAIGN);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -135,8 +138,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				Permission pp = new Permission();
 				entities.Type t1 = new entities.Type();
 				Domain d1 = new Domain();
-				cmd.setComVal(d1);
-				cmd.setComNum(Com.SEARCH_DOMAIN);
+				MarketingCampaign m1 = new MarketingCampaign();
+				cmd.setComVal(m1);
+				cmd.setComNum(Com.SEARCH_MARKETINGCAMPAIGN);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
@@ -259,6 +263,11 @@ public class MainFrame extends JFrame implements ChatIF{
 					sb.append(((entities.Type)key).getDid() + "\n");
 					sb.append(((entities.Type)key).getTid() + "\n");
 					sb.append(((entities.Type)key).getTname() + "\n");
+				}
+				
+				if(key instanceof MarketingCampaign){
+					sb.append(((MarketingCampaign)key).getCid() + "\n");
+					sb.append(((MarketingCampaign)key).getCdate() + "\n");
 				}
 				
 				sb.append("\n");
