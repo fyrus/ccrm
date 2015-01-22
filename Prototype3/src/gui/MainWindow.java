@@ -55,6 +55,8 @@ public class MainWindow extends JFrame implements ChatIF{
 	private CampaignReactionReportProduce campaignReactionReportProduce;
 	private ManageLocations manageLocations;
 	private PotentialCustomerSalesList potentialCustomerSalesList;
+	private ManageMarketingCampaigns manageMarketingCampaigns;
+	private AddNewMarketingCampaign addNewMarketingCampaign;
 	
 	private JLabel lblEmployeePortal;
 	
@@ -64,7 +66,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private JButton btnManageLocations;
 	private JButton btnDefineMarketingPattern;
 	private JButton btnCustomerSalesHistory;
-	private JButton btnActivateMarketingCampaign;
+	private JButton btnManageMarketingCampaigns;
 	private JButton btnEnterAnalyticalSystem;
 	private JButton btnNewPotentialCustomer;
 	private JButton btnPotentialCustomerSales;
@@ -99,7 +101,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnManageLocations.setEnabled(true);
 			btnDefineMarketingPattern.setEnabled(true);
 			btnCustomerSalesHistory.setEnabled(true);
-			btnActivateMarketingCampaign.setEnabled(true);
+			btnManageMarketingCampaigns.setEnabled(true);
 			btnEnterAnalyticalSystem.setEnabled(true);
 			btnNewPotentialCustomer.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(false);
@@ -108,7 +110,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnManageLocations.setEnabled(false);
 			btnReports.setEnabled(false);
 			btnNewPotentialCustomer.setEnabled(false);
-			btnActivateMarketingCampaign.setEnabled(false);
+			btnManageMarketingCampaigns.setEnabled(false);
 			btnEditCatalog.setEnabled(true);
 			btnDefineMarketingPattern.setEnabled(true);
 			btnCustomerSalesHistory.setEnabled(true);
@@ -123,7 +125,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnManageLocations.setEnabled(false);
 			btnDefineMarketingPattern.setEnabled(false);
 			btnCustomerSalesHistory.setEnabled(false);
-			btnActivateMarketingCampaign.setEnabled(false);
+			btnManageMarketingCampaigns.setEnabled(false);
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnPotentialCustomerSales.setEnabled(false);
 		}
@@ -133,7 +135,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnReports.setEnabled(false);
 			btnNewPotentialCustomer.setEnabled(false);
 			btnEditCatalog.setEnabled(false);
-			btnActivateMarketingCampaign.setEnabled(false);
+			btnManageMarketingCampaigns.setEnabled(false);
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnCustomerSalesHistory.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(true);
@@ -144,7 +146,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnManageLocations.setEnabled(true);
 			btnDefineMarketingPattern.setEnabled(true);
 			btnCustomerSalesHistory.setEnabled(true);
-			btnActivateMarketingCampaign.setEnabled(true);
+			btnManageMarketingCampaigns.setEnabled(true);
 			btnEnterAnalyticalSystem.setEnabled(true);
 			btnNewPotentialCustomer.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(true);
@@ -157,7 +159,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnManageLocations.setEnabled(false);
 			btnDefineMarketingPattern.setEnabled(false);
 			btnCustomerSalesHistory.setEnabled(false);
-			btnActivateMarketingCampaign.setEnabled(false);
+			btnManageMarketingCampaigns.setEnabled(false);
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnNewPotentialCustomer.setEnabled(false);
 			btnPotentialCustomerSales.setEnabled(false);
@@ -191,6 +193,8 @@ public class MainWindow extends JFrame implements ChatIF{
 		campaignReactionReportProduce = new CampaignReactionReportProduce();
 		manageLocations = new ManageLocations();
 		potentialCustomerSalesList = new PotentialCustomerSalesList();
+		manageMarketingCampaigns = new ManageMarketingCampaigns();
+		addNewMarketingCampaign = new AddNewMarketingCampaign();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -277,11 +281,11 @@ public class MainWindow extends JFrame implements ChatIF{
 		/**
 		 * Change panel to ActivateMarketingCampaign
 		 */
-		btnActivateMarketingCampaign = new JButton("Activate Marketing Campaign");
-		btnActivateMarketingCampaign.setBounds(22, 216, 188, 36);
-		btnActivateMarketingCampaign.addActionListener(new ActionListener() {
+		btnManageMarketingCampaigns = new JButton("Manage Marketing Campaigns");
+		btnManageMarketingCampaigns.setBounds(22, 216, 188, 36);
+		btnManageMarketingCampaigns.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setContentPane(activateMarketingCampaign);
+				setContentPane(manageMarketingCampaigns);
 				setVisible(true);
 				
 			}
@@ -289,9 +293,9 @@ public class MainWindow extends JFrame implements ChatIF{
 		
 		
 		
-		btnActivateMarketingCampaign.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
-		btnActivateMarketingCampaign.setBackground(new Color(230, 230, 250));
-		contentPane.add(btnActivateMarketingCampaign);
+		btnManageMarketingCampaigns.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
+		btnManageMarketingCampaigns.setBackground(new Color(230, 230, 250));
+		contentPane.add(btnManageMarketingCampaigns);
 		
 		btnEnterAnalyticalSystem = new JButton("Enter Analytical System");
 		btnEnterAnalyticalSystem.setBounds(482, 216, 188, 36);
@@ -338,13 +342,45 @@ public class MainWindow extends JFrame implements ChatIF{
 		/**
 		 * Change panel to MainWindow 
 		 */
-		activateMarketingCampaign.btnCancel.addActionListener(new ActionListener() {
+		manageMarketingCampaigns.btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(contentPane);
 				setVisible(true);
 				
 			}
 		});
+		manageMarketingCampaigns.btnActivateMarketingCampaign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(activateMarketingCampaign);
+				setVisible(true);
+				
+			}
+		});
+		
+		manageMarketingCampaigns.btnAddNewMarketing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(addNewMarketingCampaign);
+				setVisible(true);
+				
+			}
+		});
+		
+		activateMarketingCampaign.btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(manageMarketingCampaigns);
+				setVisible(true);
+				
+			}
+		});
+		
+		addNewMarketingCampaign.btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(manageMarketingCampaigns);
+				setVisible(true);
+				
+			}
+		});
+		
 		
 		addNewCampaignMarketingPattern.btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

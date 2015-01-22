@@ -24,6 +24,7 @@ public class AddNewMarketingCampaign extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField mcID;
 	private JTextField custList;
+	public JButton btnCancel;
 
 	/**
 	 * Create the panel.
@@ -37,12 +38,6 @@ public class AddNewMarketingCampaign extends JPanel {
 		lblAddNewMarketing.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblAddNewMarketing.setBounds(12, 13, 212, 25);
 		add(lblAddNewMarketing);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
-		btnCancel.setBackground(Color.PINK);
-		btnCancel.setBounds(368, 262, 70, 25);
-		add(btnCancel);
 		
 		JLabel lblIdl = new JLabel("ID:");
 		lblIdl.setForeground(Color.WHITE);
@@ -82,6 +77,12 @@ public class AddNewMarketingCampaign extends JPanel {
 		btnAdd.setBackground(Color.PINK);
 		btnAdd.setBounds(17, 262, 70, 25);
 		add(btnAdd);
+		
+		btnCancel = new JButton("Cancel");
+		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
+		btnCancel.setBackground(new Color(230, 230, 250));
+		btnCancel.setBounds(178, 199, 188, 36);
+		add(btnCancel);
 
 	}
 }
