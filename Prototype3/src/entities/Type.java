@@ -4,6 +4,7 @@
 package entities;
 import java.util.*;
 /**
+ * this class is the Type of products in catalog, part of a domain
  * @author Dima
  *
  */
