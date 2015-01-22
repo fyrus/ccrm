@@ -4,6 +4,7 @@
 package gui;
 
 import javax.swing.JPanel;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -11,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import java.awt.Dimension;
 
+/************************************************************************************
+ *****************************NEED TO DELETE THIS************************************ 
+ ************************************************************************************/
 /**
  * @author Nastia
  *

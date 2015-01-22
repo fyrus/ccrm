@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Dima
@@ -24,7 +26,6 @@ public class EditCatalog extends JPanel {
 	private JPanel frame;
 	public JButton btnCancel;
 	public JButton btnAssignProductTo;
-	public JButton btnAssignTypeTo;
 	public JButton btnAddNewProduct;
 	public JButton btnAddNewType;
 	public JButton btnAddNewDomain;
@@ -57,14 +58,8 @@ public class EditCatalog extends JPanel {
 		btnAssignProductTo = new JButton("Assign Product To Type");
 		btnAssignProductTo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAssignProductTo.setBackground(new Color(230, 230, 250));
-		btnAssignProductTo.setBounds(417, 65, 188, 36);
+		btnAssignProductTo.setBounds(417, 109, 188, 36);
 		add(btnAssignProductTo);
-		
-		btnAssignTypeTo = new JButton("Assign Type To Domain");
-		btnAssignTypeTo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
-		btnAssignTypeTo.setBackground(new Color(230, 230, 250));
-		btnAssignTypeTo.setBounds(417, 141, 188, 36);
-		add(btnAssignTypeTo);
 		
 		btnAddNewProduct = new JButton("Add New Product");
 		btnAddNewProduct.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -87,7 +82,7 @@ public class EditCatalog extends JPanel {
 		btnViewCatalog = new JButton("View Catalog");
 		btnViewCatalog.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnViewCatalog.setBackground(new Color(230, 230, 250));
-		btnViewCatalog.setBounds(417, 214, 188, 36);
+		btnViewCatalog.setBounds(417, 187, 188, 36);
 		add(btnViewCatalog);
 		frame.setVisible(true);
 

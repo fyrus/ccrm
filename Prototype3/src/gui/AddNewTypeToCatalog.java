@@ -128,17 +128,27 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 		lblChooseDomain.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblChooseDomain.setBounds(181, 112, 126, 16);
 		add(lblChooseDomain);
+		
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadDomains();
+			}
+		});
+		btnRefresh.setBounds(530, 111, 81, 23);
+		add(btnRefresh);
 		connect();
 		loadDomains();
 		
 	}
-	
-	public void loadDomains(){
+	//send a request to server for all domains 
+	private void loadDomains(){
+		comboBox.removeAllItems();
 		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
 		client.handleMessageFromClientUI(cmd);
 	}
-	
-private void connect(){
+	// make a connection to server
+	private void connect(){
 		
 		try 
 	    {
