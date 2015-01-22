@@ -64,9 +64,10 @@ public class EchoServer extends AbstractServer {
 		Com comm = cmd.getCom();	//prepare the switch with Com enum
 
 		//comm switch for the commands we got from the client
+		//uses controllers to put and get data from the database
 		switch(comm){
 
-		//---user---
+		//---User---
 		case ADD_USER:
 			action="'add User'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -88,9 +89,9 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			UserController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
 			break;
-			//---user end---
+			//---User end---
 
-			//---customer---
+			//---Customer---
 		case ADD_CUSTOMER:
 			action="'add customer'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -112,9 +113,9 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			CustomerController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
 			break;
-			//---customer end---
+			//---Customer end---
 
-			//---domain---
+			//---Domain---
 		case ADD_DOMAIN:
 			action="'add domain'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -136,9 +137,9 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			DomainController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
-			//---domain end---		
+			//---Domain end---		
 
-			//---location---
+			//---Location---
 		case ADD_LOCATION:
 			action="'add Location'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -160,9 +161,9 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			LocationController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
-			//---location end---
+			//---Location end---
 
-			//---product---
+			//---Product---
 		case ADD_PRODUCT:
 			action="'add Product'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -184,9 +185,9 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			ProductController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
-			//---product---
-			
-			//---registeredRegisteredCustomer---
+			//---Product---
+
+			//---RegisteredRegisteredCustomer---
 		case ADD_REGISTEREDCUSTOMER:
 			action="'add registeredcustomer'";
 			System.out.println("Message received: " + action + " from " + client);
@@ -208,7 +209,55 @@ public class EchoServer extends AbstractServer {
 			System.out.println("Message received: " + action + " from " + client);
 			RegisteredCustomerController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
 			break;
-			//---registeredRegisteredCustomer end---
+			//---RegisteredRegisteredCustomer end---
+
+			//---Permission---
+		case ADD_PERMISSION:
+			action="'add Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_PERMISSION:
+			action="'search Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) PermissionController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_PERMISSION:
+			action="'delete Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_PERMISSION:
+			action="'update Permission'";
+			System.out.println("Message received: " + action + " from " + client);
+			PermissionController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
+			break;
+			//---Permission---
+
+			//---Type---
+		case ADD_TYPE:
+			action="'add Type'";
+			System.out.println("Message received: " + action + " from " + client);
+			TypeController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_TYPE:
+			action="'search Type'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) TypeController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_TYPE:
+			action="'delete Type'";
+			System.out.println("Message received: " + action + " from " + client);
+			TypeController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_TYPE:
+			action="'update Type'";
+			System.out.println("Message received: " + action + " from " + client);
+			TypeController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
+			break;
+			//---Type---
 
 
 		default:

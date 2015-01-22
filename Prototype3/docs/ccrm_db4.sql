@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2015 at 10:05 PM
+-- Generation Time: Jan 22, 2015 at 02:50 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `customerpurchaseorrejection` (
 CREATE TABLE IF NOT EXISTS `domain` (
 `Did` int(10) NOT NULL,
   `Dname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `domain`
@@ -172,7 +172,17 @@ CREATE TABLE IF NOT EXISTS `permission` (
 `Pid` int(11) NOT NULL,
   `Cid` int(11) DEFAULT NULL,
   `Did` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `permission`
+--
+
+INSERT INTO `permission` (`Pid`, `Cid`, `Did`) VALUES
+(1, 12, 13),
+(2, 12, 13),
+(3, 12, 13),
+(4, 12, 13);
 
 -- --------------------------------------------------------
 
@@ -187,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `Pphoto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Price` float DEFAULT NULL,
   `TId` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product`
@@ -250,15 +260,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Addr` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Phone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `LoggedIn` tinyint(1) NOT NULL
+  `LoggedIn` tinyint(1) NOT NULL,
+  `Role` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Uid`, `Password`, `Name`, `Addr`, `Phone`, `LoggedIn`) VALUES
-('306999999', '123', 'nastia', 'lolipop', '654321', 0);
+INSERT INTO `user` (`Uid`, `Password`, `Name`, `Addr`, `Phone`, `LoggedIn`, `Role`) VALUES
+('306999999', '123', 'nastia', 'lolipop', '654321', 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -366,7 +377,7 @@ MODIFY `Mid` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `domain`
 --
 ALTER TABLE `domain`
-MODIFY `Did` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `Did` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `location`
 --
@@ -376,12 +387,12 @@ MODIFY `Lid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `permission`
 --
 ALTER TABLE `permission`
-MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `type`
 --

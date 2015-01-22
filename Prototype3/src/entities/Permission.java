@@ -13,53 +13,53 @@ public class Permission implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1460346418085688970L;
-	private String peid;
-	private String cid;
-	private String peDomain;
+	private int pid;
+	private int cid;
+	private int did;
 	
 	/**
 	 * empty constructor
 	 */
 	public Permission(){
-		peid="";
-		cid="";
-		peDomain="";
+		pid=0;
+		cid=0;
+		did=0;
 	}
 	
 	
 	/**
 	 * Constructor with: 
-	 * @param peid the permission id
+	 * @param pid the permission id
 	 * @param cid the customer id
-	 * @param peDomain the permission domain
+	 * @param did the permission domain
 	 */
-	public Permission(String peid,String cid,String peDomain){
-		this.peid=peid;
+	public Permission(int pid,int cid,int did){
+		this.pid=pid;
 		this.cid=cid;
-		this.peDomain=peDomain;
+		this.did=did;
 	}
 
 
 	/**
-	 * @return the peid
+	 * @return the pid
 	 */
-	public String getPeid() {
-		return peid;
+	public int getPid() {
+		return pid;
 	}
 
 
 	/**
-	 * @param peid the peid to set
+	 * @param pid the pid to set
 	 */
-	public void setPeid(String peid) {
-		this.peid = peid;
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
 
 	/**
 	 * @return the cid
 	 */
-	public String getCid() {
+	public int getCid() {
 		return cid;
 	}
 
@@ -67,24 +67,24 @@ public class Permission implements java.io.Serializable {
 	/**
 	 * @param cid the cid to set
 	 */
-	public void setCid(String cid) {
+	public void setCid(int cid) {
 		this.cid = cid;
 	}
 
 
 	/**
-	 * @return the peDomain
+	 * @return the did
 	 */
-	public String getPeDomain() {
-		return peDomain;
+	public int getDid() {
+		return did;
 	}
 
 
 	/**
-	 * @param peDomain the peDomain to set
+	 * @param did the did to set
 	 */
-	public void setPeDomain(String peDomain) {
-		this.peDomain = peDomain;
+	public void setDid(int did) {
+		this.did = did;
 	}
 	
 	
