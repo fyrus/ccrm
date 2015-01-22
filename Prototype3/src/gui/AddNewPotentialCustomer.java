@@ -47,7 +47,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	private JTextField tfcPhone;
 	public JButton btnCancel;
 	private ChatClient client;
-	private RegisteredCustomer customer; // shuld be: private Customer customer;
+	private Customer customer; // shuld be: private Customer customer;
 	private Command cmd;
 	
 	/**
@@ -141,7 +141,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 				}
 				else
 				{
-					customer=new RegisteredCustomer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),tfcBD.getDateFormatString(),"",tfcPhone.getText());
+					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),tfcBD.getDateFormatString(),"",tfcPhone.getText());
 					cmd=new Command();
 					cmd.setComNum(Com.ADD_CUSTOMER);
 					cmd.setComVal(customer);
