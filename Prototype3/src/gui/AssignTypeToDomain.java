@@ -6,11 +6,18 @@ package gui;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+
+import client.ChatClient;
+
 import java.awt.Dimension;
+import java.io.IOException;
 
 /************************************************************************************
  *****************************NEED TO DELETE THIS************************************ 
@@ -76,7 +83,10 @@ public class AssignTypeToDomain extends JPanel {
 		btnCancel.setBackground(new Color(230, 230, 250));
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
+		
+		
 
 	}
+	
 
 }
