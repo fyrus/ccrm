@@ -46,8 +46,9 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	private JTextField tfcLName;
 	private JTextField tfcPhone;
 	public JButton btnCancel;
+	private Customer customer; 
+	
 	private ChatClient client;
-	private Customer customer; // shuld be: private Customer customer;
 	private Command cmd;
 	
 	/**
@@ -132,12 +133,8 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 				if( tfcFName.getText().equals("") || tfcID.getText().equals("") ||
 						tfcLName.getText().equals("") || tfcPhone.getText().equals("") || tfcBD.getDate().equals(null))
 				{
-					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
-					tfcBD.setDate(null);
-					tfcFName.setText("");
-					tfcID.setText("");
-					tfcLName.setText("");
-					tfcPhone.setText("");
+					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.","New Customer",0); // with "X" icon
+					
 				}
 				else
 				{
@@ -147,7 +144,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 					cmd.setComVal(customer);
 					client.handleMessageFromClientUI(cmd);
 					
-					JOptionPane.showMessageDialog(null, "Customer added to Database.", "New Customer", 0);
+					JOptionPane.showMessageDialog(null, "Customer added to Database.", "New Customer", 1);// with "!" icon
 					tfcBD.setDate(null);
 					tfcFName.setText("");
 					tfcID.setText("");
@@ -161,7 +158,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Back");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tfcFName.setText("");

@@ -16,23 +16,29 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 
+import client.ChatClient;
+import common.ChatIF;
+import common.Command;
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 /**
  * @author Nastia
  *
  */
-public class AddNewDomainToCatalog extends JPanel {
+public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField tfdName;
-	private JTextField tfdID;
 	public JButton btnCancel;
 
+	private ChatClient client;
+	private Command cmd;
 	/**
 	 * Create the panel.
 	 */
@@ -52,17 +58,6 @@ public class AddNewDomainToCatalog extends JPanel {
 		add(tfdName);
 		tfdName.setColumns(10);
 		
-		JLabel lblId = new JLabel("Domain Serial Number:");
-		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(133, 176, 172, 16);
-		add(lblId);
-		
-		tfdID = new JTextField();
-		tfdID.setBounds(308, 174, 172, 22);
-		add(tfdID);
-		tfdID.setColumns(10);
-		
 		JLabel lblAddNewDomain = new JLabel("Add New Domain To Catalog");
 		lblAddNewDomain.setForeground(Color.PINK);
 		lblAddNewDomain.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
@@ -72,11 +67,16 @@ public class AddNewDomainToCatalog extends JPanel {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tfdID.getText().equals("") || tfdName.getText().equals(""))
+				if(tfdName.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
-					tfdID.setText("");
+					JOptionPane.showMessageDialog(null, "Error! Domain name is empty.","New Domain",0);
+					
 					tfdName.setText("");
+				}
+				else
+				{
+					cmd=new Command();
+					
 				}
 			}
 		});
@@ -85,10 +85,10 @@ public class AddNewDomainToCatalog extends JPanel {
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Back");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tfdID.setText("");
+				
 				tfdName.setText("");
 			}
 		});
@@ -97,5 +97,30 @@ public class AddNewDomainToCatalog extends JPanel {
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
 
+		connect();
 	}
+	
+private void connect(){
+		
+		try 
+	    {
+	      client= new ChatClient(Login.IP,Login.D_PORT,this);
+	    } 
+	    catch(IOException exception) 
+	    {
+	      System.out.println("Error: Can't setup connection!"
+	                + " Terminating client.");
+	      System.exit(1);
+	    }
+		
+	}
+
+/* (non-Javadoc)
+ * @see common.ChatIF#display(java.lang.Object)
+ */
+@Override
+public void display(Object message) {
+	// TODO Auto-generated method stub
+	
+}
 }

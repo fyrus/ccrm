@@ -10,13 +10,22 @@ public class Command implements java.io.Serializable{
 	private String[] extra;	//extra commands or values the server need to get
 	private Object value;	//the object we send to the server like User or Item
 	
-	//command constructor
+	//command defult constructor
 	public Command(){
 		this.com = null;
 		this.extra = new String[2];
 		this.value = null;
 	}
-	
+	/**
+	 * Constructor of a new ready command
+	 * @param com command type
+	 * @param val the object we sending or searching
+	 */
+	public Command(Com com,Object val){
+		this.com = com;
+		this.extra = new String[2];
+		this.value = val;
+	}
 	//setters and getters
 	/**
 	 * set the type of command
