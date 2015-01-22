@@ -9,6 +9,10 @@ import java.util.*;
  *
  */
 public class MarketingCustomer implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5909127016175083636L;
 	private String Customerid;
 	private int Campaignid;
 	

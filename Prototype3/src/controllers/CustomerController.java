@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import entities.Customer;
 
 /**
- *controller for the user class
+ *controller for the customer class
  *allows saving and retrieving user info from the DB
  * @author fyrus
  *
