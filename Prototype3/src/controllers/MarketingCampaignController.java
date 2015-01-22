@@ -23,8 +23,8 @@ public class MarketingCampaignController extends SuperController{
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 
 		String insert = "INSERT INTO MarketingCampaign"
-				+ "(Cdate) VALUES"
-				+ "(?)";
+				+ "(Startdate, Enddate) VALUES"
+				+ "(?,?)";
 
 		String sqlstr = "SELECT * FROM MarketingCampaign WHERE Cid=" + tMarketingCampaign.getCid();
 		if(superSearchInDB(sqlstr,null) != null){
@@ -32,8 +32,9 @@ public class MarketingCampaignController extends SuperController{
 		}
 		else{
 			try{
-				Object []args = new Object[1];
-				args[0]=tMarketingCampaign.getCdate();
+				Object []args = new Object[2];
+				args[0]=tMarketingCampaign.getStartdate();
+				args[1]=tMarketingCampaign.getEnddate();
 
 				if(superAddToDB(insert,args)){	//if add to db success
 					ResultSet resultSet;
@@ -92,6 +93,7 @@ public class MarketingCampaignController extends SuperController{
 			else
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not removed");
 			
+			//remove the campaign from marketing customers table
 			sqlRemove = "DELETE FROM marketing_customers WHERE Campaignid = " + tMarketingCampaign.getCid();
 			if(superRemoveFromDB(sqlRemove))
 				System.out.println("marketing_customers with id " + tMarketingCampaign.getCid() + " was removed");
@@ -114,11 +116,13 @@ public class MarketingCampaignController extends SuperController{
 		String sqlSearch = "SELECT * "
 				+ "FROM MarketingCampaign "
 				+ "WHERE Cid=ifnull(?,Cid) "
-				+ "AND Cdate=ifnull(?,Cdate) ";
+				+ "AND Startdate=ifnull(?,Startdate) "
+				+ "AND Enddate=ifnull(?,Enddate) ";
 
-		Object []args = new Object[2];
+		Object []args = new Object[3];
 		args[0]=tmp.getCid();
-		args[1]=tmp.getCdate();
+		args[1]=tmp.getStartdate();
+		args[2]=tmp.getEnddate();
 
 		ResultSet resultSet;
 
@@ -129,7 +133,8 @@ public class MarketingCampaignController extends SuperController{
 			while (resultSet.next()) {
 				MarketingCampaign p = new MarketingCampaign();
 				p.setCid(resultSet.getInt("Cid"));
-				p.setCdate(resultSet.getString("Cdate"));
+				p.setStartdate(resultSet.getString("Startdate"));
+				p.setEnddate(resultSet.getString("Enddate"));
 				MarketingCampaignList.add(p);
 			}
 			return MarketingCampaignList;
@@ -146,7 +151,7 @@ public class MarketingCampaignController extends SuperController{
 			return;
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 		String update = "UPDATE MarketingCampaign "
-				+ "SET Cid=? ,Cdate=?"
+				+ "SET Cid=?, Startdate=?, Enddate=?"
 				+ "WHERE Pid=?";
 		MarketingCampaign tmp = new MarketingCampaign();
 		tmp.setCid(id);
@@ -156,10 +161,11 @@ public class MarketingCampaignController extends SuperController{
 			System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[3];
+			Object []args = new Object[4];
 			args[0]=tmp.getCid();
-			args[1]=tmp.getCdate();
-			args[2]=id;
+			args[1]=tmp.getStartdate();
+			args[2]=tmp.getEnddate();
+			args[3]=id;
 			if(superUpdateDb(update,args))
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was updated");
 			else

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2015 at 09:15 PM
+-- Generation Time: Jan 22, 2015 at 09:46 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -135,8 +135,17 @@ INSERT INTO `location` (`Lid`, `Location`) VALUES
 
 CREATE TABLE IF NOT EXISTS `marketingcampaign` (
 `Cid` int(11) NOT NULL,
-  `Cdate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  `Startdate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Enddate` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `marketingcampaign`
+--
+
+INSERT INTO `marketingcampaign` (`Cid`, `Startdate`, `Enddate`) VALUES
+(1, '', ''),
+(2, '123', '123');
 
 -- --------------------------------------------------------
 
@@ -148,6 +157,16 @@ CREATE TABLE IF NOT EXISTS `marketing_customers` (
   `Customerid` varchar(100) DEFAULT NULL,
   `Campaignid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `marketing_customers`
+--
+
+INSERT INTO `marketing_customers` (`Customerid`, `Campaignid`) VALUES
+('123', 1),
+('678', 1),
+('123', 2),
+('678', 2);
 
 -- --------------------------------------------------------
 
@@ -207,14 +226,19 @@ CREATE TABLE IF NOT EXISTS `product` (
   `Pphoto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pprice` float DEFAULT NULL,
   `TId` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`, `TId`) VALUES
-(2, 'cola', 'very yummy', 'c:\\cola.jpg', 12.5, NULL);
+(2, 'cola', 'very yummy', 'c:\\cola.jpg', 12.5, NULL),
+(3, 'aaa', 'fff', 'cccc', 10, NULL),
+(4, 'aaa', 'fff', 'cccc', 10, NULL),
+(5, 'aaa', 'fff', 'cccc', 10, NULL),
+(6, 'aaa', 'fff', 'cccc', 10, NULL),
+(7, 'aaa', 'fff', 'cccc', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -427,7 +451,7 @@ MODIFY `Lid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `marketingcampaign`
 --
 ALTER TABLE `marketingcampaign`
-MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `permission`
 --
@@ -437,7 +461,7 @@ MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `type`
 --

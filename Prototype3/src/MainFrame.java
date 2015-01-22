@@ -121,7 +121,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				c3.setcId("678");
 				
 				MarketingCampaign m1 = new MarketingCampaign();
-				m1.setCdate(tfBday.getText());
+				m1.setStartdate(tfBday.getText());
+				m1.setEnddate(tfBday.getText());
 				m1.AddCustomer(c2);
 				m1.AddCustomer(c3);
 				
@@ -138,9 +139,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				p1.setPphoto("cccc");
 				p1.setPprice(10);
 				
-				cmd.setComVal(p1);
+				cmd.setComVal(m1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_PRODUCT);
+				cmd.setComNum(Com.ADD_MARKETINGCAMPAIGN);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -160,8 +161,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				MarketingCampaign m1 = new MarketingCampaign();
 				Sale s1 = new Sale();
-				cmd.setComVal(s1);
-				cmd.setComNum(Com.SEARCH_SALE);
+				cmd.setComVal(m1);
+				cmd.setComNum(Com.SEARCH_MARKETINGCAMPAIGN);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
@@ -288,7 +289,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				
 				if(key instanceof MarketingCampaign){
 					sb.append(((MarketingCampaign)key).getCid() + "\n");
-					sb.append(((MarketingCampaign)key).getCdate() + "\n");
+					sb.append(((MarketingCampaign)key).getStartdate() + "\n");
+					sb.append(((MarketingCampaign)key).getEnddate() + "\n");
 				}
 				
 				if(key instanceof Sale){

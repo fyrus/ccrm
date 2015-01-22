@@ -24,7 +24,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	
 	private int cid;
-	private String cdate;
+	private String startdate;
+	private String enddate;
 	private ArrayList<Customer> cust;
 	
 	
@@ -33,7 +34,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	 */
 	public MarketingCampaign(){
 		cid=0;
-		cdate="";
+		startdate="";
+		enddate="";
 		cust=new ArrayList<Customer>();
 	}
 	
@@ -41,23 +43,25 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * constructor with params:
 	 * @param cmpid
-	 * @param cdate
+	 * @param startdate
 	 */
-	public MarketingCampaign(int cid, String cdate){
+	public MarketingCampaign(int cid, String startdate, String enddate){
 		this.cid=cid;
-		this.cdate=cdate;
-		cust=null;
+		this.startdate=startdate;
+		this.enddate=enddate;
+		this.cust=new ArrayList<Customer>();
 	}
 	
 	/**
 	 * If the new campaign have this information.
 	 * @param cmpid
-	 * @param cdate
+	 * @param startdate
 	 * @param cust
 	 */
-	public MarketingCampaign(int cid,String cdate,ArrayList<Customer> cust){
+	public MarketingCampaign(int cid, String startdate, String enddate,ArrayList<Customer> cust){
 		this.cid=cid;
-		this.cdate=cdate;
+		this.startdate=startdate;
+		this.enddate=enddate;
 		this.cust=cust;
 	}
 
@@ -82,18 +86,33 @@ public class MarketingCampaign implements java.io.Serializable {
 	 */
 
 	/**
-	 * @return the cdate
+	 * @return the startdate
 	 */
-	public String getCdate() {
-		return cdate;
+	public String getStartdate() {
+		return startdate;
 	}
 
 
 	/**
-	 * @param cdate the cdate to set
+	 * @param startdate the startdate to set
 	 */
-	public void setCdate(String cdate) {
-		this.cdate = cdate;
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
+	}
+	
+	/**
+	 * @return the enddate
+	 */
+	public String getEnddate() {
+		return enddate;
+	}
+
+
+	/**
+	 * @param enddate the enddate to set
+	 */
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
 	}
 
 
