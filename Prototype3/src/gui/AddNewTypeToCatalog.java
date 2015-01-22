@@ -17,15 +17,20 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 import common.ChatIF;
+import common.Com;
 import common.Command;
 import client.ChatClient;
 import entities.Domain;
 import entities.Type;
+import entities.User;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
 
 /**
  * This class creates a new type in a catalog.
@@ -39,10 +44,14 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 	private static final long serialVersionUID = 1L;
 	private JTextField tftpName;
 	public JButton btnCancel;
-
+	private JComboBox comboBox;
+	private int domainLen;
+	
 	private Type type;
 	private ChatClient client;
 	private Command cmd;
+	
+	private ArrayList<Domain> domainList;
 	/**
 	 * @param tpName is the name type name
 	 * @param iID is the type is
@@ -62,11 +71,11 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 		JLabel lblName = new JLabel("Type Name:");
 		lblName.setForeground(Color.WHITE);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblName.setBounds(199, 127, 126, 16);
+		lblName.setBounds(201, 170, 126, 16);
 		add(lblName);
 		
 		tftpName = new JTextField();
-		tftpName.setBounds(340, 126, 172, 22);
+		tftpName.setBounds(337, 170, 172, 21);
 		add(tftpName);
 		tftpName.setColumns(10);
 		
@@ -93,7 +102,12 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 				}
 				else
 				{
-					
+					type=new Type();
+					type.setTname(tftpName.getText());
+					for(int i=0;i<domainLen;i++)
+						if (domainList.get(i).getdName().equals(comboBox.getSelectedItem())) type.setDid(domainList.get(i).getDid());
+					cmd=new Command(Com.ADD_TYPE,type);
+					client.handleMessageFromClientUI(cmd);
 					
 					JOptionPane.showMessageDialog(null, "New type has been added to Database.","New Type",1);
 					tftpName.setText("");
@@ -104,7 +118,24 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 		btnAdd.setBackground(new Color(230, 230, 250));
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(338, 110, 171, 25);
+		add(comboBox);
+		
+		JLabel lblChooseDomain = new JLabel("Choose Domain:");
+		lblChooseDomain.setForeground(Color.WHITE);
+		lblChooseDomain.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblChooseDomain.setBounds(181, 112, 126, 16);
+		add(lblChooseDomain);
 		connect();
+		loadDomains();
+		
+	}
+	
+	public void loadDomains(){
+		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
+		client.handleMessageFromClientUI(cmd);
 	}
 	
 private void connect(){
@@ -125,9 +156,17 @@ private void connect(){
 /* (non-Javadoc)
  * @see common.ChatIF#display(java.lang.Object)
  */
+@SuppressWarnings("unchecked")
 @Override
 public void display(Object message) {
 	// TODO Auto-generated method stub
-	
+	if (message instanceof ArrayList<?>)
+		if (((ArrayList<?>)message).get(0) instanceof Domain){
+			domainList=new ArrayList<Domain>((ArrayList<Domain>)message);
+			domainLen=domainList.size();
+			for (int i=0;i<domainLen;i++)
+				comboBox.addItem(domainList.get(i).getdName());
+		}
+			
 }
 }
