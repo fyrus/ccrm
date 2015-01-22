@@ -4,6 +4,7 @@
 package controllers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,6 +71,9 @@ public class SuperController extends DbConn{
 
 				if(arg instanceof Float)
 					stm.setFloat(i, (float)arg);
+
+				if(arg instanceof Date)
+					stm.setDate(i, (Date)arg);
 
 				i++;
 			}
@@ -139,6 +143,14 @@ public class SuperController extends DbConn{
 					if(arg instanceof Boolean)
 						stm.setBoolean(i, (boolean)arg);
 
+					if(arg instanceof Date){
+						if(((Date)arg).equals(new Date(0)))
+							stm.setNull(i, Types.DATE);
+						else
+							stm.setDate(i, (Date)arg);
+					}
+					
+
 					if(arg == null || arg=="")
 						stm.setNull(i, Types.VARCHAR);
 					i++;
@@ -152,7 +164,7 @@ public class SuperController extends DbConn{
 			else{
 				return null;
 			}
-				
+
 
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could search in DB");
@@ -176,12 +188,17 @@ public class SuperController extends DbConn{
 				if(arg instanceof String)
 					stm.setString(i, (String)arg);
 
-				if(arg instanceof Integer){
-					int t = (int)arg;
-					stm.setInt(i, t);
-				}
+				if(arg instanceof Integer)
+					stm.setInt(i, (int)arg);
+				
+				if(arg instanceof Float)
+					stm.setFloat(i, (float)arg);
+				
 				if(arg instanceof Boolean)
 					stm.setBoolean(i, (boolean)arg);
+				
+				if(arg instanceof Date)
+					stm.setDate(i, (Date)arg);
 				i++;
 			}
 			stm.executeUpdate();

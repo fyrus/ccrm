@@ -1,5 +1,7 @@
 package entities;
 
+import java.sql.Date;
+
 /**
  * A class with all customer details
  * @author Dima
@@ -16,7 +18,7 @@ public class Customer implements java.io.Serializable{
 	//customer name
 	private String cName;
 	//customer birth date
-	private String cBirthDate;
+	private Date cBirthDate;
 	//customer address location
 	private String cLocation;
 	// customers phone number
@@ -30,7 +32,7 @@ public class Customer implements java.io.Serializable{
 	public Customer(){
 		cId="";
 		cName="";
-		cBirthDate="";
+		cBirthDate=new Date(0);
 		cLocation="";
 		cPhone="";
 		
@@ -43,7 +45,7 @@ public class Customer implements java.io.Serializable{
 	 * @param loc customer location
 	 * @param phone customer phone
 	 */
-	public Customer(String id,String name,String bd,String loc,String phone){
+	public Customer(String id,String name,Date bd,String loc,String phone){
 		cId=id;
 		cName=name;
 		cBirthDate=bd;
@@ -78,13 +80,13 @@ public class Customer implements java.io.Serializable{
 	/**
 	 * @return the customer birth date
 	 */
-	public String getcBirthDate() {
+	public Date getcBirthDate() {
 		return cBirthDate;
 	}
 	/**
 	 * @param cBirthDate the customer birth date to set
 	 */
-	public void setcBirthDate(String cBirthDate) {
+	public void setcBirthDate(Date cBirthDate) {
 		this.cBirthDate = cBirthDate;
 	}
 	/**
