@@ -87,7 +87,7 @@ public class EchoServer extends AbstractServer {
 		case UPDATE_USER:
 			action="'update User'";
 			System.out.println("Message received: " + action + " from " + client);
-			UserController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
+			UserController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
 			break;
 			//---User end---
 

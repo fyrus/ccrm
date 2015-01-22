@@ -32,7 +32,7 @@ public class MarketingManager extends MarketingMan {
 		setRole("Marketing Manager");
 	}
 	
-	public MarketingManager(String uid,String name,String password,String address,String phone){
+	public MarketingManager(int uid,String name,String password,String address,String phone){
 		super(uid,name,password,address,phone);
 		setRole("Marketing Manager");
 	}

@@ -27,7 +27,7 @@ public class UserController extends SuperController{
 		User tmp = new User();
 		tmp.setUid(tUser.getUid());
 
-		if (tUser.getUid().compareTo("") == 0)
+		if (tUser.getUid() == 0)
 			return;
 
 		if(searchInDB(tmp) != null)
@@ -60,7 +60,7 @@ public class UserController extends SuperController{
 		User tmp = new User();
 		tmp.setUid(tUser.getUid());
 
-		if (tUser.getUid().compareTo("") == 0)
+		if (tUser.getUid() == 0)
 			return;
 
 		if(searchInDB(tmp) == null)
@@ -115,7 +115,7 @@ public class UserController extends SuperController{
 				return null;
 			while (resultSet.next()) {
 				User p = new User();
-				p.setUid(resultSet.getString("Uid"));
+				p.setUid(resultSet.getInt("Uid"));
 				p.setName(resultSet.getString("Name"));
 				p.setPassword(resultSet.getString("Password"));
 				p.setAddress(resultSet.getString("Addr"));
@@ -137,9 +137,9 @@ public class UserController extends SuperController{
 	 * @param value new User data to be updated
 	 * @param id id of the User we updating
 	 */
-	public static void updateDb(Object value, String id) {
+	public static void updateDb(Object value, int id) {
 
-		if (id.compareTo("") == 0)
+		if (id == 0)
 			return;
 		User tUser = (User)value;
 		String update = "UPDATE user "
