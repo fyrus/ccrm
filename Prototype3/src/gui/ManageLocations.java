@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -34,6 +35,9 @@ import java.util.ArrayList;
 
 import javax.swing.event.AncestorListener;
 import javax.swing.event.AncestorEvent;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Nastia
@@ -79,12 +83,43 @@ public class ManageLocations extends JPanel implements ChatIF{
 		add(lblManageLocations);
 		
 		JButton btnAddNewLocation = new JButton("Add New Location");
+		btnAddNewLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String NewLocationName = JOptionPane.showInputDialog("Enter Location Name:");
+				Command cmd = new Command();
+				Location l = new Location();
+				l.setLocation(NewLocationName);
+				cmd.setComVal(l);
+				cmd.setComNum(Com.ADD_LOCATION);
+
+				client.handleMessageFromClientUI(cmd);
+				JOptionPane.showMessageDialog(null, "New Location has been added to Database.");
+
+				
+			}
+		});
 		btnAddNewLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddNewLocation.setBackground(new Color(230, 230, 250));
 		btnAddNewLocation.setBounds(50, 124, 188, 36);
 		add(btnAddNewLocation);
 		
 		JButton btnDeleteLocation = new JButton("Delete Location");
+		btnDeleteLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String LocationNameToDelete = JOptionPane.showInputDialog("Enter Location Name:");
+				Command cmd = new Command();
+				Location l = new Location();
+				l.setLocation(LocationNameToDelete);
+				
+				cmd.setComVal(l);
+				cmd.setComNum(Com.DELETE_LOCATION);
+
+				client.handleMessageFromClientUI(cmd);
+				JOptionPane.showMessageDialog(null, "Location"+LocationNameToDelete+" has been Deleted from Database.");
+			}
+		});
 		btnDeleteLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnDeleteLocation.setBackground(new Color(230, 230, 250));
 		btnDeleteLocation.setBounds(50, 215, 188, 36);

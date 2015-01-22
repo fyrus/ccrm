@@ -5,6 +5,7 @@ package gui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import java.awt.SystemColor;
 
@@ -17,6 +18,8 @@ import javax.swing.JTextField;
 
 import sun.util.calendar.JulianCalendar;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import sun.util.calendar.CalendarUtils;
@@ -25,26 +28,51 @@ import javax.swing.text.DateFormatter;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 
+import client.ChatClient;
+
+import com.sun.xml.internal.bind.v2.TODO;
 import com.toedter.calendar.JDateChooser;
+
+import common.ChatIF;
+import common.Com;
+import common.Command;
+import entities.CampaignMarketingPattern;
+import entities.Domain;
+import entities.Location;
+import entities.MarketingCampaign;
+import entities.Type;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+
+import javax.swing.JComboBox;
 
 /**
  * @author Nastia
  *
  */
-public class ActivateMarketingCampaign extends JPanel {
+public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton btnCancel;
-	private JTextField tfmp_id;
+	private JDateChooser dcStartDate;
+	private JDateChooser dcEndDate;
+	private int campaignMarketingPatternLen;
+	private JComboBox comboBox;
+
 	/**
 	 * Create the panel.
 	 */
+	private ChatClient client;
+	private Command cmd;
+	private MarketingCampaign marketingCampaign;
+	
+	private ArrayList<CampaignMarketingPattern> campaignMarketingPatternList;
+	
 	public ActivateMarketingCampaign() {
 		setSize(new Dimension(700, 480));
 		setLayout(null);
@@ -56,44 +84,54 @@ public class ActivateMarketingCampaign extends JPanel {
 		lblActivateMarketingCampaign.setBounds(12, 13, 253, 25);
 		add(lblActivateMarketingCampaign);
 		
-		JLabel lblMarketingPatternId = new JLabel("Marketing Pattern ID:");
+		JLabel lblMarketingPatternId = new JLabel("Choose Campaign Maekrting Pattern:");
 		lblMarketingPatternId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMarketingPatternId.setForeground(Color.WHITE);
-		lblMarketingPatternId.setBounds(130, 86, 160, 16);
+		lblMarketingPatternId.setBounds(55, 86, 265, 20);
 		add(lblMarketingPatternId);
 		
-		JLabel lblStartDate = new JLabel("Start Date:");
+		JLabel lblStartDate = new JLabel("Marketing Campaign Start Date:");
 		lblStartDate.setForeground(Color.WHITE);
 		lblStartDate.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblStartDate.setBounds(130, 143, 85, 16);
+		lblStartDate.setBounds(55, 143, 233, 25);
 		add(lblStartDate);
 		
-		JLabel lblEndDate = new JLabel("End Date:");
+		JLabel lblEndDate = new JLabel("Marketing Campaign End Date:");
 		lblEndDate.setForeground(Color.WHITE);
 		lblEndDate.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblEndDate.setBounds(130, 203, 70, 16);
+		lblEndDate.setBounds(55, 203, 220, 25);
 		add(lblEndDate);
 		
-		final JDateChooser tfstartDate = new JDateChooser();
-		tfstartDate.setBounds(300, 137, 147, 22);
-		add(tfstartDate);
+		dcStartDate = new JDateChooser(new Date());
+		dcStartDate.setBounds(332, 146, 145, 22);
+		add(dcStartDate);
 		
-		final JDateChooser tfendDate = new JDateChooser();
-		tfendDate.setBounds(300, 197, 149, 22);
-		add(tfendDate);
+		dcEndDate = new JDateChooser(new Date());
+		dcEndDate.setBounds(332, 203, 145, 22);
+		add(dcEndDate);
 		
 		JButton btnActivate = new JButton("Activate");
 		btnActivate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if( tfmp_id.getText().equals(null) || (tfendDate.getDate().equals(null)) || (tfstartDate.getDate().equals(null)))
-				{
+				if( (dcStartDate.getDate().before(new Date()) )
+						|| (dcEndDate.getDate().before(dcStartDate.getDate()))){
+					////////comboBoxCampaignMarketingPattern.getSelectedItem().equals(null) ||
 					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
-					tfmp_id.setText("");
-					tfendDate.setDate(null);
-					tfstartDate.setDate(null);
-					
-
 				}
+				else
+				{
+					marketingCampaign=new MarketingCampaign();
+					marketingCampaign.setStartdate(dcStartDate.getDateFormatString());
+					marketingCampaign.setEnddate(dcEndDate.getDateFormatString());
+					
+					for(int i=0;i<campaignMarketingPatternLen;i++)
+						if (campaignMarketingPatternList.get(i).equals(comboBox.getSelectedItem()))
+							marketingCampaign.setCid(campaignMarketingPatternList.get(i).getCmpid());
+					cmd=new Command(Com.ADD_MARKETINGCAMPAIGN,marketingCampaign);
+					client.handleMessageFromClientUI(cmd);
+					JOptionPane.showMessageDialog(null, "Marketing campaign has been activated");
+				}
+				
 			}
 		});
 		btnActivate.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -104,9 +142,8 @@ public class ActivateMarketingCampaign extends JPanel {
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tfendDate.setDate(null);
-				tfstartDate.setDate(null);
-				tfmp_id.setText("");
+				dcStartDate.setDate(null);
+				dcEndDate.setDate(null);
 				
 				
 			}
@@ -116,16 +153,67 @@ public class ActivateMarketingCampaign extends JPanel {
 		btnCancel.setBounds(364, 263, 188, 36);
 		add(btnCancel);
 		
-		tfmp_id = new JTextField();
-		tfmp_id.setBounds(302, 84, 145, 22);
-		add(tfmp_id);
-		tfmp_id.setColumns(10);
 		
 		JButton btnCreateCustomerLists = new JButton("Create Customer Lists For SalesMans");
 		btnCreateCustomerLists.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCreateCustomerLists.setBackground(new Color(230, 230, 250));
-		btnCreateCustomerLists.setBounds(203, 321, 244, 36);
+		btnCreateCustomerLists.setBounds(203, 329, 244, 36);
 		add(btnCreateCustomerLists);
+		
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		comboBox.setBounds(332, 86, 145, 22);
+		add(comboBox);
+		
+		
+		connect();
+		
 
 	}
+	
+	/*private void loadCampaignMarketingPatterns(){
+		comboBox.removeAllItems();
+		cmd=new Command(Com.SEARCH_MARKETINGCAMPAIGN,new Domain());
+		client.handleMessageFromClientUI(cmd);
+	}*/
+	
+		// make a connection to server
+	private void connect(){
+		
+		try 
+	    {
+	      client= new ChatClient(Login.IP,Login.D_PORT,this);
+	    } 
+	    catch(IOException exception) 
+	    {
+	      System.out.println("Error: Can't setup connection!"
+	                + " Terminating client.");
+	      System.exit(1);
+	    }
+		
+	}
+	/* (non-Javadoc)
+	 * @see common.ChatIF#display(java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void display(Object message) {
+		// TODO Auto-generated method stub
+		System.out.println("System msg: got Marketing Pattern in marketing patterns");
+		if (message instanceof ArrayList<?>)
+			if (((ArrayList<?>)message).get(0) instanceof CampaignMarketingPattern){
+				campaignMarketingPatternList=new ArrayList<CampaignMarketingPattern>((ArrayList<CampaignMarketingPattern>)message);
+				campaignMarketingPatternLen=campaignMarketingPatternList.size();
+				for (int i=0;i<campaignMarketingPatternLen;i++)
+					comboBox.addItem(campaignMarketingPatternList.get(i).getCmpid());
+	
+		
+		
+	}
+	}
 }
+
