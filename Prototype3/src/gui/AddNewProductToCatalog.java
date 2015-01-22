@@ -31,20 +31,36 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+
 import javax.swing.border.LineBorder;
+
+import common.ChatIF;
+import common.Com;
+import common.Command;
+import client.ChatClient;
+import entities.Domain;
+import entities.Product;
 
 
 /**
  * @author Nastia
  * 
  */
-public class AddNewProductToCatalog extends JPanel {
+public class AddNewProductToCatalog extends JPanel implements ChatIF{
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField tfpName;
 	private JTextField tfpPrice;
 	private JTextPane tfapDescription;
 	public JButton btnCancel;
+	private boolean canInput;
+	
+	private Product product;
+	private ChatClient client;
+	private Command cmd;
+	
+	public JFileChooser fc;
+	final JLabel ImgLabel;
 
 	/**
 	 * Create the panel.
@@ -105,10 +121,36 @@ public class AddNewProductToCatalog extends JPanel {
 				if( tfapDescription.getText().equals("") ||tfpName.getText().equals("") ||
 						tfpPrice.getText().equals("") )
 				{
-					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
+					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.","New Product",0);
 					tfpName.setText("");
 					tfpPrice.setText("");
 					tfapDescription.setText("");
+				}
+				else
+				{
+					canInput=true;
+					float price=0;
+					try
+					{
+						price=Float.parseFloat(tfpPrice.getText());
+					}
+					catch(Exception ex)
+					{
+						JOptionPane.showMessageDialog(null, "Error! Incorrect input at price field","New Product",0);
+						canInput=false;
+					}
+					if (canInput){
+					product=new Product(0,tfpName.getText(),fc.getSelectedFile().getPath(),tfapDescription.getText(),price);
+					cmd=new Command(Com.ADD_PRODUCT,product);
+					client.handleMessageFromClientUI(cmd);
+					
+					
+					JOptionPane.showMessageDialog(null, "New product has been added to Database.","New Product",1);
+					tfpName.setText("");
+					tfpPrice.setText("");
+					tfapDescription.setText("");
+					ImgLabel.setIcon(null);
+					}
 				}
 			}
 		});
@@ -117,11 +159,11 @@ public class AddNewProductToCatalog extends JPanel {
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 		
-		final JLabel ImgLabel = new JLabel("");
+		ImgLabel = new JLabel("");
 		ImgLabel.setBounds(500, 114, 128, 128);
 		add(ImgLabel);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Back");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -143,9 +185,9 @@ public class AddNewProductToCatalog extends JPanel {
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JFileChooser fc = new JFileChooser();
+				fc = new JFileChooser();
 				
-				fc.setCurrentDirectory(new java.io.File("C:/Users/Nastia/Desktop"));
+				fc.setCurrentDirectory(new java.io.File("D:/"));
 				fc.setDialogTitle("Choose product image");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				if(fc.showOpenDialog(btnBrowse) == JFileChooser.APPROVE_OPTION)
@@ -168,8 +210,30 @@ public class AddNewProductToCatalog extends JPanel {
 		btnBrowse.setBounds(500, 82, 116, 25);
 		add(btnBrowse);
 		
-		
+		connect();
 
+	}
+	private void connect(){
+		
+		try 
+	    {
+	      client= new ChatClient(Login.IP,Login.D_PORT,this);
+	    } 
+	    catch(IOException exception) 
+	    {
+	      System.out.println("Error: Can't setup connection!"
+	                + " Terminating client.");
+	      System.exit(1);
+	    }
+		
+	}
+	/* (non-Javadoc)
+	 * @see common.ChatIF#display(java.lang.Object)
+	 */
+	@Override
+	public void display(Object message) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
