@@ -97,6 +97,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				c1.setcPhone(tfPhone.getText());
 				c1.setcId(tfId.getText());
 				
+				
+				
 				RegisteredCustomer r1 = new RegisteredCustomer();
 				r1.setcBirthDate(tfBday.getText());
 				r1.setcLocation(tfLocation.getText());
@@ -115,12 +117,28 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				d1.setdName(tfName.getText());
 				
+				
+				Customer c2 = new Customer();
+				c2.setcId("123");
+				
+				Customer c3 = new Customer();
+				c3.setcId("678");
+				
 				MarketingCampaign m1 = new MarketingCampaign();
 				m1.setCdate(tfBday.getText());
+				m1.AddCustomer(c2);
+				m1.AddCustomer(c3);
 				
-				cmd.setComVal(m1);
+				Sale s1 = new Sale();
+				s1.setBuy(true);
+				s1.setComments("buy stuff good item this");
+				s1.setCustomerid("123");
+				s1.setItemid(13);
+				s1.setSaleDate("121212");
+				
+				cmd.setComVal(s1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_MARKETINGCAMPAIGN);
+				cmd.setComNum(Com.ADD_SALE);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -139,8 +157,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				entities.Type t1 = new entities.Type();
 				Domain d1 = new Domain();
 				MarketingCampaign m1 = new MarketingCampaign();
-				cmd.setComVal(m1);
-				cmd.setComNum(Com.SEARCH_MARKETINGCAMPAIGN);
+				Sale s1 = new Sale();
+				cmd.setComVal(s1);
+				cmd.setComNum(Com.SEARCH_SALE);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
@@ -268,6 +287,14 @@ public class MainFrame extends JFrame implements ChatIF{
 				if(key instanceof MarketingCampaign){
 					sb.append(((MarketingCampaign)key).getCid() + "\n");
 					sb.append(((MarketingCampaign)key).getCdate() + "\n");
+				}
+				
+				if(key instanceof Sale){
+					sb.append(((Sale)key).getBuy() + "\n");
+					sb.append(((Sale)key).getComments()+ "\n");
+					sb.append(((Sale)key).getCustomerid() + "\n");
+					sb.append(((Sale)key).getItemid()+ "\n");
+					sb.append(((Sale)key).getSaleDate() + "\n");
 				}
 				
 				sb.append("\n");

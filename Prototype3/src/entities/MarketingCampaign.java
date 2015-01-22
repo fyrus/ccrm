@@ -25,7 +25,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	private int cid;
 	private String cdate;
-	private List<Customer> cust;
+	private ArrayList<Customer> cust;
 	
 	
 	/**
@@ -34,7 +34,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	public MarketingCampaign(){
 		cid=0;
 		cdate="";
-		cust=null;
+		cust=new ArrayList<Customer>();
 	}
 	
 	
@@ -55,7 +55,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param cdate
 	 * @param cust
 	 */
-	public MarketingCampaign(int cid,String cdate,List<Customer> cust){
+	public MarketingCampaign(int cid,String cdate,ArrayList<Customer> cust){
 		this.cid=cid;
 		this.cdate=cdate;
 		this.cust=cust;
@@ -100,7 +100,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * @return the cust
 	 */
-	public List<Customer> getCust() {
+	public ArrayList<Customer> getCust() {
 		return cust;
 	}
 
@@ -108,7 +108,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	/**
 	 * @param cust the cust to set
 	 */
-	public void setCust(List<Customer> cust) {
+	public void setCust(ArrayList<Customer> cust) {
 		this.cust = cust;
 	}
 	
