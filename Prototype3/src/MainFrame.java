@@ -109,12 +109,15 @@ public class MainFrame extends JFrame implements ChatIF{
 				//pp.setDid(Integer.parseInt(tfBday.getText()));
 				
 				entities.Type t1 = new entities.Type();
-				t1.setDid(Integer.parseInt(tfBday.getText()));
+				//t1.setDid(Integer.parseInt(tfBday.getText()));
 				t1.setTname(tfName.getText());
 				
-				cmd.setComVal(t1);
+				Domain d1 = new Domain();
+				d1.setdName(tfName.getText());
+				
+				cmd.setComVal(d1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_TYPE);
+				cmd.setComNum(Com.ADD_DOMAIN);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -131,8 +134,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				RegisteredCustomer r1 = new RegisteredCustomer();
 				Permission pp = new Permission();
 				entities.Type t1 = new entities.Type();
-				cmd.setComVal(t1);
-				cmd.setComNum(Com.SEARCH_TYPE);
+				Domain d1 = new Domain();
+				cmd.setComVal(d1);
+				cmd.setComNum(Com.SEARCH_DOMAIN);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});
