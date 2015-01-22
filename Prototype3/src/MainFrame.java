@@ -84,11 +84,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				
 				Command cmd=new Command();
 				
-				Product p1 = new Product();
-				p1.setPdescription(tfBday.getText());
-				p1.setPname(tfName.getText());
-				p1.setPphoto(tfLocation.getText());
-				//p1.setPprice(Float.parseFloat(tfPhone.getText()));
+				
 				
 				Customer c1 = new Customer();
 				c1.setcBirthDate(tfBday.getText());
@@ -136,9 +132,15 @@ public class MainFrame extends JFrame implements ChatIF{
 				s1.setItemid(13);
 				s1.setSaleDate("121212");
 				
-				cmd.setComVal(s1);
+				Product p1 = new Product();
+				p1.setPdescription("fff");
+				p1.setPname("aaa");
+				p1.setPphoto("cccc");
+				p1.setPprice(10);
+				
+				cmd.setComVal(p1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_SALE);
+				cmd.setComNum(Com.ADD_PRODUCT);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}

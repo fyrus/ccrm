@@ -4,6 +4,19 @@
 package entities;
 
 /**
+ * 
+ * !!!!!!!!!!!!!!!!!!!!!!
+ * 
+ * 
+ * not used
+ * 
+ * use sale
+ * 
+ * 
+ * !!!!!!!!!!!!!!!!!!!
+ */
+
+/**
  * this is the Customer Purchase Or Rejection class
  * @author YOSSI
  */
