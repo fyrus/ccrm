@@ -52,7 +52,7 @@ public class Client extends JFrame{
 	final public static int D_PORT = 5555;
 	
 	private static final long serialVersionUID = -4674412322048093368L;
-	private JFrame frame;
+	//private JFrame frame;
 	private JPanel panel;
 	private JTextField txtIpAddress;
 	public String ipAddress;
