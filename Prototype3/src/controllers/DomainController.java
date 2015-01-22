@@ -30,7 +30,7 @@ public class DomainController extends SuperController{
 		if (tDomain.getdName().compareTo("") == 0)
 			return;
 
-		String sqlstr = "SELECT * FROM domain WHERE Dname=" + tDomain.getdName();
+		String sqlstr = "SELECT * FROM domain WHERE Dname='" + tDomain.getdName() + "'";
 		if(superSearchInDB(sqlstr,null) != null)
 		{
 			System.out.println("Domain with name " + tDomain.getdName() + " already exists");
