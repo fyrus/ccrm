@@ -16,24 +16,33 @@ import java.awt.Font;
 
 import javax.swing.JTextField;
 
+import common.ChatIF;
+import common.Command;
+import client.ChatClient;
+import entities.Domain;
+import entities.Type;
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 /**
  * This class creates a new type in a catalog.
  * @author Nastia
  *
  */
-public class AddNewTypeToCatalog extends JPanel {
+public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tftID;
 	private JTextField tftpName;
 	public JButton btnCancel;
 
+	private Type type;
+	private ChatClient client;
+	private Command cmd;
 	/**
 	 * @param tpName is the name type name
 	 * @param iID is the type is
@@ -53,31 +62,19 @@ public class AddNewTypeToCatalog extends JPanel {
 		JLabel lblName = new JLabel("Type Name:");
 		lblName.setForeground(Color.WHITE);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblName.setBounds(133, 109, 144, 16);
+		lblName.setBounds(199, 127, 126, 16);
 		add(lblName);
 		
-		
-		JLabel lblId = new JLabel("Type Serial Number:");
-		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(133, 176, 172, 16);
-		add(lblId);
-		
-		tftID = new JTextField();
-		tftID.setBounds(308, 174, 172, 22);
-		add(tftID);
-		tftID.setColumns(10);
-		
 		tftpName = new JTextField();
-		tftpName.setBounds(308, 107, 172, 22);
+		tftpName.setBounds(340, 126, 172, 22);
 		add(tftpName);
 		tftpName.setColumns(10);
 		
-		btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Back");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tftID.setText(null);
-				tftpName.setText(null);
+				
+				tftpName.setText("");
 			}
 		});
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -88,10 +85,17 @@ public class AddNewTypeToCatalog extends JPanel {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tftID.getText().equals("") || tftpName.getText().equals(""))
+				if(tftpName.getText().equals(""))
 				{
-					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
-					tftID.setText("");
+					JOptionPane.showMessageDialog(null, "Error! Type name is empty.","New Type",0);
+					
+					tftpName.setText("");
+				}
+				else
+				{
+					
+					
+					JOptionPane.showMessageDialog(null, "New type has been added to Database.","New Type",1);
 					tftpName.setText("");
 				}
 			}
@@ -100,6 +104,30 @@ public class AddNewTypeToCatalog extends JPanel {
 		btnAdd.setBackground(new Color(230, 230, 250));
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
-
+		connect();
 	}
+	
+private void connect(){
+		
+		try 
+	    {
+	      client= new ChatClient(Login.IP,Login.D_PORT,this);
+	    } 
+	    catch(IOException exception) 
+	    {
+	      System.out.println("Error: Can't setup connection!"
+	                + " Terminating client.");
+	      System.exit(1);
+	    }
+		
+	}
+
+/* (non-Javadoc)
+ * @see common.ChatIF#display(java.lang.Object)
+ */
+@Override
+public void display(Object message) {
+	// TODO Auto-generated method stub
+	
+}
 }
