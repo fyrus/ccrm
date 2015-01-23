@@ -14,6 +14,8 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.JTextField;
 
 import client.ChatClient;
@@ -24,13 +26,19 @@ import common.ChatIF;
 import common.Com;
 import common.Command;
 import entities.Customer;
+import entities.Location;
+import entities.Product;
 import entities.RegisteredCustomer;
+import entities.Sale;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
 
 /**
  * @author Nastia
@@ -48,7 +56,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	private JTextField tfcPhone;
 	public JButton btnCancel;
 	private Customer customer; 
-	
+	private JComboBox<Location> cbCustomerLocation;
 	private ChatClient client;
 	private Command cmd;
 	
@@ -56,6 +64,9 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public AddNewPotentialCustomer() {
+		
+		LoadData();
+		
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -140,6 +151,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 				else
 				{
 					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),new Date(tfcBD.getDate().getTime()),"",tfcPhone.getText());
+					customer.setcLocation(((Location)cbCustomerLocation.getSelectedItem()).getLocation());
 					cmd=new Command();
 					cmd.setComNum(Com.ADD_CUSTOMER);
 					cmd.setComVal(customer);
@@ -159,7 +171,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 		
-		btnCancel = new JButton("Back");
+		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tfcFName.setText("");
@@ -174,7 +186,33 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
 		
+		cbCustomerLocation = new JComboBox<Location>();
+		cbCustomerLocation.setBounds(433, 155, 142, 22);
+		add(cbCustomerLocation);
+		
 		connect();
+	}
+	
+	private void LoadData(){
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+
+				cbCustomerLocation.removeAllItems();
+
+				Command cmd = new Command();
+
+				Location location = new Location();
+				cmd.setComVal(location);
+				cmd.setComNum(Com.SEARCH_LOCATION);
+				client.handleMessageFromClientUI(cmd);
+
+
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 	}
 	
 	/**
@@ -195,12 +233,22 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		
 	}
 
+	
 	/* (non-Javadoc)
 	 * @see common.ChatIF#display(java.lang.Object)
 	 */
 	@Override
 	public void display(Object message) {
 		// TODO Auto-generated method stub
+		if (message instanceof ArrayList<?>) {
+			for(Object key:((ArrayList<?>)message).toArray()){
+				if(key instanceof Location){
+					cbCustomerLocation.addItem(((Location)key));
+				}
+
+			}
+
+		}
 		
 	}
 }
