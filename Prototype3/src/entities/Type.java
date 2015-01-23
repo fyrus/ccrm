@@ -100,6 +100,13 @@ public class Type implements java.io.Serializable {
 	public void setTname(String tName) {
 		this.tName = tName;
 	}
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return ("("+getTid()+") "+getTname());
+	}
 	
 
 }

@@ -39,8 +39,8 @@ public class AssignProductToType extends JPanel implements ChatIF{
 	private static final long serialVersionUID = 1L;
 	public JButton btnCancel;
 	
-	private JComboBox prodComboBox;
-	private JComboBox typeComboBox;
+	private JComboBox<Product> prodComboBox;
+	private JComboBox<Type> typeComboBox;
 	
 	private ChatClient client;
 	private Command cmd;
@@ -89,11 +89,11 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
 		
-		prodComboBox = new JComboBox();
+		prodComboBox = new JComboBox<Product>();
 		prodComboBox.setBounds(305, 107, 153, 25);
 		add(prodComboBox);
 		
-		typeComboBox = new JComboBox();
+		typeComboBox = new JComboBox<Type>();
 		typeComboBox.setBounds(305, 184, 153, 25);
 		add(typeComboBox);
 
@@ -126,22 +126,19 @@ public class AssignProductToType extends JPanel implements ChatIF{
 	/* (non-Javadoc)
 	 * @see common.ChatIF#display(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void display(Object message) {
 		// TODO Auto-generated method stub
 		if (message instanceof ArrayList<?>){
-			if (((ArrayList<?>)message).get(0) instanceof Type){
-				typeList=new ArrayList<Type>((ArrayList<Type>)message);
-				typeLen=typeList.size();
-				for (int i=0;i<typeLen;i++)
-					typeComboBox.addItem("("+typeList.get(i).getTid()+") "+typeList.get(i).getTname());
-			}
-			else if (((ArrayList<?>)message).get(0) instanceof Product){
-				prodList=new ArrayList<Product>((ArrayList<Product>)message);
-				prodLen=prodList.size();
-				for (int i=0;i<prodLen;i++)
-					prodComboBox.addItem(prodList.get(i).getPname()+" ("+prodList.get(i).getTid()+")");
+			for(Object key:((ArrayList<?>)message).toArray()){
+				if(key instanceof Type){
+					typeComboBox.addItem((Type)key);
+				}
+				else if(key instanceof Product){
+					prodComboBox.addItem((Product)key);
+				}
+			
 			}
 		
 		}
