@@ -174,11 +174,6 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		add(btnCreateCustomerLists);
 		
 		comboBox = new JComboBox();
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
 		comboBox.setBounds(332, 86, 145, 22);
 		add(comboBox);
 		

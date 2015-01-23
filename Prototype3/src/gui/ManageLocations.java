@@ -15,16 +15,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
 
 import java.io.IOException;
 
 import client.ChatClient;
 import common.*;
 import entities.*;
-
-import javax.swing.JTextArea;
 
 import java.util.ArrayList;
 
