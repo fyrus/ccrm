@@ -142,9 +142,12 @@ public class MainFrame extends JFrame implements ChatIF{
 				p1.setPphoto("cccc");
 				p1.setPprice(10);
 				
-				cmd.setComVal(c3);
+				Location l1 = new Location();
+				l1.setLid(Integer.parseInt(tfId.getText()));
+				
+				cmd.setComVal(l1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_CUSTOMER);
+				cmd.setComNum(Com.DELETE_LOCATION);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -164,8 +167,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				MarketingCampaign m1 = new MarketingCampaign();
 				Sale s1 = new Sale();
-				cmd.setComVal(c1);
-				cmd.setComNum(Com.SEARCH_CUSTOMER);
+				cmd.setComVal(l1);
+				cmd.setComNum(Com.SEARCH_LOCATION);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});

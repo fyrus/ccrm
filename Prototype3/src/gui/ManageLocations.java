@@ -16,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.JScrollBar;
@@ -39,10 +41,13 @@ import javax.swing.event.AncestorEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JComboBox;
+
 /**
  * @author Nastia
  *
  */
+
 public class ManageLocations extends JPanel implements ChatIF{
 
 	/**
@@ -52,6 +57,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 	public JButton btnCancel;
 	private JTextArea taLocation;
 	private ChatClient client;
+	private JComboBox<Location> cbLocation;
 
 	/**
 	 * Create the panel.
@@ -108,16 +114,16 @@ public class ManageLocations extends JPanel implements ChatIF{
 		btnDeleteLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String LocationNameToDelete = JOptionPane.showInputDialog("Enter Location Name:");
 				Command cmd = new Command();
 				Location l = new Location();
-				l.setLocation(LocationNameToDelete);
+				int dl = ((Location)cbLocation.getSelectedItem()).getLid();
+				l.setLid(dl);
 				
 				cmd.setComVal(l);
 				cmd.setComNum(Com.DELETE_LOCATION);
 
 				client.handleMessageFromClientUI(cmd);
-				JOptionPane.showMessageDialog(null, "Location"+LocationNameToDelete+" has been Deleted from Database.");
+				JOptionPane.showMessageDialog(null, "Location"+((Location)cbLocation.getSelectedItem()).getLocation()+" has been Deleted from Database.");
 			}
 		});
 		btnDeleteLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -137,6 +143,10 @@ public class ManageLocations extends JPanel implements ChatIF{
 		
 		taLocation = new JTextArea();
 		scrollPane.setViewportView(taLocation);
+		
+		cbLocation = new JComboBox<Location>();
+		cbLocation.setBounds(52, 379, 200, 50);
+		add(cbLocation);
 		
 		connect();// make connection
 		
@@ -168,9 +178,11 @@ public class ManageLocations extends JPanel implements ChatIF{
 		System.out.println("System msg: got location in ManageLocation");
 		StringBuilder sb = new StringBuilder();
 		if (message instanceof ArrayList<?>) {
+			cbLocation.removeAllItems();
 			for(Object key:((ArrayList<?>)message).toArray()){
 				if(key instanceof Location){
 					sb.append(((Location)key).getLocation() + "\n");
+					cbLocation.addItem(((Location)key));
 				}
 			}
 			
