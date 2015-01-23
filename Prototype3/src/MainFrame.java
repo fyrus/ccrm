@@ -143,7 +143,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				p1.setPprice(13);
 				
 				Location l1 = new Location();
-				l1.setLid(Integer.parseInt(tfId.getText()));
+				//l1.setLid(Integer.parseInt(tfId.getText()));
 				
 				cmd.setComVal(p1);
 				cmd.setComExtra(tfChangeid.getText(), null);
