@@ -3,6 +3,7 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -31,6 +32,9 @@ import entities.Permission;
 import entities.Product;
 import entities.RegisteredCustomer;
 import entities.Type;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Nastia
@@ -96,6 +100,30 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		add(lblChooseTypes);
 		
 		JButton btnAssign = new JButton("Assign");
+		btnAssign.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				product=(Product)prodComboBox.getSelectedItem();
+				type=(Type)typeComboBox.getSelectedItem();
+				if (product.getTid()!=0){
+					if (JOptionPane.showConfirmDialog(null, "The product allready assigned, continue anyway?", "product assign", JOptionPane.WARNING_MESSAGE)==JOptionPane.OK_OPTION){
+				product.setTid(type.getTid());
+				cmd=new Command(Com.UPDATE_PRODUCT,product);
+				cmd.setComExtra(""+product.getPid(), "");
+				client.handleMessageFromClientUI(cmd);
+				loadTypes();
+				loadProducts();
+					}
+				}
+				else{
+					product.setTid(type.getTid());
+					cmd=new Command(Com.UPDATE_PRODUCT,product);
+					cmd.setComExtra(""+product.getPid(), "");
+					client.handleMessageFromClientUI(cmd);
+					loadTypes();
+					loadProducts();
+				}
+			}
+		});
 		btnAssign.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAssign.setBackground(new Color(230, 230, 250));
 		btnAssign.setBounds(103, 297, 188, 36);
