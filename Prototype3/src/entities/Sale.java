@@ -3,6 +3,8 @@
  */
 package entities;
 
+import java.sql.Date;
+
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
@@ -20,7 +22,7 @@ public class Sale implements java.io.Serializable {
 	
 	private int Itemid;
 	private String Customerid;
-	private String SaleDate;
+	private Date SaleDate;
 	private String Comments;
 	private boolean Buy;
 	
@@ -30,7 +32,7 @@ public class Sale implements java.io.Serializable {
 	public Sale(){
 		Itemid=0;
 		Customerid="";
-		SaleDate="";
+		SaleDate=new Date(0);
 		Comments="";
 		Buy=false;
 	}
@@ -43,7 +45,7 @@ public class Sale implements java.io.Serializable {
 	 * @param Comments the product description
 	 * @param SaleDate the product price
 	 */
-	public Sale(int Itemid, String Customerid, String Comments, String SaleDate, boolean Buy){
+	public Sale(int Itemid, String Customerid, String Comments, Date SaleDate, boolean Buy){
 		this.Itemid=Itemid;
 		this.Customerid=Customerid;
 		this.Comments=Comments;
@@ -96,14 +98,14 @@ public class Sale implements java.io.Serializable {
 	/**
 	 * @return the product price
 	 */
-	public String getSaleDate() {
+	public Date getSaleDate() {
 		return SaleDate;
 	}
 
 	/**
 	 * @param SaleDate the product price to set
 	 */
-	public void setSaleDate(String SaleDate) {
+	public void setSaleDate(Date SaleDate) {
 		this.SaleDate = SaleDate;
 	}
 	

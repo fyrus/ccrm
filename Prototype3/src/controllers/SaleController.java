@@ -23,14 +23,6 @@ public class SaleController extends SuperController{
 		String insert = "INSERT INTO sales"
 				+ "(Itemid, Customerid, SaleDate, Comments, Buy) VALUES"
 				+ "(?,?,?,?,?)";
-		/*
-		private int Itemid;
-		private String Customerid;
-		private String SaleDate;
-		private String Comments;
-		private boolean Buy;
-		 */
-
 
 		Object []args = new Object[5];
 		args[0]=tSale.getItemid();
@@ -92,14 +84,6 @@ public class SaleController extends SuperController{
 				+ "AND Comments=ifnull(?,Comments) "
 				+ "AND Buy=ifnull(?,Buy) ";
 		
-		/*
-		private int Itemid;
-		private String Customerid;
-		private String SaleDate;
-		private String Comments;
-		private boolean Buy;
-		 */
-
 		Object []args = new Object[5];
 		args[0]=tmp.getItemid();
 		args[1]=tmp.getCustomerid();
@@ -119,7 +103,7 @@ public class SaleController extends SuperController{
 				Sale p = new Sale();
 				p.setItemid(resultSet.getInt("Itemid"));
 				p.setCustomerid(resultSet.getString("Customerid"));
-				p.setSaleDate(resultSet.getString("SaleDate"));
+				p.setSaleDate(resultSet.getDate("SaleDate"));
 				p.setComments(resultSet.getString("Comments"));
 				p.setBuy(resultSet.getBoolean("Buy"));
 				customerList.add(p);
