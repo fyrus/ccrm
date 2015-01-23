@@ -13,6 +13,8 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -21,10 +23,13 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 
 import common.ChatIF;
+import common.Com;
 import common.Command;
 import client.ChatClient;
 import entities.Domain;
+import entities.Permission;
 import entities.Product;
+import entities.RegisteredCustomer;
 import entities.Type;
 
 /**
@@ -55,6 +60,19 @@ public class AssignProductToType extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public AssignProductToType() {
+		
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				
+				loadProducts();
+				loadTypes();
+
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -98,14 +116,17 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		add(typeComboBox);
 
 		connect();
-		loadProducts();
-		loadTypes();
+		
 	}
 	private void loadProducts(){
-		
+		prodComboBox.removeAllItems();
+		cmd=new Command(Com.SEARCH_PRODUCT,new Product());
+		client.handleMessageFromClientUI(cmd);
 	}
 	private void loadTypes(){
-		
+		typeComboBox.removeAllItems();
+		cmd=new Command(Com.SEARCH_TYPE,new Type());
+		client.handleMessageFromClientUI(cmd);
 	}
 	
 	private void connect(){
