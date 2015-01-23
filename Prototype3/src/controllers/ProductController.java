@@ -22,7 +22,7 @@ public class ProductController extends SuperController{
 
 		String insert = "INSERT INTO Product"
 				+ "(Pname,Pdesc,Pphoto,Pprice,Tid) VALUES"
-				+ "(?,?,?,?)";
+				+ "(?,?,?,?,?)";
 		
 		Product tmp = new Product();
 		tmp.setPid(tProduct.getPid());
@@ -38,7 +38,7 @@ public class ProductController extends SuperController{
 			args[1]=tProduct.getPdescription();
 			args[2]=tProduct.getPphoto();
 			args[3]=tProduct.getPprice();
-			args[3]=tProduct.getTid();
+			args[4]=tProduct.getTid();
 			
 			if(superAddToDB(insert,args))
 				System.out.println("Product with id " + tProduct.getPid() + " was added");

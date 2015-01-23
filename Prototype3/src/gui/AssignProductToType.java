@@ -64,9 +64,9 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				
-				loadProducts();
+				
 				loadTypes();
-
+				loadProducts();
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -156,7 +156,7 @@ public class AssignProductToType extends JPanel implements ChatIF{
 				if(key instanceof Type){
 					typeComboBox.addItem((Type)key);
 				}
-				else if(key instanceof Product){
+				if(key instanceof Product){
 					prodComboBox.addItem((Product)key);
 				}
 			
