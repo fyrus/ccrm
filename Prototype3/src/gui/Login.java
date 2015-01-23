@@ -36,23 +36,33 @@ public class Login extends JPanel implements ChatIF{
 	/**
 	 * Default port to connect
 	 */
-	final public static int D_PORT = 5555;
+	public static final int D_PORT = 5555;
 	
 	private static final long serialVersionUID = -1310427259136359271L;
-	private JPanel frame;
-	private static ChatClient client;
+	
 	public JTextField textFieldName;
-	private JTextField textField_1;
-	private JLabel lblPassword;
 	public JButton btnLogin;
 	public JLabel lblNoSuchUser;
+	public JLabel lblPasswordIsIncorrect;
+	/**
+	 * The IP address of the server
+	 */
 	public static String IP;
 	/**
 	 * the current user of system
 	 */
 	public static User user;
+	
+	private JPanel frame;
+	private ChatClient client;
+	private JTextField textField_1;
+	private JLabel lblPassword;
+	
 	private Command cmd;
-	public JLabel lblPasswordIsIncorrect;
+	
+	
+	
+	
 	
 
 	/**
@@ -82,13 +92,7 @@ public class Login extends JPanel implements ChatIF{
 	    }
 		System.out.println("System msg: Client connected successfully.");
 	}
-	/**
-	 * Gets the client connection
-	 * @return client
-	 */
-	public static ChatClient getClient(){
-		return client;
-	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -191,20 +195,6 @@ public class Login extends JPanel implements ChatIF{
 		if (message instanceof ArrayList<?>)
 			if (((ArrayList<?>)message).get(0) instanceof User)
 				user=new User(((ArrayList<User>) message).get(0));
-		//System.out.println("System msg: got user in login");
-		//System.out.println(user.getName());
-		//System.out.println(user.getPassword());
-		//System.out.println(user.getRole());
-		
-		if (message instanceof ArrayList<?>) {
-			for(Object key:((ArrayList<?>)message).toArray()){
-				if(key instanceof Location){
-					System.out.println("System msg: got Location in login");
-				}
-			}
-			
-			
-		}
-		
+				
 	}
 }
