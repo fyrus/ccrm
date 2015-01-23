@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2015 at 06:19 PM
+-- Generation Time: Jan 23, 2015 at 09:02 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -180,7 +180,21 @@ CREATE TABLE IF NOT EXISTS `market_segment` (
   `Locationid` int(11) DEFAULT NULL,
   `Importance` int(11) DEFAULT NULL,
   `Interest` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `market_segment`
+--
+
+INSERT INTO `market_segment` (`Segmentid`, `Age`, `Locationid`, `Importance`, `Interest`) VALUES
+(2, 12, 1, 1, 1),
+(3, 12, 1, 1, 1),
+(4, 12, 1, 1, 1),
+(5, 12, 1, 1, 1),
+(6, 12, 1, 1, 1),
+(7, 12, 1, 1, 1),
+(8, 12, 1, 1, 1),
+(9, 12, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -214,21 +228,40 @@ CREATE TABLE IF NOT EXISTS `product` (
   `Pname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pdesc` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pphoto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Pprice` float DEFAULT NULL,
-  `Tid` int(11) DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+  `Pprice` float DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`, `Tid`) VALUES
-(2, 'cola', 'very yummy', 'c:\\cola.jpg', 12.5, 0),
-(3, 'aaa', 'fff', 'cccc', 10, 0),
-(4, 'aaa', 'fff', 'cccc', 10, 0),
-(5, 'aaa', 'fff', 'cccc', 10, 0),
-(6, 'aaa', 'fff', 'cccc', 10, 0),
-(7, 'aaa', 'fff', 'cccc', 10, 0);
+INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`) VALUES
+(2, 'aaa44', 'fff44', 'bbbbb', 13),
+(3, 'aaa', 'fff', 'cccc', 10),
+(4, 'aaa', 'fff', 'cccc', 10),
+(5, 'aaa', 'fff', 'cccc', 10),
+(6, 'aaa', 'fff', 'cccc', 10),
+(7, 'aaa', 'fff', 'cccc', 10),
+(8, 'aaa44', 'fff44', 'ccc44c', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_type`
+--
+
+DROP TABLE IF EXISTS `product_type`;
+CREATE TABLE IF NOT EXISTS `product_type` (
+  `Productid` int(11) DEFAULT NULL,
+  `Typeid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`Productid`, `Typeid`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -395,7 +428,7 @@ ALTER TABLE `permission`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
- ADD PRIMARY KEY (`Pid`), ADD KEY `FKProduct418308` (`Tid`);
+ ADD PRIMARY KEY (`Pid`);
 
 --
 -- Indexes for table `registeredcustomer`
@@ -448,7 +481,7 @@ MODIFY `Patterid` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `market_segment`
 --
 ALTER TABLE `market_segment`
-MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `permission`
 --
@@ -458,7 +491,7 @@ MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `type`
 --

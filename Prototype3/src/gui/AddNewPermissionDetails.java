@@ -164,6 +164,7 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				Domain domain = new Domain();
 				cmd.setComVal(domain);
 				cmd.setComNum(Com.SEARCH_DOMAIN);
+				System.out.println("addNewPerm");
 				client.handleMessageFromClientUI(cmd);
 
 			}

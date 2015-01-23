@@ -145,7 +145,9 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 	private void loadDomains(){
 		comboBox.removeAllItems();
 		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
+		System.out.println("addNewType");
 		client.handleMessageFromClientUI(cmd);
+		
 	}
 	// make a connection to server
 	private void connect(){

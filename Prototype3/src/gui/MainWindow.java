@@ -40,6 +40,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private EditCatalog editCatalog;
+	private Catalog catalog;
 	private ActivateMarketingCampaign activateMarketingCampaign;
 	private AddNewCampaignMarketingPattern addNewCampaignMarketingPattern;
 	private AddNewPermissionDetails addNewPermissionDetails;
@@ -175,6 +176,7 @@ public class MainWindow extends JFrame implements ChatIF{
 		
 		contentPane = new JPanel();
 		editCatalog = new EditCatalog();
+		catalog=new Catalog();
 		activateMarketingCampaign = new ActivateMarketingCampaign();
 		addNewCampaignMarketingPattern = new AddNewCampaignMarketingPattern();
 		addNewPermissionDetails = new AddNewPermissionDetails();
@@ -469,6 +471,12 @@ public class MainWindow extends JFrame implements ChatIF{
 				setContentPane(editCatalog);
 				setVisible(true);
 				
+			}
+		});
+		editCatalog.btnViewCatalog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setContentPane(catalog);
+				setVisible(true);
 			}
 		});
 		addNewPotentialCustomer.btnCancel.addActionListener(new ActionListener() {

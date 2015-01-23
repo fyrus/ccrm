@@ -80,6 +80,10 @@ public class EditCatalog extends JPanel {
 		add(btnAddNewDomain);
 		
 		btnViewCatalog = new JButton("View Catalog");
+		btnViewCatalog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnViewCatalog.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnViewCatalog.setBackground(new Color(230, 230, 250));
 		btnViewCatalog.setBounds(417, 187, 188, 36);

@@ -77,11 +77,9 @@ public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 				}
 				else
 				{
-					System.out.println("Log: before new domain");
+					
 					domain=new Domain();
-					System.out.println("Log: after new domain");
 					domain.setdName(tfdName.getText());
-					System.out.println("Log: after set name");
 					cmd=new Command(Com.ADD_DOMAIN,domain);
 					client.handleMessageFromClientUI(cmd);
 					
