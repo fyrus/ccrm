@@ -310,6 +310,20 @@ public class EchoServer extends AbstractServer {
 			this.sendToClient(list, client);
 			break;
 			//---MarketSegment end---
+			
+			//---ProductType---
+		case ADD_PRODUCTTYPE:
+			action="'add ProductType'";
+			System.out.println("Message received: " + action + " from " + client);
+			ProductTypeController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_PRODUCTTYPE:
+			action="'search ProductType'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) ProductTypeController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+			//---ProductType end---
 
 
 		default:
