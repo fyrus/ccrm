@@ -13,7 +13,6 @@ import java.awt.Font;
 
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -33,9 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
 
 /**
  * @author Nastia
@@ -49,19 +46,13 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	public JButton btnCancel;
 	public JButton btnAdd;
 	private ChatClient client;
-	private JComboBox<Domain> cbDomainId;
-	private JComboBox<RegisteredCustomer> cbRegisteredCustomerId;
-	private JTextArea taSelectedCustomerDetails;
-	private JScrollPane scrollPane;
-
-
+	private JComboBox<Domain> cbDomainName; //domain names in combo box
+	private JComboBox<RegisteredCustomer> cbRegisteredCustomerId;//customer id's in combo box
+	
 	private int domainLen;
 	private ArrayList<Domain> domainList;
 	private int registeredCustomerLen;
 	private ArrayList<RegisteredCustomer> registeredCustomerList;
-
-
-
 
 
 	/**
@@ -69,34 +60,8 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	 */
 	public AddNewPermissionDetails() {
 
-		addAncestorListener(new AncestorListener() {
-			public void ancestorAdded(AncestorEvent arg0) {
-				
-				cbDomainId.removeAllItems();
-				cbRegisteredCustomerId.removeAllItems();
-				
-				Command cmd = new Command();
-				Permission p = new Permission();
-				cmd.setComVal(p);
-				cmd.setComNum(Com.SEARCH_PERMISSION);
-				client.handleMessageFromClientUI(cmd);
-
-				RegisteredCustomer rc = new RegisteredCustomer();
-				cmd.setComVal(rc);
-				cmd.setComNum(Com.SEARCH_REGISTEREDCUSTOMER);
-				client.handleMessageFromClientUI(cmd);
-
-				Domain domain = new Domain();
-				cmd.setComVal(domain);
-				cmd.setComNum(Com.SEARCH_DOMAIN);
-				client.handleMessageFromClientUI(cmd);
-
-			}
-			public void ancestorMoved(AncestorEvent arg0) {
-			}
-			public void ancestorRemoved(AncestorEvent arg0) {
-			}
-		});
+		
+		LoadData();
 
 
 
@@ -113,14 +78,22 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		JLabel lblCustomerId = new JLabel("Choose Customer ID:");
 		lblCustomerId.setForeground(Color.WHITE);
 		lblCustomerId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCustomerId.setBounds(98, 72, 167, 16);
+		lblCustomerId.setBounds(103, 129, 167, 16);
 		add(lblCustomerId);
 
-		JLabel lblPermissionDomainId = new JLabel("Choose Domain For Permission:");
-		lblPermissionDomainId.setForeground(Color.WHITE);
-		lblPermissionDomainId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPermissionDomainId.setBounds(41, 251, 224, 16);
-		add(lblPermissionDomainId);
+		JLabel lblPermissionDomainName = new JLabel("Choose Domain For Permission:");
+		lblPermissionDomainName.setForeground(Color.WHITE);
+		lblPermissionDomainName.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPermissionDomainName.setBounds(46, 186, 224, 16);
+		add(lblPermissionDomainName);
+		
+		cbDomainName = new JComboBox<Domain>();
+		cbDomainName.setBounds(282, 184, 179, 22);
+		add(cbDomainName);
+
+		cbRegisteredCustomerId = new JComboBox<RegisteredCustomer>();
+		cbRegisteredCustomerId.setBounds(282, 127, 179, 22);
+		add(cbRegisteredCustomerId);
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -138,29 +111,23 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 			public void actionPerformed(ActionEvent arg0) {
 
 				Command cmd = new Command();
-				Permission p = new Permission();
-				//p.setCid(cid);
+				Permission permission = new Permission();
 
 				for(int i=0;i<domainLen;i++)
-					if (domainList.get(i).getdName().equals(cbDomainId.getSelectedItem())) 
-						p.setDid(domainList.get(i).getDid());
+					if (domainList.get(i).getdName().equals(cbDomainName.getSelectedItem())) 
+						permission.setDid(domainList.get(i).getDid());
 
 				for(int i=0;i<registeredCustomerLen;i++)
 					if (registeredCustomerList.get(i).getcId().equals(cbRegisteredCustomerId.getSelectedItem())) 
-					{
-						p.setCid(Integer.parseInt(registeredCustomerList.get(i).getcId()));
-					}
+						permission.setCid(Integer.parseInt(registeredCustomerList.get(i).getcId()));
 
-
-
-
-
-				//p.setPid(cbDomainId.getSelectedItem().);
-				cmd.setComVal(p);
+				cmd.setComVal(permission);
 				cmd.setComNum(Com.ADD_PERMISSION);
 
 				client.handleMessageFromClientUI(cmd);
 				JOptionPane.showMessageDialog(null, "New Permission has been added to Database.");
+				LoadData();
+				
 
 
 			}
@@ -170,25 +137,41 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 
-		cbDomainId = new JComboBox<Domain>();
-		cbDomainId.setBounds(286, 249, 179, 22);
-		add(cbDomainId);
-
-		cbRegisteredCustomerId = new JComboBox<RegisteredCustomer>();
-		cbRegisteredCustomerId.setBounds(277, 70, 179, 22);
-		add(cbRegisteredCustomerId);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(204, 133, 238, 91);
-		add(scrollPane);
-		
-		taSelectedCustomerDetails = new JTextArea();
-		scrollPane.setViewportView(taSelectedCustomerDetails);
-
 
 		connect();
 
 
+	}
+	
+	private void LoadData(){
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				
+				cbDomainName.removeAllItems();
+				cbRegisteredCustomerId.removeAllItems();
+				
+				Command cmd = new Command();
+				Permission permission = new Permission();
+				cmd.setComVal(permission);
+				cmd.setComNum(Com.SEARCH_PERMISSION);
+				client.handleMessageFromClientUI(cmd);
+
+				RegisteredCustomer registeredCustomer = new RegisteredCustomer();
+				cmd.setComVal(registeredCustomer);
+				cmd.setComNum(Com.SEARCH_REGISTEREDCUSTOMER);
+				client.handleMessageFromClientUI(cmd);
+
+				Domain domain = new Domain();
+				cmd.setComVal(domain);
+				cmd.setComNum(Com.SEARCH_DOMAIN);
+				client.handleMessageFromClientUI(cmd);
+
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 	}
 
 
@@ -221,9 +204,11 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		if (message instanceof ArrayList<?>) {
 			for(Object key:((ArrayList<?>)message).toArray()){
 				if(key instanceof Domain){
-					cbDomainId.addItem(((Domain)key));
+					//insert domains to comboBox
+					cbDomainName.addItem(((Domain)key));
 				}
 				if(key instanceof RegisteredCustomer){
+					//insert customer id's to comboBox
 					cbRegisteredCustomerId.addItem(((RegisteredCustomer)key));
 					
 					
