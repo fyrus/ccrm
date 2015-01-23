@@ -114,5 +114,8 @@ public class Customer implements java.io.Serializable{
 		this.cPhone = cPhone;
 	}
 	
-
+	@Override
+	public String toString() {
+		return getcId();
+	}
 }

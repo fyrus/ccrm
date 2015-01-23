@@ -68,5 +68,9 @@ public class RegisteredCustomer extends Customer{
 	public int getPermission(){
 		return this.Permissions;
 	}
+	@Override
+	public String toString() {
+		return getcId();
+	}
 	
 }

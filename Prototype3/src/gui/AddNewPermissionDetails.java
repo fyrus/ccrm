@@ -22,9 +22,11 @@ import client.ChatClient;
 import common.ChatIF;
 import common.Com;
 import common.Command;
+import entities.Customer;
 import entities.Domain;
 import entities.Location;
 import entities.Permission;
+import entities.RegisteredCustomer;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -43,17 +45,20 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tfcID;
 	private JTextField tfpID;
 	public JButton btnCancel;
 	public JButton btnAdd;
 	private ChatClient client;
-	private JComboBox cbDomainId;
+	private JComboBox<Domain> cbDomainId;
+	private JComboBox<RegisteredCustomer> cbRegisteredCustomerId;
 
 	
 	
 	private int domainLen;
 	private ArrayList<Domain> domainList;
+	private int registeredCustomerLen;
+	private ArrayList<RegisteredCustomer> registeredCustomerList;
+
 
 
 	
@@ -69,8 +74,18 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				Permission p = new Permission();
 				cmd.setComVal(p);
 				cmd.setComNum(Com.SEARCH_PERMISSION);
-				
 				client.handleMessageFromClientUI(cmd);
+				
+				RegisteredCustomer rc = new RegisteredCustomer();
+				cmd.setComVal(rc);
+				cmd.setComNum(Com.SEARCH_REGISTEREDCUSTOMER);
+				client.handleMessageFromClientUI(cmd);
+				
+				Domain domain = new Domain();
+				cmd.setComVal(domain);
+				cmd.setComNum(Com.SEARCH_DOMAIN);
+				client.handleMessageFromClientUI(cmd);
+				
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -108,11 +123,6 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		lblPermissionDomainId.setBounds(78, 151, 173, 16);
 		add(lblPermissionDomainId);
 		
-		tfcID = new JTextField();
-		tfcID.setBounds(263, 105, 179, 22);
-		add(tfcID);
-		tfcID.setColumns(10);
-		
 		tfpID = new JTextField();
 		tfpID.setBounds(263, 65, 179, 22);
 		add(tfpID);
@@ -121,7 +131,7 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tfcID.setText("");
+				
 				tfpID.setText("");
 			}
 		});
@@ -137,7 +147,19 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				Command cmd = new Command();
 				Permission p = new Permission();
 				//p.setCid(cid);
-				//p.setDid(did);
+
+				for(int i=0;i<domainLen;i++)
+					if (domainList.get(i).getdName().equals(cbDomainId.getSelectedItem())) 
+						p.setDid(domainList.get(i).getDid());
+				
+				for(int i=0;i<registeredCustomerLen;i++)
+					if (registeredCustomerList.get(i).getcId().equals(cbRegisteredCustomerId.getSelectedItem())) 
+						p.setCid(Integer.parseInt(registeredCustomerList.get(i).getcId()));
+				
+				
+				
+				
+				
 				//p.setPid(cbDomainId.getSelectedItem().);
 				cmd.setComVal(p);
 				cmd.setComNum(Com.ADD_PERMISSION);
@@ -153,22 +175,21 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
 		
-		cbDomainId = new JComboBox();
+		cbDomainId = new JComboBox<Domain>();
 		cbDomainId.setBounds(263, 149, 179, 22);
 		add(cbDomainId);
 		
+		cbRegisteredCustomerId = new JComboBox<RegisteredCustomer>();
+		cbRegisteredCustomerId.setBounds(263, 105, 179, 22);
+		add(cbRegisteredCustomerId);
+		
 		
 		connect();
-		loadDomains();
-
-	}
-
 	
-	private void loadDomains(){
-		cbDomainId.removeAllItems();
-		Command cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
-		client.handleMessageFromClientUI(cmd);
+
 	}
+
+
 	
 	
 	// make a connection to server
@@ -191,16 +212,24 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	/* (non-Javadoc)
 	 * @see common.ChatIF#display(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public void display(Object message) {
 		// TODO Auto-generated method stub
-		if (message instanceof ArrayList<?>)
-			if (((ArrayList<?>)message).get(0) instanceof Domain){
-				domainList=new ArrayList<Domain>((ArrayList<Domain>)message);
-				domainLen=domainList.size();
-				for (int i=0;i<domainLen;i++)
-					cbDomainId.addItem(domainList.get(i).getdName());
+		if (message instanceof ArrayList<?>) {
+			cbDomainId.removeAllItems();
+			cbRegisteredCustomerId.removeAllItems();
+			for(Object key:((ArrayList<?>)message).toArray()){
+				if(key instanceof Domain){
+					cbDomainId.addItem(((Domain)key));
 				}
+				if(key instanceof RegisteredCustomer){
+					RegisteredCustomer rc = (RegisteredCustomer)key;
+					cbRegisteredCustomerId.addItem(rc);
+				}
+				
+			}
+			
+		}
 		}
 	}

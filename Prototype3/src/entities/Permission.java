@@ -3,6 +3,8 @@
  */
 package entities;
 
+import java.util.List;
+
 /**
  * This is the permission class
  * @author Yossi
@@ -16,6 +18,8 @@ public class Permission implements java.io.Serializable {
 	private int pid;
 	private int cid;
 	private int did;
+	private List<Customer> customerList;
+
 	
 	/**
 	 * empty constructor
@@ -24,6 +28,7 @@ public class Permission implements java.io.Serializable {
 		pid=0;
 		cid=0;
 		did=0;
+		this.customerList=null;
 	}
 	
 	

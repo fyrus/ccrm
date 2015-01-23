@@ -89,5 +89,10 @@ public class Domain implements java.io.Serializable{
 		this.typeList = typeList;
 	}
 	
+	@Override
+	public String toString() {
+		return getdName();
+	}
+	
 
 }
