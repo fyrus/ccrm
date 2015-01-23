@@ -27,6 +27,8 @@ import sun.util.calendar.CalendarUtils;
 import javax.swing.text.DateFormatter;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import client.ChatClient;
 
@@ -74,6 +76,17 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	private ArrayList<CampaignMarketingPattern> campaignMarketingPatternList;
 	
 	public ActivateMarketingCampaign() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setLayout(null);
 		setBackground(Color.GRAY);
@@ -170,7 +183,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		add(comboBox);
 		
 		
-		connect();
+		
 		
 
 	}

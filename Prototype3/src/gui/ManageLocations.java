@@ -63,8 +63,10 @@ public class ManageLocations extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public ManageLocations() {
+		
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
 				Command cmd = new Command();
 				Location l = new Location();
 				cmd.setComVal(l);
@@ -148,7 +150,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 		cbLocation.setBounds(52, 379, 200, 50);
 		add(cbLocation);
 		
-		connect();// make connection
+		
 		
 	}
 	/**

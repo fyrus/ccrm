@@ -60,8 +60,19 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public NewSalesManEvent() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				LoadData();
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 
-		LoadData();
+		
 
 		setSize(new Dimension(700, 380));
 		setBackground(Color.GRAY);
@@ -146,7 +157,7 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 		cbProductName.setBounds(189, 109, 116, 22);
 		add(cbProductName);
 
-		connect();
+		
 
 
 	}
@@ -175,8 +186,7 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 	}
 
 	private void LoadData(){
-		addAncestorListener(new AncestorListener() {
-			public void ancestorAdded(AncestorEvent arg0) {
+		
 
 				cbCustomerId.removeAllItems();
 				cbProductName.removeAllItems();
@@ -199,12 +209,7 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 				client.handleMessageFromClientUI(cmd);
 
 
-			}
-			public void ancestorMoved(AncestorEvent arg0) {
-			}
-			public void ancestorRemoved(AncestorEvent arg0) {
-			}
-		});
+			
 	}
 
 

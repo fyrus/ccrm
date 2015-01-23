@@ -99,6 +99,7 @@ public class Client extends JFrame{
 		panel = new JPanel();
 		panel.setLayout(null);
 		login=new Login();
+		Login.gotip=false;
 		mw=new MainWindow();
 		JButton btnConnect = new JButton("Connect");
 		btnConnect.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));

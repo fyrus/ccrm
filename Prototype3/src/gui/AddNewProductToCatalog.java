@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import common.ChatIF;
 import common.Com;
@@ -72,6 +74,17 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 	
 	
 	public AddNewProductToCatalog() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -208,7 +221,7 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		btnBrowse.setBounds(500, 82, 116, 25);
 		add(btnBrowse);
 		
-		connect();
+		
 
 	}
 	

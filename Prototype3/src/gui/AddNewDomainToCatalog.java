@@ -14,6 +14,8 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.JTextField;
 
 import client.ChatClient;
@@ -47,6 +49,17 @@ public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public AddNewDomainToCatalog() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -106,7 +119,7 @@ public class AddNewDomainToCatalog extends JPanel implements ChatIF{
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
 
-		connect();
+		
 	}
 	
 private void connect(){

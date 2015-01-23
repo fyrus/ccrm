@@ -48,6 +48,7 @@ public class Login extends JPanel implements ChatIF{
 	 * The IP address of the server
 	 */
 	public static String IP;
+	public static boolean gotip;
 	/**
 	 * the current user of system
 	 */
@@ -80,6 +81,7 @@ public class Login extends JPanel implements ChatIF{
 	 */
 	public void connect(String ip){
 		Login.IP=ip;
+		Login.gotip=true;
 		try 
 	    {
 	      client= new ChatClient(IP,D_PORT,this);

@@ -10,6 +10,8 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -58,6 +60,17 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public AddNewTypeToCatalog() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				loadDomains();
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -129,23 +142,15 @@ public class AddNewTypeToCatalog extends JPanel implements ChatIF{
 		lblChooseDomain.setBounds(181, 112, 126, 16);
 		add(lblChooseDomain);
 		
-		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loadDomains();
-			}
-		});
-		btnRefresh.setBounds(530, 111, 81, 23);
-		add(btnRefresh);
-		connect();
-		loadDomains();
+		
+		
 		
 	}
 	//send a request to server for all domains 
 	private void loadDomains(){
 		comboBox.removeAllItems();
 		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
-		System.out.println("addNewType");
+		
 		client.handleMessageFromClientUI(cmd);
 		
 	}

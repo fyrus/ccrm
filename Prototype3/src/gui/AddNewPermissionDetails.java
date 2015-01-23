@@ -60,9 +60,19 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	 */
 	public AddNewPermissionDetails() {
 
-		
-		LoadData();
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				LoadData();
 
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
+		
 
 
 		setSize(new Dimension(700, 480));
@@ -138,14 +148,13 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		add(btnAdd);
 
 
-		connect();
+		
 
 
 	}
 	
 	private void LoadData(){
-		addAncestorListener(new AncestorListener() {
-			public void ancestorAdded(AncestorEvent arg0) {
+		
 				
 				cbDomainName.removeAllItems();
 				cbRegisteredCustomerId.removeAllItems();
@@ -164,15 +173,9 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				Domain domain = new Domain();
 				cmd.setComVal(domain);
 				cmd.setComNum(Com.SEARCH_DOMAIN);
-				System.out.println("addNewPerm");
 				client.handleMessageFromClientUI(cmd);
 
-			}
-			public void ancestorMoved(AncestorEvent arg0) {
-			}
-			public void ancestorRemoved(AncestorEvent arg0) {
-			}
-		});
+			
 	}
 
 
@@ -183,6 +186,7 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 
 		try 
 		{
+			
 			client= new ChatClient(Login.IP,Login.D_PORT,this);
 		} 
 		catch(IOException exception) 
@@ -207,6 +211,7 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				if(key instanceof Domain){
 					//insert domains to comboBox
 					cbDomainName.addItem(((Domain)key));
+					System.out.println("got domain in add new permit");
 				}
 				if(key instanceof RegisteredCustomer){
 					//insert customer id's to comboBox

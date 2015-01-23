@@ -59,8 +59,19 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	 * Create the panel.
 	 */
 	public AddNewMarketSegment() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				LoadData();
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		
-		LoadData();
+		
 
 		
 		setSize(new Dimension(700, 480));
@@ -169,13 +180,12 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		
 		
 		
-		connect();
+		
 
 	}
 
 	private void LoadData(){
-		addAncestorListener(new AncestorListener() {
-			public void ancestorAdded(AncestorEvent arg0) {
+		
 
 				cbLocation.removeAllItems();
 				cbPermissions.removeAllItems();
@@ -192,13 +202,6 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				cmd.setComNum(Com.SEARCH_PERMISSION);
 				client.handleMessageFromClientUI(cmd);
 
-
-			}
-			public void ancestorMoved(AncestorEvent arg0) {
-			}
-			public void ancestorRemoved(AncestorEvent arg0) {
-			}
-		});
 	}
 
 

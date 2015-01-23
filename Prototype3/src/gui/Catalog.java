@@ -68,7 +68,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
-				
+				if (client==null) connect();
 				
 				loadTypes();
 				loadProducts();
@@ -157,12 +157,12 @@ public class Catalog extends JPanel implements ChatIF{
 		lblProductPicture.setBounds(440, 157, 153, 23);
 		add(lblProductPicture);
 
-		connect();
+		
 		
 	}
 	private void loadProducts(){
 		domainComboBox.removeAllItems();
-		System.out.println("catalog");
+		
 		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
 		client.handleMessageFromClientUI(cmd);
 	}
@@ -176,6 +176,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		try 
 	    {
+			
 	      client= new ChatClient(Login.IP,Login.D_PORT,this);
 	    } 
 	    catch(IOException exception) 

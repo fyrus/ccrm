@@ -67,7 +67,7 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
-				
+				if (client==null) connect();
 				
 				loadTypes();
 				loadProducts();
@@ -128,7 +128,7 @@ public class AssignProductToType extends JPanel implements ChatIF{
 		typeComboBox.setBounds(305, 184, 153, 25);
 		add(typeComboBox);
 
-		connect();
+		
 		
 	}
 	private void loadProducts(){

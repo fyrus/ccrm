@@ -64,8 +64,19 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	 * Create the panel.
 	 */
 	public AddNewPotentialCustomer() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				LoadData();
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		
-		LoadData();
+		
 		
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
@@ -190,12 +201,11 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		cbCustomerLocation.setBounds(433, 155, 142, 22);
 		add(cbCustomerLocation);
 		
-		connect();
+		
 	}
 	
 	private void LoadData(){
-		addAncestorListener(new AncestorListener() {
-			public void ancestorAdded(AncestorEvent arg0) {
+		
 
 				cbCustomerLocation.removeAllItems();
 
@@ -207,12 +217,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 				client.handleMessageFromClientUI(cmd);
 
 
-			}
-			public void ancestorMoved(AncestorEvent arg0) {
-			}
-			public void ancestorRemoved(AncestorEvent arg0) {
-			}
-		});
+			
 	}
 	
 	/**
