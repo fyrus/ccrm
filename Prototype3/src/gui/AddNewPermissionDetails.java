@@ -136,9 +136,9 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				
 				Command cmd = new Command();
 				Permission p = new Permission();
-				p.setCid(cid);
-				p.setDid(did);
-				p.setPid(cbDomainId.getSelectedItem().);
+				//p.setCid(cid);
+				//p.setDid(did);
+				//p.setPid(cbDomainId.getSelectedItem().);
 				cmd.setComVal(p);
 				cmd.setComNum(Com.ADD_PERMISSION);
 

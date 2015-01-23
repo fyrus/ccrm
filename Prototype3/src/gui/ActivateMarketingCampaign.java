@@ -121,8 +121,8 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 				else
 				{
 					marketingCampaign=new MarketingCampaign();
-					marketingCampaign.setStartdate(dcStartDate.getDateFormatString());
-					marketingCampaign.setEnddate(dcEndDate.getDateFormatString());
+					marketingCampaign.setStartdate(new Date(dcStartDate.getDate().getTime()));
+					marketingCampaign.setEnddate(new Date(dcEndDate.getDate().getTime()));
 					
 					for(int i=0;i<campaignMarketingPatternLen;i++)
 						if (campaignMarketingPatternList.get(i).equals(comboBox.getSelectedItem()))

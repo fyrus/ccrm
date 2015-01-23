@@ -17,7 +17,7 @@ public class Location implements java.io.Serializable {
 	private static final long serialVersionUID = 9063762680653706777L;
 	private int lid;
 	private String location;
-	
+
 	/**
 	 * Empty constructor
 	 */
@@ -25,7 +25,7 @@ public class Location implements java.io.Serializable {
 		lid=0;
 		location="";
 	}
-	
+
 	/**
 	 * constructor with:
 	 * @param lid the location id
@@ -60,5 +60,9 @@ public class Location implements java.io.Serializable {
 		this.location = location;
 	}
 
+	@Override
+	public String toString() {
+		return getLocation();
+	}
 
 }
