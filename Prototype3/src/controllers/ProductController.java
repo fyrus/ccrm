@@ -21,7 +21,7 @@ public class ProductController extends SuperController{
 		Product tProduct = (Product)value;
 
 		String insert = "INSERT INTO Product"
-				+ "(Pname,Pdesc,Pphoto,Pprice) VALUES"
+				+ "(Pname,Pdesc,Pphoto,Pprice,Tid) VALUES"
 				+ "(?,?,?,?)";
 		
 		Product tmp = new Product();
@@ -33,11 +33,12 @@ public class ProductController extends SuperController{
 			System.out.println("Product with id " + tProduct.getPid() + " already exists");
 		}
 		else{
-			Object []args = new Object[4];
+			Object []args = new Object[5];
 			args[0]=tProduct.getPname();
 			args[1]=tProduct.getPdescription();
 			args[2]=tProduct.getPphoto();
 			args[3]=tProduct.getPprice();
+			args[3]=tProduct.getTid();
 			
 			if(superAddToDB(insert,args))
 				System.out.println("Product with id " + tProduct.getPid() + " was added");
@@ -89,14 +90,16 @@ public class ProductController extends SuperController{
 				+ "AND Pname=ifnull(?,Pname) "
 				+ "AND Pdesc=ifnull(?,Pdesc) "
 				+ "AND Pphoto=ifnull(?,Pphoto) "
-				+ "AND Pprice=ifnull(?,Pprice) ";
+				+ "AND Pprice=ifnull(?,Pprice) "
+				+ "AND Tid=ifnull(?,Tid) ";
 
-		Object []args = new Object[5];
+		Object []args = new Object[6];
 		args[0]=tmp.getPid();
 		args[1]=tmp.getPname();
 		args[2]=tmp.getPdescription();
 		args[3]=tmp.getPphoto();
 		args[4]=tmp.getPprice();
+		args[5]=tmp.getTid();
 		
 		ResultSet resultSet;
 		
@@ -111,6 +114,7 @@ public class ProductController extends SuperController{
 				p.setPdescription(resultSet.getString("Pdesc"));
 				p.setPphoto(resultSet.getString("Pphoto"));
 				p.setPprice(resultSet.getFloat("Pprice"));
+				p.setTid(resultSet.getInt("Tid"));
 				ProductList.add(p);
 			}
 			return ProductList;
@@ -127,7 +131,7 @@ public class ProductController extends SuperController{
 			return;
 		Product tProduct = (Product)value;
 		String update = "UPDATE Product "
-				+ "SET Pid=? ,Pname=? ,Pdesc=? ,Pphoto=? ,Pprice=?"
+				+ "SET Pid=? ,Pname=? ,Pdesc=? ,Pphoto=? ,Pprice=? ,Tid=?"
 				+ "WHERE Pid=?";
 		Product tmp = new Product();
 		tmp.setPid(id);
@@ -137,13 +141,14 @@ public class ProductController extends SuperController{
 			System.out.println("Product with id " + tProduct.getPid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[6];
+			Object []args = new Object[7];
 			args[0]=tmp.getPid();
 			args[1]=tmp.getPname();
 			args[2]=tmp.getPdescription();
 			args[3]=tmp.getPphoto();
 			args[4]=tmp.getPprice();
-			args[5]=id;
+			args[5]=tmp.getTid();
+			args[6]=id;
 			if(superUpdateDb(update,args))
 				System.out.println("Product with id " + tProduct.getPid() + " was updated");
 			else

@@ -24,7 +24,7 @@ import dbconn.DbConn;
  *@param conn the connection variable
  */
 public class SuperController extends DbConn{
-	protected static Connection conn = null;
+	private static Connection conn = null;
 
 	/**
 	 * Connect creates the connection to the db
@@ -108,6 +108,12 @@ public class SuperController extends DbConn{
 		}
 	}
 
+	/**
+	 * searches in db the given sqlSearch with the given arguments args[]
+	 * @param sqlSearch the sql search string
+	 * @param args object array of argument to create the statement
+	 * @return returns the list of objects from the db
+	 */
 	protected static ResultSet superSearchInDB(String sqlSearch,Object [] args) {
 		Connect();
 
@@ -173,6 +179,12 @@ public class SuperController extends DbConn{
 		}
 	}
 
+	/**
+	 * 
+	 * @param sqlUpdate the sql update string
+	 * @param args object array of argument to create the statement
+	 * @return returns true if updated DB and false if some error
+	 */
 	protected static boolean superUpdateDb(String sqlUpdate, Object[] args) {
 		Connect();
 

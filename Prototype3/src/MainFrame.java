@@ -134,7 +134,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				s1.setComments("buy stuff good item this");
 				s1.setCustomerid("123");
 				s1.setItemid(13);
-				s1.setSaleDate("121212");
+				s1.setSaleDate(new Date(112324));
 				
 				Product p1 = new Product();
 				p1.setPdescription("fff");
