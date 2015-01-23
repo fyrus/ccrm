@@ -297,6 +297,20 @@ public class EchoServer extends AbstractServer {
 			break;
 			//---Sale end---
 
+			//---MarketSegment---
+		case ADD_MARKETSEGMENT:
+			action="'add MarketSegment'";
+			System.out.println("Message received: " + action + " from " + client);
+			MarketSegmentController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_MARKETSEGMENT:
+			action="'search MarketSegment'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) MarketSegmentController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+			//---MarketSegment end---
+
 
 		default:
 			break;
