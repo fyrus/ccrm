@@ -139,15 +139,23 @@ public class MainFrame extends JFrame implements ChatIF{
 				Product p1 = new Product();
 				p1.setPdescription("fff44");
 				p1.setPname("aaa44");
-				p1.setPphoto("ccc44c");
+				p1.setPphoto("bbbbb");
 				p1.setPprice(13);
+				p1.setPid(2);
 				
 				Location l1 = new Location();
 				//l1.setLid(Integer.parseInt(tfId.getText()));
 				
+				MarketSegment ms = new MarketSegment();
+				ms.setAge(12);
+				ms.setImportance(1);
+				ms.setInterest(1);
+				ms.setLocation(1);
+				
+				
 				cmd.setComVal(p1);
-				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.ADD_PRODUCT);
+				cmd.setComExtra("2", null);
+				cmd.setComNum(Com.UPDATE_PRODUCT);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}

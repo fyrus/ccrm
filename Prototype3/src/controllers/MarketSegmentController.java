@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Customer;
 import entities.MarketSegment;
+import entities.MarketingCustomer;
 import entities.Permission;
+import entities.SegmentPermission;
 
 /**
  *controller for the segment permission class
@@ -25,37 +28,43 @@ public class MarketSegmentController extends SuperController{
 		String insert = "INSERT INTO market_segment"
 				+ "(age,locationid,importance,interest) VALUES"
 				+ "(?,?,?,?)";
-		
-		/*
-		 private int segmentid;
-	private int age;
-	private int locationid;
-	private int importance;
-	private int interest;
-	private List<Permission> permission;
-		 */
-		
-		MarketSegment tmp = new MarketSegment();
-		tmp.setAge(tMarketSegment.getAge());
-		tmp.setInterest(tMarketSegment.getInterest());
-		tmp.setImportance(tMarketSegment.getImportance());
-		tmp.setLocation(tMarketSegment.getLocation());
 
-		if(searchInDB(tmp) != null)
-		{
-			System.out.println("MarketSegment already exists");
-		}
-		else{
-			Object []args = new Object[4];
-			args[0]=tMarketSegment.getAge();
-			args[1]=tMarketSegment.getLocation();
-			args[2]=tMarketSegment.getImportance();
-			args[3]=tMarketSegment.getInterest();
-			
-			if(superAddToDB(insert,args))
-				System.out.println("MarketSegment was added");
+		Object []args = new Object[4];
+		args[0]=tMarketSegment.getAge();
+		args[1]=tMarketSegment.getLocation();
+		args[2]=tMarketSegment.getImportance();
+		args[3]=tMarketSegment.getInterest();
+		try{
+			if(superAddToDB(insert,args)){
+				ResultSet resultSet;
+				String sqlstr = "SELECT Segmentid FROM market_segment "
+						+"ORDER BY Segmentid DESC "
+						+"LIMIT 1";
+				resultSet = superSearchInDB(sqlstr, null);	//get the new Segmentid
+				resultSet.next();
+				int id = resultSet.getInt("Segmentid");
+				System.out.println("MarketSegment with id " + id + " added");
+
+				//add the permissions
+				ArrayList<Permission> per = tMarketSegment.getPermission();
+				SegmentPermission mc = new SegmentPermission();
+				
+				//insert all the customers for the campaign
+				for(Object key:per.toArray()){
+					mc.setPermissionid(((Permission)key).getPid());
+					mc.setSegmentid(id);
+					SegmentPermissionController.addToDB(mc);
+				}
+
+			}
 			else
 				System.out.println("MarketSegment not added");
+
+		}
+		catch (SQLException e) {
+			System.out.println("ERROR: Could not add market segment");
+			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -64,12 +73,12 @@ public class MarketSegmentController extends SuperController{
 	 * @param value the segment permission to remove
 	 */
 	public static void removeFromDB(Object value) {
-		
+
 		MarketSegment tMarketSegment = (MarketSegment)value;
 		MarketSegment tmp = new MarketSegment();
-		
+
 		tmp.setSegmentid(tMarketSegment.getSegmentid());
-		
+
 		if(searchInDB(tmp) == null)
 		{
 			System.out.println("no MarketSegment found");
@@ -95,33 +104,51 @@ public class MarketSegmentController extends SuperController{
 		MarketSegment tmp = (MarketSegment)value;
 
 		ArrayList<MarketSegment> marketsegmentList = new ArrayList<MarketSegment>();
-		
+
 		String sqlSearch = "SELECT * "
 				+ "FROM market_segment "
 				+ "WHERE Segmentid=ifnull(?,Segmentid) "
-				+ "AND Permissionid=ifnull(?,Permissionid) ";
-		
-		Object []args = new Object[2];
+				+ "AND age=ifnull(?,age) "
+				+ "AND locationid=ifnull(?,locationid) "
+				+ "AND importance=ifnull(?,importance) "
+				+ "AND interest=ifnull(?,interest) ";
+
+		/*
+		 private int segmentid;
+	private int age;
+	private int locationid;
+	private int importance;
+	private int interest;
+	private List<Permission> permission;
+		 */
+
+		Object []args = new Object[5];
 		args[0]=tmp.getSegmentid();
-		//args[1]=tmp.getPermissionid();
-		
+		args[1]=tmp.getAge();
+		args[2]=tmp.getLocation();
+		args[3]=tmp.getImportance();
+		args[4]=tmp.getInterest();
+
 		ResultSet resultSet;
-		
+
 		try {
 			resultSet = superSearchInDB(sqlSearch, args);
 			if(resultSet == null){
-				System.out.println("no segment permissions found");
+				System.out.println("no MarketSegment found");
 				return null;
 			}
 			while (resultSet.next()) {
 				MarketSegment p = new MarketSegment();
-				//p.setPermissionid(resultSet.getInt("Permissionid"));
-				p.setSegmentid(resultSet.getInt("Segmentid"));
+				p.setAge(resultSet.getInt("Age"));
+				p.setImportance(resultSet.getInt("importance"));
+				p.setInterest(resultSet.getInt("interest"));
+				p.setLocation(resultSet.getInt("locationid"));
+				p.setSegmentid(resultSet.getInt("segmentid"));
 				marketsegmentList.add(p);
 			}
 			return marketsegmentList;
 		} catch (SQLException e) {
-			System.out.println("ERROR: Could search segment permission in DB");
+			System.out.println("ERROR: Could not search MarketSegment in DB");
 			e.printStackTrace();
 			return null;
 		}

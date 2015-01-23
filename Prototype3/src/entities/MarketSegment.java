@@ -22,7 +22,7 @@ public class MarketSegment implements java.io.Serializable {
 	private int locationid;
 	private int importance;
 	private int interest;
-	private List<Permission> permission;
+	private ArrayList<Permission> permission;
 	
 	
 	
@@ -47,7 +47,7 @@ public class MarketSegment implements java.io.Serializable {
 	 * @param permission
 	 */
 	public MarketSegment(int segmentid, int age, int locationid, int importance,
-			int interest, List<Permission> permission) {
+			int interest, ArrayList<Permission> permission) {
 		this.segmentid = segmentid;
 		this.age = age;
 		this.locationid = locationid;
@@ -129,14 +129,14 @@ public class MarketSegment implements java.io.Serializable {
 	/**
 	 * @return the permission
 	 */
-	public List<Permission> getPermission() {
+	public ArrayList<Permission> getPermission() {
 		return permission;
 	}
 
 	/**
 	 * @param permission the permission to set
 	 */
-	public void setPermission(List<Permission> permission) {
+	public void setPermission(ArrayList<Permission> permission) {
 		this.permission = permission;
 	}
 	
