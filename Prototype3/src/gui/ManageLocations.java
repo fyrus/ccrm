@@ -14,17 +14,10 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
-import javax.swing.JList;
-import javax.swing.border.LineBorder;
-import javax.swing.AbstractListModel;
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JToggleButton;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+
 import java.io.IOException;
 
 import client.ChatClient;
@@ -55,7 +48,6 @@ public class ManageLocations extends JPanel implements ChatIF{
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton btnCancel;
-	private JTextArea taLocation;
 	private ChatClient client;
 	private JComboBox<Location> cbLocation;
 
@@ -67,12 +59,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
-				Command cmd = new Command();
-				Location l = new Location();
-				cmd.setComVal(l);
-				cmd.setComNum(Com.SEARCH_LOCATION);
-				
-				client.handleMessageFromClientUI(cmd);
+				SetData();
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -94,7 +81,13 @@ public class ManageLocations extends JPanel implements ChatIF{
 		btnAddNewLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				
+				
 				String NewLocationName = JOptionPane.showInputDialog("Enter Location Name:");
+				if(NewLocationName.equals(""))
+					JOptionPane.showMessageDialog(null, "Error! you MUST enter location name.");
+				else
+				{
 				Command cmd = new Command();
 				Location l = new Location();
 				l.setLocation(NewLocationName);
@@ -103,6 +96,8 @@ public class ManageLocations extends JPanel implements ChatIF{
 
 				client.handleMessageFromClientUI(cmd);
 				JOptionPane.showMessageDialog(null, "New Location has been added to Database.");
+				SetData();
+				}
 
 				
 			}
@@ -125,7 +120,10 @@ public class ManageLocations extends JPanel implements ChatIF{
 				cmd.setComNum(Com.DELETE_LOCATION);
 
 				client.handleMessageFromClientUI(cmd);
-				JOptionPane.showMessageDialog(null, "Location"+((Location)cbLocation.getSelectedItem()).getLocation()+" has been Deleted from Database.");
+				JOptionPane.showMessageDialog(null, "Location "+((Location)cbLocation.getSelectedItem()).getLocation()+" has been Deleted from Database.");
+				SetData();
+
+				
 			}
 		});
 		btnDeleteLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -139,19 +137,30 @@ public class ManageLocations extends JPanel implements ChatIF{
 		btnCancel.setBounds(50, 304, 188, 36);
 		add(btnCancel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(290, 124, 312, 258);
-		add(scrollPane);
-		
-		taLocation = new JTextArea();
-		scrollPane.setViewportView(taLocation);
-		
 		cbLocation = new JComboBox<Location>();
-		cbLocation.setBounds(52, 379, 200, 50);
+		cbLocation.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		cbLocation.setForeground(Color.BLACK);
+		cbLocation.setBounds(294, 124, 264, 50);
 		add(cbLocation);
 		
+		JLabel lblCurrentExistingLocations = new JLabel("Current Existing Locations");
+		lblCurrentExistingLocations.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblCurrentExistingLocations.setForeground(Color.WHITE);
+		lblCurrentExistingLocations.setBounds(337, 95, 194, 16);
+		add(lblCurrentExistingLocations);
 		
 		
+		
+	}
+	private void SetData()
+	{
+		cbLocation.removeAllItems();
+		Command cmd = new Command();
+		Location l = new Location();
+		cmd.setComVal(l);
+		cmd.setComNum(Com.SEARCH_LOCATION);
+		
+		client.handleMessageFromClientUI(cmd);
 	}
 	/**
 	 * this is the server connect method //will do in every panel
@@ -178,17 +187,16 @@ public class ManageLocations extends JPanel implements ChatIF{
 	public void display(Object message) {
 		// TODO Auto-generated method stub
 		System.out.println("System msg: got location in ManageLocation");
-		StringBuilder sb = new StringBuilder();
+		//StringBuilder sb = new StringBuilder();
 		if (message instanceof ArrayList<?>) {
 			cbLocation.removeAllItems();
 			for(Object key:((ArrayList<?>)message).toArray()){
 				if(key instanceof Location){
-					sb.append(((Location)key).getLocation() + "\n");
+					//sb.append(((Location)key).getLocation() + "\n");
 					cbLocation.addItem(((Location)key));
 				}
 			}
 			
-			taLocation.setText(sb.toString());
 		}
 	}
 }
