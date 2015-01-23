@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 
 /**
- * @author Dima
+ * @author Nastia
  *
  */
 public class CustomerSalesHistory extends JPanel {
