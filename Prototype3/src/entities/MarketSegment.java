@@ -17,10 +17,10 @@ public class MarketSegment implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 8147489188792153861L;
 	
-	private int msid;
+	private int segmentid;
 	private int age;
-	private String location;
-	private int c_rate;
+	private int locationid;
+	private int importance;
 	private int interest;
 	private List<Permission> permission;
 	
@@ -30,44 +30,44 @@ public class MarketSegment implements java.io.Serializable {
 	 * empty constructor
 	 */
 	public MarketSegment(){
-		msid=0;
+		segmentid=0;
 		age=0;
-		location="";
-		c_rate=0;
+		locationid=0;
+		importance=0;
 		interest=0;
 		permission=null;
 	}
 
 	/**
-	 * @param msid
+	 * @param segmentid
 	 * @param age
-	 * @param location
-	 * @param c_rate
+	 * @param locationid
+	 * @param importance
 	 * @param interest
 	 * @param permission
 	 */
-	public MarketSegment(int msid, int age, String location, int c_rate,
+	public MarketSegment(int segmentid, int age, int locationid, int importance,
 			int interest, List<Permission> permission) {
-		this.msid = msid;
+		this.segmentid = segmentid;
 		this.age = age;
-		this.location = location;
-		this.c_rate = c_rate;
+		this.locationid = locationid;
+		this.importance = importance;
 		this.interest = interest;
 		this.permission = permission;
 	}
 
 	/**
-	 * @return the msid
+	 * @return the segmentid
 	 */
-	public int getMsid() {
-		return msid;
+	public int getSegmentid() {
+		return segmentid;
 	}
 
 	/**
-	 * @param msid the msid to set
+	 * @param segmentid the segmentid to set
 	 */
-	public void setMsid(int msid) {
-		this.msid = msid;
+	public void setSegmentid(int segmentid) {
+		this.segmentid = segmentid;
 	}
 
 	/**
@@ -85,31 +85,31 @@ public class MarketSegment implements java.io.Serializable {
 	}
 
 	/**
-	 * @return the location
+	 * @return the locationid
 	 */
-	public String getLocation() {
-		return location;
+	public int getLocation() {
+		return locationid;
 	}
 
 	/**
-	 * @param location the location to set
+	 * @param locationid the locationid to set
 	 */
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocation(int locationid) {
+		this.locationid = locationid;
 	}
 
 	/**
-	 * @return the c_rate
+	 * @return the importance
 	 */
-	public int getC_rate() {
-		return c_rate;
+	public int getImportance() {
+		return importance;
 	}
 
 	/**
-	 * @param c_rate the c_rate to set
+	 * @param importance the importance to set
 	 */
-	public void setC_rate(int c_rate) {
-		this.c_rate = c_rate;
+	public void setImportance(int importance) {
+		this.importance = importance;
 	}
 
 	/**

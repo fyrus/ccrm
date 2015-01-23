@@ -32,6 +32,7 @@ public class Product implements java.io.Serializable {
 		pdescription="";
 		pprice=0;
 		pphoto="";
+		tid=0;
 	}
 	
 	/**
@@ -48,6 +49,7 @@ public class Product implements java.io.Serializable {
 		this.pdescription=pdescription;
 		this.pprice=pprice;
 		this.pphoto=pphoto;
+		this.tid = 0;
 	}
 
 	/**

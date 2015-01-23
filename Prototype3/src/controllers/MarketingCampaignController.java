@@ -22,11 +22,11 @@ public class MarketingCampaignController extends SuperController{
 	public static void addToDB(Object value) {
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 
-		String insert = "INSERT INTO MarketingCampaign"
+		String insert = "INSERT INTO Marketing_Campaign"
 				+ "(Startdate, Enddate) VALUES"
 				+ "(?,?)";
 
-		String sqlstr = "SELECT * FROM MarketingCampaign WHERE Cid=" + tMarketingCampaign.getCid();
+		String sqlstr = "SELECT * FROM Marketing_Campaign WHERE Cid=" + tMarketingCampaign.getCid();
 		if(superSearchInDB(sqlstr,null) != null){
 			System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " already exists");
 		}
@@ -38,7 +38,7 @@ public class MarketingCampaignController extends SuperController{
 
 				if(superAddToDB(insert,args)){	//if add to db success
 					ResultSet resultSet;
-					sqlstr = "SELECT Cid FROM MarketingCampaign "
+					sqlstr = "SELECT Cid FROM Marketing_Campaign "
 							+"ORDER BY Cid DESC "
 							+"LIMIT 1";
 					resultSet = superSearchInDB(sqlstr, null);	//get the new Cid
@@ -87,7 +87,7 @@ public class MarketingCampaignController extends SuperController{
 			System.out.println("no MarketingCampaign with id " + tMarketingCampaign.getCid() + " found");
 		}
 		else{
-			String sqlRemove = "DELETE FROM MarketingCampaign WHERE Cid = " + tMarketingCampaign.getCid();
+			String sqlRemove = "DELETE FROM Marketing_Campaign WHERE Cid = " + tMarketingCampaign.getCid();
 			if(superRemoveFromDB(sqlRemove))
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was removed");
 			else
@@ -114,7 +114,7 @@ public class MarketingCampaignController extends SuperController{
 		ArrayList<MarketingCampaign> MarketingCampaignList = new ArrayList<MarketingCampaign>();
 
 		String sqlSearch = "SELECT * "
-				+ "FROM MarketingCampaign "
+				+ "FROM Marketing_Campaign "
 				+ "WHERE Cid=ifnull(?,Cid) "
 				+ "AND Startdate=ifnull(?,Startdate) "
 				+ "AND Enddate=ifnull(?,Enddate) ";
@@ -150,7 +150,7 @@ public class MarketingCampaignController extends SuperController{
 		if (id == 0)
 			return;
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
-		String update = "UPDATE MarketingCampaign "
+		String update = "UPDATE Marketing_Campaign "
 				+ "SET Cid=?, Startdate=?, Enddate=?"
 				+ "WHERE Pid=?";
 		MarketingCampaign tmp = new MarketingCampaign();

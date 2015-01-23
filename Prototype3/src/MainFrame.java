@@ -137,17 +137,17 @@ public class MainFrame extends JFrame implements ChatIF{
 				s1.setSaleDate(new Date(112324));
 				
 				Product p1 = new Product();
-				p1.setPdescription("fff");
-				p1.setPname("aaa");
-				p1.setPphoto("cccc");
-				p1.setPprice(10);
+				p1.setPdescription("fff44");
+				p1.setPname("aaa44");
+				p1.setPphoto("ccc44c");
+				p1.setPprice(13);
 				
 				Location l1 = new Location();
 				l1.setLid(Integer.parseInt(tfId.getText()));
 				
-				cmd.setComVal(l1);
+				cmd.setComVal(p1);
 				cmd.setComExtra(tfChangeid.getText(), null);
-				cmd.setComNum(Com.DELETE_LOCATION);
+				cmd.setComNum(Com.ADD_PRODUCT);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
@@ -167,8 +167,8 @@ public class MainFrame extends JFrame implements ChatIF{
 				Domain d1 = new Domain();
 				MarketingCampaign m1 = new MarketingCampaign();
 				Sale s1 = new Sale();
-				cmd.setComVal(l1);
-				cmd.setComNum(Com.SEARCH_LOCATION);
+				cmd.setComVal(p1);
+				cmd.setComNum(Com.SEARCH_PRODUCT);
 				client.handleMessageFromClientUI(cmd);
 			}
 		});

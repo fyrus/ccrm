@@ -123,8 +123,6 @@ public class SuperController extends DbConn{
 		try {
 			stm = conn.prepareStatement(sqlSearch);
 			if(args != null)
-				//resultSet = stm.executeQuery();
-
 			{
 				for(Object arg:args){
 					if(arg instanceof String){
