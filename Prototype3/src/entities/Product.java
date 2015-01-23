@@ -17,6 +17,7 @@ public class Product implements java.io.Serializable {
 	private static final long serialVersionUID = 6668057226242752253L;
 	
 	private int pid;
+	private int tid;
 	private String pname;
 	private String pdescription;
 	private String pphoto;
@@ -117,6 +118,20 @@ public class Product implements java.io.Serializable {
 	 */
 	public void setPphoto(String pphoto) {
 		this.pphoto = pphoto;
+	}
+
+	/**
+	 * @return the type id
+	 */
+	public int getTid() {
+		return tid;
+	}
+
+	/**
+	 * @param tid the type id to set
+	 */
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 	
 	

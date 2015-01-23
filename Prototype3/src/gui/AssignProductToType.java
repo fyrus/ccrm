@@ -4,25 +4,53 @@
 package gui;
 
 import javax.swing.JPanel;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+
+import common.ChatIF;
+import common.Command;
+import client.ChatClient;
+import entities.Domain;
+import entities.Product;
+import entities.Type;
 
 /**
  * @author Nastia
  *
  */
-public class AssignProductToType extends JPanel {
+public class AssignProductToType extends JPanel implements ChatIF{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton btnCancel;
-
+	
+	private JComboBox prodComboBox;
+	private JComboBox typeComboBox;
+	
+	private ChatClient client;
+	private Command cmd;
+	
+	private ArrayList<Product> prodList;
+	private int prodLen;
+	private ArrayList<Type> typeList;
+	private int typeLen;
+	private Product product;
+	private Type type;
 	/**
 	 * Create the panel.
 	 */
@@ -46,20 +74,8 @@ public class AssignProductToType extends JPanel {
 		JLabel lblChooseTypes = new JLabel("Choose Types:");
 		lblChooseTypes.setForeground(Color.WHITE);
 		lblChooseTypes.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblChooseTypes.setBounds(133, 186, 144, 16);
+		lblChooseTypes.setBounds(147, 186, 144, 16);
 		add(lblChooseTypes);
-		
-		JButton btnProductList = new JButton("Product List");
-		btnProductList.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
-		btnProductList.setBackground(new Color(230, 230, 250));
-		btnProductList.setBounds(308, 100, 188, 36);
-		add(btnProductList);
-		
-		JButton btnTypeList = new JButton("Type List");
-		btnTypeList.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
-		btnTypeList.setBackground(new Color(230, 230, 250));
-		btnTypeList.setBounds(308, 177, 188, 36);
-		add(btnTypeList);
 		
 		JButton btnAssign = new JButton("Assign");
 		btnAssign.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -72,7 +88,62 @@ public class AssignProductToType extends JPanel {
 		btnCancel.setBackground(new Color(230, 230, 250));
 		btnCancel.setBounds(365, 297, 188, 36);
 		add(btnCancel);
+		
+		prodComboBox = new JComboBox();
+		prodComboBox.setBounds(305, 107, 153, 25);
+		add(prodComboBox);
+		
+		typeComboBox = new JComboBox();
+		typeComboBox.setBounds(305, 184, 153, 25);
+		add(typeComboBox);
 
+		connect();
+		loadProducts();
+		loadTypes();
+	}
+	private void loadProducts(){
+		
+	}
+	private void loadTypes(){
+		
+	}
+	
+	private void connect(){
+		
+		try 
+	    {
+	      client= new ChatClient(Login.IP,Login.D_PORT,this);
+	    } 
+	    catch(IOException exception) 
+	    {
+	      System.out.println("Error: Can't setup connection!"
+	                + " Terminating client.");
+	      System.exit(1);
+	    }
+		
 	}
 
+	/* (non-Javadoc)
+	 * @see common.ChatIF#display(java.lang.Object)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void display(Object message) {
+		// TODO Auto-generated method stub
+		if (message instanceof ArrayList<?>){
+			if (((ArrayList<?>)message).get(0) instanceof Type){
+				typeList=new ArrayList<Type>((ArrayList<Type>)message);
+				typeLen=typeList.size();
+				for (int i=0;i<typeLen;i++)
+					typeComboBox.addItem("("+typeList.get(i).getTid()+") "+typeList.get(i).getTname());
+			}
+			else if (((ArrayList<?>)message).get(0) instanceof Product){
+				prodList=new ArrayList<Product>((ArrayList<Product>)message);
+				prodLen=prodList.size();
+				for (int i=0;i<prodLen;i++)
+					prodComboBox.addItem(prodList.get(i).getPname()+" ("+prodList.get(i).getTid()+")");
+			}
+		
+		}
+	}
 }

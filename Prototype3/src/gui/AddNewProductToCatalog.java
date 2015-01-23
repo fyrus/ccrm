@@ -211,6 +211,7 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		connect();
 
 	}
+	
 	private void connect(){
 		
 		try 
