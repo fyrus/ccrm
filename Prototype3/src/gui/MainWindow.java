@@ -395,17 +395,6 @@ public class MainWindow extends JFrame implements ChatIF{
 				
 			}
 		});
-		newSalesManEvent.btnPurchase.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int res = JOptionPane.showConfirmDialog(null, "Would you like to add another event?", null, JOptionPane.YES_NO_OPTION);
-				if(res == JOptionPane.NO_OPTION)
-					setContentPane(customerSalesHistory);
-				else 
-					setContentPane(newSalesManEvent);
-				setVisible(true);
-				
-			}
-		});
 		
 		
 		/**
