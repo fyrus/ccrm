@@ -11,10 +11,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -25,12 +27,14 @@ import common.Com;
 import common.Command;
 import entities.Domain;
 import entities.Product;
+import entities.ProductType;
 import entities.Type;
 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
@@ -50,6 +54,7 @@ public class Catalog extends JPanel implements ChatIF{
 	private JComboBox<Domain> domainComboBox;
 	private JComboBox<Type> typeComboBox;
 	private JList<Product> list;
+	private DefaultListModel<Product> model;
 	private JTextArea textArea;
 	
 	private JLabel lblChooseType;
@@ -64,8 +69,8 @@ public class Catalog extends JPanel implements ChatIF{
 	
 	private ArrayList<Domain> domainList;
 	private int domainLen;
-	private ArrayList<Type> typeList;
-	private int typeLen;
+	private ArrayList<ProductType> ptList;
+	private int ptLen;
 	private Product product;
 	private Type type;
 	private Domain domain;
@@ -139,7 +144,8 @@ public class Catalog extends JPanel implements ChatIF{
 		lblName.setBounds(39, 127, 110, 25);
 		add(lblName);
 		
-		list = new JList<Product>();
+		model = new DefaultListModel<Product>();
+		list = new JList<Product>(model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(39, 156, 110, 222);
 		add(list);
@@ -171,31 +177,37 @@ public class Catalog extends JPanel implements ChatIF{
 		lblProductPicture.setBounds(440, 157, 153, 23);
 		add(lblProductPicture);
 		
-		lblChooseType.setVisible(false);
-		lblName.setVisible(false);
-		lblPrice.setVisible(false);
-		lblProdprice.setVisible(false);
-		lblDescription.setVisible(false);
-		lblProductPicture.setVisible(false);
-		typeComboBox.setVisible(false);
-		list.setVisible(false);
-		textArea.setVisible(false);
-		//domainComboBox.addItem(new Domain());
-		//typeComboBox.addItem(new Type());
+		
+		
 		
 		domainComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        domain=(Domain)domainComboBox.getSelectedItem();
-		        if (domain.getdName().equals("")){
-		        	//do nothing
-		        }
-		        else{
-		        	loadTypes();
-		        	typeComboBox.setVisible(true);
-		        	lblChooseType.setVisible(true);
-		        }
+		    	if ((Domain)domainComboBox.getSelectedItem()!=null){
+		    		domain=(Domain)domainComboBox.getSelectedItem();
+		        
+		    		loadTypes();
+		    	}
+		        
 		    }
 		});
+		typeComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	if ((Type)typeComboBox.getSelectedItem()!=null){
+		    		type=(Type)typeComboBox.getSelectedItem();
+		        
+		    		findProducts();
+		    		try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		loadProducts();
+		    	}
+		        
+		    }
+		});
+		
 	}
 	private void loadDomains(){
 		domainComboBox.removeAllItems();
@@ -204,8 +216,23 @@ public class Catalog extends JPanel implements ChatIF{
 		client.handleMessageFromClientUI(cmd);
 	}
 	private void loadProducts(){
-		
+		model.clear();
+		ptLen=ptList.size();
+		for (int i=0;i<ptLen;i++){
+			System.out.println(ptList.get(i).getProductid());
+			product=new Product();
+			product.setPid(ptList.get(i).getProductid());
+			cmd=new Command(Com.SEARCH_PRODUCT,product);
+			client.handleMessageFromClientUI(cmd);
+		}
 	}
+	private void findProducts(){
+		ProductType pt=new ProductType();
+		pt.setTypeid(type.getTid());
+		cmd=new Command(Com.SEARCH_PRODUCTTYPE,pt);
+		client.handleMessageFromClientUI(cmd);
+	}
+	
 	private void loadTypes(){
 		typeComboBox.removeAllItems();
 		type=new Type();
@@ -243,12 +270,15 @@ public class Catalog extends JPanel implements ChatIF{
 					typeComboBox.addItem((Type)key);
 				}
 				if(key instanceof Product){
+					model.addElement((Product)key);
 					
 				}
 				if(key instanceof Domain){
 					domainComboBox.addItem((Domain)key);
 				}
-			
+				if(key instanceof ProductType){
+					ptList.add((ProductType)key);
+				}
 			}
 		
 		}

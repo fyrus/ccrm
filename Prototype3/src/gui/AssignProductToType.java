@@ -30,6 +30,7 @@ import client.ChatClient;
 import entities.Domain;
 import entities.Permission;
 import entities.Product;
+import entities.ProductType;
 import entities.RegisteredCustomer;
 import entities.Type;
 
@@ -104,7 +105,9 @@ public class AssignProductToType extends JPanel implements ChatIF{
 			public void actionPerformed(ActionEvent arg0) {
 				product=(Product)prodComboBox.getSelectedItem();
 				type=(Type)typeComboBox.getSelectedItem();
-				
+				ProductType pt=new ProductType(product.getPid(), type.getTid());
+				cmd=new Command(Com.ADD_PRODUCTTYPE,pt);
+				client.handleMessageFromClientUI(cmd);
 				
 				
 			}
