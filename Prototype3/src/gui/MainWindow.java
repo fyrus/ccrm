@@ -56,6 +56,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private CampaignReactionReportProduce campaignReactionReportProduce;
 	private ManageLocations manageLocations;
 	private PotentialCustomerSalesList potentialCustomerSalesList;
+	private AddNewMarketSegment addNewMarketSegment;
 	private JLabel lblEmployeePortal;
 	
 	public JButton btnExit;
@@ -70,6 +71,8 @@ public class MainWindow extends JFrame implements ChatIF{
 	private JButton btnPotentialCustomerSales;
 	private JLabel lblLogedInAs;
 	private JLabel lblUserName;
+	private JButton btnAddUser;
+	private JButton btnAddMarketSegment;
 	
 
 	/**
@@ -103,6 +106,7 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnEnterAnalyticalSystem.setEnabled(true);
 			btnNewPotentialCustomer.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(false);
+			btnAddUser.setVisible(false);
 		}
 		else if (Login.user.getRole().equals("MarketingMan")){
 			btnManageLocations.setEnabled(false);
@@ -114,6 +118,8 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnCustomerSalesHistory.setEnabled(true);
 			btnEnterAnalyticalSystem.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(false);
+			btnAddUser.setVisible(false);
+
 			
 		}
 		else if (Login.user.getRole().equals("CustomerRelations")){
@@ -126,6 +132,8 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnActivateMarketingCampaign.setEnabled(false);
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnPotentialCustomerSales.setEnabled(false);
+			btnAddUser.setVisible(false);
+
 		}
 		else if (Login.user.getRole().equals("SalesMan")){
 			btnManageLocations.setEnabled(false);
@@ -137,6 +145,8 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnCustomerSalesHistory.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(true);
+			btnAddUser.setVisible(false);
+
 		}
 		else if (Login.user.getRole().equals("Admin")){
 			btnReports.setEnabled(true);
@@ -148,6 +158,8 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnEnterAnalyticalSystem.setEnabled(true);
 			btnNewPotentialCustomer.setEnabled(true);
 			btnPotentialCustomerSales.setEnabled(true);
+			btnAddUser.setVisible(true);
+
 		}
 		else
 		{
@@ -161,6 +173,8 @@ public class MainWindow extends JFrame implements ChatIF{
 			btnEnterAnalyticalSystem.setEnabled(false);
 			btnNewPotentialCustomer.setEnabled(false);
 			btnPotentialCustomerSales.setEnabled(false);
+			btnAddUser.setVisible(false);
+
 			
 		}
 		lblUserName.setText(Login.user.getName()+" " + "("+Login.user.getRole() +")");
@@ -192,6 +206,7 @@ public class MainWindow extends JFrame implements ChatIF{
 		campaignReactionReportProduce = new CampaignReactionReportProduce();
 		manageLocations = new ManageLocations();
 		potentialCustomerSalesList = new PotentialCustomerSalesList();
+		addNewMarketSegment = new AddNewMarketSegment();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -207,7 +222,7 @@ public class MainWindow extends JFrame implements ChatIF{
 		
 		btnExit = new JButton("Logout");
 		
-		btnExit.setBounds(482, 356, 188, 36);
+		btnExit.setBounds(482, 372, 188, 36);
 		btnExit.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnExit.setBackground(new Color(230, 230, 250));
 		contentPane.add(btnExit);
@@ -336,6 +351,24 @@ public class MainWindow extends JFrame implements ChatIF{
 		lblUserName.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblUserName.setBounds(126, 315, 230, 19);
 		contentPane.add(lblUserName);
+		
+		btnAddUser = new JButton("Add User");
+		btnAddUser.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
+		btnAddUser.setBackground(new Color(230, 230, 250));
+		btnAddUser.setBounds(22, 372, 188, 36);
+		contentPane.add(btnAddUser);
+		
+		btnAddMarketSegment = new JButton("Add Market Segment");
+		btnAddMarketSegment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setContentPane(addNewMarketSegment);
+				setVisible(true);
+			}
+		});
+		btnAddMarketSegment.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
+		btnAddMarketSegment.setBackground(new Color(230, 230, 250));
+		btnAddMarketSegment.setBounds(482, 283, 188, 36);
+		contentPane.add(btnAddMarketSegment);
 		/**
 		 * Change panel to MainWindow 
 		 */
@@ -528,6 +561,17 @@ public class MainWindow extends JFrame implements ChatIF{
 				setVisible(true);
 			}
 		});
+
+
+		addNewMarketSegment.btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(contentPane);
+				setVisible(true);
+			}
+		});
+		
+		
+		
 		potentialCustomerSalesList.btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				potentialCustomerSalesList.setVisible(false);

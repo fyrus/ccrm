@@ -50,7 +50,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	private static final long serialVersionUID = 1L;
 	private ChatClient client;
 
-	
+	public JButton btnCancel;
 	private JTextField tfAge;
 	private JComboBox<Location> cbLocation;
 	private JComboBox<Permission> cbPermissions;
@@ -129,7 +129,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		lblAddNewMarket.setBounds(12, 13, 225, 17);
 		add(lblAddNewMarket);
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
 		btnCancel.setBounds(91, 347, 188, 36);
