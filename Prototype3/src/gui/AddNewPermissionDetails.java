@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
@@ -22,9 +22,7 @@ import client.ChatClient;
 import common.ChatIF;
 import common.Com;
 import common.Command;
-import entities.Customer;
 import entities.Domain;
-import entities.Location;
 import entities.Permission;
 import entities.RegisteredCustomer;
 
@@ -35,6 +33,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  * @author Nastia
@@ -45,13 +46,13 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tfpID;
 	public JButton btnCancel;
 	public JButton btnAdd;
 	private ChatClient client;
 	private JComboBox<Domain> cbDomainId;
 	private JComboBox<RegisteredCustomer> cbRegisteredCustomerId;
-
+	private JTextArea taSelectedCustomerDetails;
+	private JScrollPane scrollPane;
 
 
 	private int domainLen;
@@ -109,34 +110,22 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		lblAddNewPermission.setBounds(12, 13, 268, 16);
 		add(lblAddNewPermission);
 
-		JLabel lblId = new JLabel("Permission ID:");
-		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(84, 67, 167, 16);
-		add(lblId);
-
-		JLabel lblCustomerId = new JLabel("Customer ID:");
+		JLabel lblCustomerId = new JLabel("Choose Customer ID:");
 		lblCustomerId.setForeground(Color.WHITE);
 		lblCustomerId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCustomerId.setBounds(84, 107, 167, 16);
+		lblCustomerId.setBounds(98, 72, 167, 16);
 		add(lblCustomerId);
 
-		JLabel lblPermissionDomainId = new JLabel("Permission Domain ID:");
+		JLabel lblPermissionDomainId = new JLabel("Choose Domain For Permission:");
 		lblPermissionDomainId.setForeground(Color.WHITE);
 		lblPermissionDomainId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPermissionDomainId.setBounds(78, 151, 173, 16);
+		lblPermissionDomainId.setBounds(41, 251, 224, 16);
 		add(lblPermissionDomainId);
-
-		tfpID = new JTextField();
-		tfpID.setBounds(263, 65, 179, 22);
-		add(tfpID);
-		tfpID.setColumns(10);
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				tfpID.setText("");
 			}
 		});
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
@@ -158,7 +147,9 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 
 				for(int i=0;i<registeredCustomerLen;i++)
 					if (registeredCustomerList.get(i).getcId().equals(cbRegisteredCustomerId.getSelectedItem())) 
+					{
 						p.setCid(Integer.parseInt(registeredCustomerList.get(i).getcId()));
+					}
 
 
 
@@ -180,12 +171,19 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		add(btnAdd);
 
 		cbDomainId = new JComboBox<Domain>();
-		cbDomainId.setBounds(263, 149, 179, 22);
+		cbDomainId.setBounds(286, 249, 179, 22);
 		add(cbDomainId);
 
 		cbRegisteredCustomerId = new JComboBox<RegisteredCustomer>();
-		cbRegisteredCustomerId.setBounds(263, 105, 179, 22);
+		cbRegisteredCustomerId.setBounds(277, 70, 179, 22);
 		add(cbRegisteredCustomerId);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(204, 133, 238, 91);
+		add(scrollPane);
+		
+		taSelectedCustomerDetails = new JTextArea();
+		scrollPane.setViewportView(taSelectedCustomerDetails);
 
 
 		connect();
@@ -227,6 +225,8 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 				}
 				if(key instanceof RegisteredCustomer){
 					cbRegisteredCustomerId.addItem(((RegisteredCustomer)key));
+					
+					
 				}
 
 			}
