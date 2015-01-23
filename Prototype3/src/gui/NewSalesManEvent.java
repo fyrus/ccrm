@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 
+
 import client.ChatClient;
 
 import com.toedter.calendar.JDateChooser;
@@ -37,6 +38,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 /**
  * @author Nastia
@@ -55,6 +58,7 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 	private ChatClient client;
 	private JComboBox<RegisteredCustomer> cbCustomerId;
 	private JComboBox<Product> cbProductName;
+	private JTextArea taCustomerDetails;
 
 	/**
 	 * Create the panel.
@@ -87,23 +91,23 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 		JLabel lblCustomerId = new JLabel("Customer ID:");
 		lblCustomerId.setForeground(Color.WHITE);
 		lblCustomerId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCustomerId.setBounds(54, 60, 94, 16);
+		lblCustomerId.setBounds(106, 60, 94, 16);
 		add(lblCustomerId);
 
 		JLabel lblProductIdl = new JLabel("Product ID:");
 		lblProductIdl.setForeground(Color.WHITE);
 		lblProductIdl.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblProductIdl.setBounds(54, 111, 87, 16);
+		lblProductIdl.setBounds(113, 246, 87, 16);
 		add(lblProductIdl);
 
 		JLabel lblDate = new JLabel("Date:");
 		lblDate.setForeground(Color.WHITE);
 		lblDate.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblDate.setBounds(54, 170, 94, 16);
+		lblDate.setBounds(119, 299, 94, 16);
 		add(lblDate);
 
 		dcDate = new JDateChooser();
-		dcDate.setBounds(189, 164, 116, 22);
+		dcDate.setBounds(212, 293, 116, 22);
 		add(dcDate);
 
 		btnPurchase = new JButton("Purchase");
@@ -150,12 +154,34 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 		add(btnCancel);
 
 		cbCustomerId = new JComboBox<RegisteredCustomer>();
-		cbCustomerId.setBounds(189, 58, 116, 22);
+		cbCustomerId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("Selected Customer Details:"+"\n"+"\n"+"\n");
+				sb.append("Customer Name:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcName()+"\n");
+				sb.append("Birth Date:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcBirthDate().toString()+"\n"+"\n");
+				sb.append("Location:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcLocation()+"\n");
+				sb.append("Phone Number:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcPhone()+"\n"+"\n");
+				
+				taCustomerDetails.setText(sb.toString());
+				
+			}
+		});
+		cbCustomerId.setBounds(212, 58, 116, 22);
 		add(cbCustomerId);
 
 		cbProductName = new JComboBox<Product>();
-		cbProductName.setBounds(189, 109, 116, 22);
+		cbProductName.setBounds(212, 244, 116, 22);
 		add(cbProductName);
+		
+		taCustomerDetails = new JTextArea();
+		taCustomerDetails.setFont(new Font("Tahoma", Font.BOLD, 12));
+		taCustomerDetails.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		taCustomerDetails.setBackground(Color.LIGHT_GRAY);
+		taCustomerDetails.setBounds(36, 89, 167, 137);
+		add(taCustomerDetails);
 
 		
 
