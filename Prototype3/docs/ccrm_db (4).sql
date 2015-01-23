@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2015 at 12:03 AM
+-- Generation Time: Jan 23, 2015 at 06:19 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `campaignreactionreport`
 --
 
+DROP TABLE IF EXISTS `campaignreactionreport`;
 CREATE TABLE IF NOT EXISTS `campaignreactionreport` (
 `Mid` int(11) NOT NULL,
   `NumOfPotentialClients` int(11) NOT NULL,
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `campaignreactionreport` (
 -- Table structure for table `customer`
 --
 
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `Cid` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   `Cname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -66,6 +68,7 @@ INSERT INTO `customer` (`Cid`, `Cname`, `Cbd`, `CLocation`, `Cphone`) VALUES
 -- Table structure for table `domain`
 --
 
+DROP TABLE IF EXISTS `domain`;
 CREATE TABLE IF NOT EXISTS `domain` (
 `Did` int(10) NOT NULL,
   `Dname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -92,37 +95,39 @@ INSERT INTO `domain` (`Did`, `Dname`) VALUES
 -- Table structure for table `location`
 --
 
+DROP TABLE IF EXISTS `location`;
 CREATE TABLE IF NOT EXISTS `location` (
 `Lid` int(11) NOT NULL,
   `Location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `location`
 --
 
 INSERT INTO `location` (`Lid`, `Location`) VALUES
-(1, 'haifa'),
-(2, 'hahahaha'),
-(3, 'nazeret');
+(3, 'nazeret'),
+(4, '123'),
+(5, '234');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `marketingcampaign`
+-- Table structure for table `marketing_campaign`
 --
 
-CREATE TABLE IF NOT EXISTS `marketingcampaign` (
+DROP TABLE IF EXISTS `marketing_campaign`;
+CREATE TABLE IF NOT EXISTS `marketing_campaign` (
 `Cid` int(11) NOT NULL,
   `Startdate` date DEFAULT '1900-01-01',
   `Enddate` date DEFAULT '1900-01-01'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `marketingcampaign`
+-- Dumping data for table `marketing_campaign`
 --
 
-INSERT INTO `marketingcampaign` (`Cid`, `Startdate`, `Enddate`) VALUES
+INSERT INTO `marketing_campaign` (`Cid`, `Startdate`, `Enddate`) VALUES
 (1, '2015-01-06', '2015-01-31'),
 (2, '2015-01-13', '2015-01-31');
 
@@ -132,10 +137,11 @@ INSERT INTO `marketingcampaign` (`Cid`, `Startdate`, `Enddate`) VALUES
 -- Table structure for table `marketing_customers`
 --
 
+DROP TABLE IF EXISTS `marketing_customers`;
 CREATE TABLE IF NOT EXISTS `marketing_customers` (
-  `Customerid` varchar(100) DEFAULT NULL,
+  `Customerid` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   `Campaignid` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `marketing_customers`
@@ -150,28 +156,31 @@ INSERT INTO `marketing_customers` (`Customerid`, `Campaignid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `marketsegment`
+-- Table structure for table `marketing_patern`
 --
 
-CREATE TABLE IF NOT EXISTS `marketsegment` (
-  `Msid` int(11) NOT NULL,
-  `Age` int(11) NOT NULL,
-  `Location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `C_rate` int(11) NOT NULL,
-  `Interest` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `marketing_patern`;
+CREATE TABLE IF NOT EXISTS `marketing_patern` (
+`Patterid` int(11) NOT NULL,
+  `Productid` int(11) DEFAULT NULL,
+  `Segmentid` int(11) DEFAULT NULL,
+  `Message` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `marketsegment_permission`
+-- Table structure for table `market_segment`
 --
 
-CREATE TABLE IF NOT EXISTS `marketsegment_permission` (
-  `Index` int(11) NOT NULL,
-  `Permission` int(11) DEFAULT NULL,
-  `Msid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `market_segment`;
+CREATE TABLE IF NOT EXISTS `market_segment` (
+`Segmentid` int(11) NOT NULL,
+  `Age` int(11) DEFAULT NULL,
+  `Locationid` int(11) DEFAULT NULL,
+  `Importance` int(11) DEFAULT NULL,
+  `Interest` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -179,6 +188,7 @@ CREATE TABLE IF NOT EXISTS `marketsegment_permission` (
 -- Table structure for table `permission`
 --
 
+DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
 `Pid` int(11) NOT NULL,
   `Cid` int(11) DEFAULT NULL,
@@ -198,26 +208,27 @@ INSERT INTO `permission` (`Pid`, `Cid`, `Did`) VALUES
 -- Table structure for table `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
 `Pid` int(11) NOT NULL,
   `Pname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pdesc` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pphoto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Pprice` float DEFAULT NULL,
-  `TId` int(11) DEFAULT NULL
+  `Tid` int(11) DEFAULT '0'
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`, `TId`) VALUES
-(2, 'cola', 'very yummy', 'c:\\cola.jpg', 12.5, NULL),
-(3, 'aaa', 'fff', 'cccc', 10, NULL),
-(4, 'aaa', 'fff', 'cccc', 10, NULL),
-(5, 'aaa', 'fff', 'cccc', 10, NULL),
-(6, 'aaa', 'fff', 'cccc', 10, NULL),
-(7, 'aaa', 'fff', 'cccc', 10, NULL);
+INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`, `Tid`) VALUES
+(2, 'cola', 'very yummy', 'c:\\cola.jpg', 12.5, 0),
+(3, 'aaa', 'fff', 'cccc', 10, 0),
+(4, 'aaa', 'fff', 'cccc', 10, 0),
+(5, 'aaa', 'fff', 'cccc', 10, 0),
+(6, 'aaa', 'fff', 'cccc', 10, 0),
+(7, 'aaa', 'fff', 'cccc', 10, 0);
 
 -- --------------------------------------------------------
 
@@ -225,6 +236,7 @@ INSERT INTO `product` (`Pid`, `Pname`, `Pdesc`, `Pphoto`, `Pprice`, `TId`) VALUE
 -- Table structure for table `registeredcustomer`
 --
 
+DROP TABLE IF EXISTS `registeredcustomer`;
 CREATE TABLE IF NOT EXISTS `registeredcustomer` (
   `Cid` varchar(9) COLLATE utf8_unicode_ci NOT NULL,
   `Cname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -239,7 +251,6 @@ CREATE TABLE IF NOT EXISTS `registeredcustomer` (
 --
 
 INSERT INTO `registeredcustomer` (`Cid`, `Cname`, `Cbd`, `Clocation`, `Cphone`, `Pid`) VALUES
-('11', '11', '11', '11', '11', 0),
 ('2', 'yosi', '12/12/85', 'haifa', '123465', 0),
 ('3', 'yosi', '12/12/85', 'haifa', '123465', 0),
 ('30', 'haha', '13/13/85', 'jopa666', '5432566', 0),
@@ -255,21 +266,33 @@ INSERT INTO `registeredcustomer` (`Cid`, `Cname`, `Cbd`, `Clocation`, `Cphone`, 
 -- Table structure for table `sales`
 --
 
+DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
-  `Customerid` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Customerid` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Itemid` int(11) DEFAULT NULL,
-  `SaleDate` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SaleDate` date DEFAULT '1900-01-01',
   `Buy` tinyint(1) DEFAULT '0',
-  `Comments` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Comments` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=REDUNDANT;
 
 --
 -- Dumping data for table `sales`
 --
 
 INSERT INTO `sales` (`Customerid`, `Itemid`, `SaleDate`, `Buy`, `Comments`) VALUES
-('123', 13, '121212', 1, 'buy stuff good item this'),
-('123', 13, '121212', 1, 'buy stuff good item this');
+('123', 11, '1900-01-01', 0, 'dsafsdafsaff');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `segment_permission`
+--
+
+DROP TABLE IF EXISTS `segment_permission`;
+CREATE TABLE IF NOT EXISTS `segment_permission` (
+  `Segmentid` int(11) DEFAULT NULL,
+  `Permissionid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -277,6 +300,7 @@ INSERT INTO `sales` (`Customerid`, `Itemid`, `SaleDate`, `Buy`, `Comments`) VALU
 -- Table structure for table `type`
 --
 
+DROP TABLE IF EXISTS `type`;
 CREATE TABLE IF NOT EXISTS `type` (
 `TId` int(11) NOT NULL,
   `Tname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -297,6 +321,7 @@ INSERT INTO `type` (`TId`, `Tname`, `DId`) VALUES
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `Uid` int(11) NOT NULL,
   `Password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -343,22 +368,22 @@ ALTER TABLE `location`
  ADD PRIMARY KEY (`Lid`);
 
 --
--- Indexes for table `marketingcampaign`
+-- Indexes for table `marketing_campaign`
 --
-ALTER TABLE `marketingcampaign`
+ALTER TABLE `marketing_campaign`
  ADD PRIMARY KEY (`Cid`);
 
 --
--- Indexes for table `marketsegment`
+-- Indexes for table `marketing_patern`
 --
-ALTER TABLE `marketsegment`
- ADD PRIMARY KEY (`Msid`);
+ALTER TABLE `marketing_patern`
+ ADD PRIMARY KEY (`Patterid`);
 
 --
--- Indexes for table `marketsegment_permission`
+-- Indexes for table `market_segment`
 --
-ALTER TABLE `marketsegment_permission`
- ADD PRIMARY KEY (`Msid`), ADD KEY `FKMarketSegm403038` (`Msid`);
+ALTER TABLE `market_segment`
+ ADD PRIMARY KEY (`Segmentid`);
 
 --
 -- Indexes for table `permission`
@@ -370,7 +395,7 @@ ALTER TABLE `permission`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
- ADD PRIMARY KEY (`Pid`), ADD KEY `FKProduct418308` (`TId`);
+ ADD PRIMARY KEY (`Pid`), ADD KEY `FKProduct418308` (`Tid`);
 
 --
 -- Indexes for table `registeredcustomer`
@@ -408,12 +433,22 @@ MODIFY `Did` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-MODIFY `Lid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `Lid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
--- AUTO_INCREMENT for table `marketingcampaign`
+-- AUTO_INCREMENT for table `marketing_campaign`
 --
-ALTER TABLE `marketingcampaign`
+ALTER TABLE `marketing_campaign`
 MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `marketing_patern`
+--
+ALTER TABLE `marketing_patern`
+MODIFY `Patterid` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `market_segment`
+--
+ALTER TABLE `market_segment`
+MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `permission`
 --
