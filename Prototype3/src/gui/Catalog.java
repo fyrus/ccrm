@@ -31,6 +31,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 /**
  * this is the catalog class
@@ -50,6 +52,13 @@ public class Catalog extends JPanel implements ChatIF{
 	private JList<Product> list;
 	private JTextArea textArea;
 	
+	private JLabel lblChooseType;
+	private JLabel lblName;
+	private JLabel lblPrice;
+	private JLabel lblProdprice;
+	private JLabel lblDescription;
+	private JLabel lblProductPicture;
+	
 	private ChatClient client;
 	private Command cmd;
 	
@@ -59,6 +68,7 @@ public class Catalog extends JPanel implements ChatIF{
 	private int typeLen;
 	private Product product;
 	private Type type;
+	private Domain domain;
 	
 	final JLabel ImgLabel;
 	/**
@@ -70,14 +80,16 @@ public class Catalog extends JPanel implements ChatIF{
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
 				
-				loadTypes();
-				loadProducts();
+				loadDomains();
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
 			public void ancestorRemoved(AncestorEvent arg0) {
 			}
 		});
+		
+		
+		
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -91,23 +103,25 @@ public class Catalog extends JPanel implements ChatIF{
 		JLabel lblChooseDomain = new JLabel("Choose Domain:");
 		lblChooseDomain.setForeground(Color.WHITE);
 		lblChooseDomain.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblChooseDomain.setBounds(39, 83, 144, 16);
+		lblChooseDomain.setBounds(12, 83, 144, 16);
 		add(lblChooseDomain);
 		
-		JLabel lblChooseType = new JLabel("Choose Type:");
+		lblChooseType = new JLabel("Choose Type:");
 		lblChooseType.setForeground(Color.WHITE);
 		lblChooseType.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblChooseType.setBounds(384, 83, 144, 16);
 		add(lblChooseType);
 		
 		btnBack = new JButton("Back");
+		
 		btnBack.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnBack.setBackground(new Color(230, 230, 250));
 		btnBack.setBounds(471, 392, 188, 36);
 		add(btnBack);
 		
 		domainComboBox = new JComboBox<Domain>();
-		domainComboBox.setBounds(183, 81, 153, 25);
+		
+		domainComboBox.setBounds(145, 81, 153, 25);
 		add(domainComboBox);
 		
 		typeComboBox = new JComboBox<Type>();
@@ -119,7 +133,7 @@ public class Catalog extends JPanel implements ChatIF{
 		ImgLabel.setBounds(440, 191, 153, 143);
 		add(ImgLabel);
 		
-		JLabel lblName = new JLabel("Product Name");
+		lblName = new JLabel("Product Name");
 		lblName.setForeground(Color.WHITE);
 		lblName.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblName.setBounds(39, 127, 110, 25);
@@ -130,18 +144,18 @@ public class Catalog extends JPanel implements ChatIF{
 		list.setBounds(39, 156, 110, 222);
 		add(list);
 		
-		JLabel lblPrice = new JLabel("Price:");
+		lblPrice = new JLabel("Price:");
 		lblPrice.setForeground(Color.WHITE);
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblPrice.setBounds(183, 156, 66, 25);
 		add(lblPrice);
 		
-		JLabel lblProdprice = new JLabel("0.0");
+		lblProdprice = new JLabel("0.0");
 		lblProdprice.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblProdprice.setBounds(246, 156, 90, 25);
 		add(lblProdprice);
 		
-		JLabel lblDescription = new JLabel("Product Description:");
+		lblDescription = new JLabel("Product Description:");
 		lblDescription.setForeground(Color.WHITE);
 		lblDescription.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblDescription.setBounds(183, 213, 188, 25);
@@ -151,24 +165,52 @@ public class Catalog extends JPanel implements ChatIF{
 		textArea.setBounds(183, 249, 165, 129);
 		add(textArea);
 		
-		JLabel lblProductPicture = new JLabel("Product picture:");
+		lblProductPicture = new JLabel("Product picture:");
 		lblProductPicture.setForeground(Color.WHITE);
 		lblProductPicture.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblProductPicture.setBounds(440, 157, 153, 23);
 		add(lblProductPicture);
-
 		
+		lblChooseType.setVisible(false);
+		lblName.setVisible(false);
+		lblPrice.setVisible(false);
+		lblProdprice.setVisible(false);
+		lblDescription.setVisible(false);
+		lblProductPicture.setVisible(false);
+		typeComboBox.setVisible(false);
+		list.setVisible(false);
+		textArea.setVisible(false);
+		//domainComboBox.addItem(new Domain());
+		//typeComboBox.addItem(new Type());
 		
+		domainComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        domain=(Domain)domainComboBox.getSelectedItem();
+		        if (domain.getdName().equals("")){
+		        	//do nothing
+		        }
+		        else{
+		        	loadTypes();
+		        	typeComboBox.setVisible(true);
+		        	lblChooseType.setVisible(true);
+		        }
+		    }
+		});
 	}
-	private void loadProducts(){
+	private void loadDomains(){
 		domainComboBox.removeAllItems();
 		
 		cmd=new Command(Com.SEARCH_DOMAIN,new Domain());
 		client.handleMessageFromClientUI(cmd);
 	}
+	private void loadProducts(){
+		
+	}
 	private void loadTypes(){
 		typeComboBox.removeAllItems();
-		cmd=new Command(Com.SEARCH_TYPE,new Type());
+		type=new Type();
+		type.setDid(domain.getDid());
+		cmd=new Command(Com.SEARCH_TYPE,type);
 		client.handleMessageFromClientUI(cmd);
 	}
 	
@@ -202,6 +244,9 @@ public class Catalog extends JPanel implements ChatIF{
 				}
 				if(key instanceof Product){
 					
+				}
+				if(key instanceof Domain){
+					domainComboBox.addItem((Domain)key);
 				}
 			
 			}

@@ -478,6 +478,12 @@ public class MainWindow extends JFrame implements ChatIF{
 				
 			}
 		});
+		catalog.btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setContentPane(editCatalog);
+				setVisible(true);
+			}
+		});
 		addNewDomainToCatalog.btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(editCatalog);
