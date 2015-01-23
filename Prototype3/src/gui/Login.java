@@ -79,7 +79,7 @@ public class Login extends JPanel implements ChatIF{
 	 * @param ip IP address to connect
 	 */
 	public void connect(String ip){
-		this.IP=ip;
+		Login.IP=ip;
 		try 
 	    {
 	      client= new ChatClient(IP,D_PORT,this);

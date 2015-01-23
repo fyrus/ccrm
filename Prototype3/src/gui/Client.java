@@ -113,7 +113,7 @@ public class Client extends JFrame{
 		panel.add(btnConnect);
 		
 		txtIpAddress = new JTextField();
-		txtIpAddress.setText("localhost");
+		txtIpAddress.setText("");
 		txtIpAddress.setBounds(202, 54, 176, 23);
 		panel.add(txtIpAddress);
 		txtIpAddress.setColumns(10);
@@ -122,6 +122,7 @@ public class Client extends JFrame{
 		this.setSize(451, 300);
 		login.btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				login.lblPasswordIsIncorrect.setVisible(false);
 				login.lblNoSuchUser.setVisible(false);
 				//getting user from server
