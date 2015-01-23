@@ -28,11 +28,11 @@ public class Product implements java.io.Serializable {
 	 */
 	public Product(){
 		pid=0;
+		tid=0;
 		pname="";
 		pdescription="";
 		pprice=0;
 		pphoto="";
-		tid=0;
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class Product implements java.io.Serializable {
 		this.pdescription=pdescription;
 		this.pprice=pprice;
 		this.pphoto=pphoto;
-		this.tid = 0;
+		this.tid=0;
 	}
 
 	/**
@@ -134,6 +134,14 @@ public class Product implements java.io.Serializable {
 	 */
 	public void setTid(int tid) {
 		this.tid = tid;
+	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (getPname()+" ("+getTid()+")");
 	}
 	
 	
