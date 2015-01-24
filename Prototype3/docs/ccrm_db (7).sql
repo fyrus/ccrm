@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2015 at 09:02 PM
+-- Generation Time: Jan 24, 2015 at 05:45 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -120,16 +120,17 @@ DROP TABLE IF EXISTS `marketing_campaign`;
 CREATE TABLE IF NOT EXISTS `marketing_campaign` (
 `Cid` int(11) NOT NULL,
   `Startdate` date DEFAULT '1900-01-01',
-  `Enddate` date DEFAULT '1900-01-01'
+  `Enddate` date DEFAULT '1900-01-01',
+  `Paternid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `marketing_campaign`
 --
 
-INSERT INTO `marketing_campaign` (`Cid`, `Startdate`, `Enddate`) VALUES
-(1, '2015-01-06', '2015-01-31'),
-(2, '2015-01-13', '2015-01-31');
+INSERT INTO `marketing_campaign` (`Cid`, `Startdate`, `Enddate`, `Paternid`) VALUES
+(1, '2015-01-06', '2015-01-31', NULL),
+(2, '2015-01-13', '2015-01-31', NULL);
 
 -- --------------------------------------------------------
 
@@ -161,7 +162,7 @@ INSERT INTO `marketing_customers` (`Customerid`, `Campaignid`) VALUES
 
 DROP TABLE IF EXISTS `marketing_patern`;
 CREATE TABLE IF NOT EXISTS `marketing_patern` (
-`Patterid` int(11) NOT NULL,
+`Paternid` int(11) NOT NULL,
   `Productid` int(11) DEFAULT NULL,
   `Segmentid` int(11) DEFAULT NULL,
   `Message` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -170,11 +171,11 @@ CREATE TABLE IF NOT EXISTS `marketing_patern` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `market_segment`
+-- Table structure for table `marketing_segment`
 --
 
-DROP TABLE IF EXISTS `market_segment`;
-CREATE TABLE IF NOT EXISTS `market_segment` (
+DROP TABLE IF EXISTS `marketing_segment`;
+CREATE TABLE IF NOT EXISTS `marketing_segment` (
 `Segmentid` int(11) NOT NULL,
   `Age` int(11) DEFAULT NULL,
   `Locationid` int(11) DEFAULT NULL,
@@ -183,10 +184,10 @@ CREATE TABLE IF NOT EXISTS `market_segment` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `market_segment`
+-- Dumping data for table `marketing_segment`
 --
 
-INSERT INTO `market_segment` (`Segmentid`, `Age`, `Locationid`, `Importance`, `Interest`) VALUES
+INSERT INTO `marketing_segment` (`Segmentid`, `Age`, `Locationid`, `Importance`, `Interest`) VALUES
 (2, 12, 1, 1, 1),
 (3, 12, 1, 1, 1),
 (4, 12, 1, 1, 1),
@@ -410,12 +411,12 @@ ALTER TABLE `marketing_campaign`
 -- Indexes for table `marketing_patern`
 --
 ALTER TABLE `marketing_patern`
- ADD PRIMARY KEY (`Patterid`);
+ ADD PRIMARY KEY (`Paternid`);
 
 --
--- Indexes for table `market_segment`
+-- Indexes for table `marketing_segment`
 --
-ALTER TABLE `market_segment`
+ALTER TABLE `marketing_segment`
  ADD PRIMARY KEY (`Segmentid`);
 
 --
@@ -476,11 +477,11 @@ MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `marketing_patern`
 --
 ALTER TABLE `marketing_patern`
-MODIFY `Patterid` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Paternid` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `market_segment`
+-- AUTO_INCREMENT for table `marketing_segment`
 --
-ALTER TABLE `market_segment`
+ALTER TABLE `marketing_segment`
 MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `permission`
