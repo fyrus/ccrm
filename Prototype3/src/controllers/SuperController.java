@@ -171,7 +171,7 @@ public class SuperController extends DbConn{
 
 
 		} catch (SQLException e) {
-			System.out.println("ERROR: Could search in DB");
+			System.out.println("ERROR: Could not search in DB");
 			e.printStackTrace();
 			return null;
 		}
