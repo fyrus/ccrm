@@ -51,7 +51,6 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	private ChatClient client;
 
 	public JButton btnCancel;
-	private JTextField tfAge;
 	private JComboBox<Location> cbLocation;
 	private JComboBox<Domain> cbPermissionByDomain;
 
@@ -118,10 +117,10 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		cbInterest.setBounds(317, 219, 116, 22);
 		add(cbInterest);
 		
-		tfAge = new JTextField();
-		tfAge.setBounds(317, 83, 116, 22);
-		add(tfAge);
-		tfAge.setColumns(10);
+		final JComboBox<String> cbAgeRange = new JComboBox<String>();
+		cbAgeRange.setModel(new DefaultComboBoxModel<String>(new String[] {"Select range", "0", "10", "20", "30", "40", "50", "60", "70", "80"}));
+		cbAgeRange.setBounds(317, 83, 116, 22);
+		add(cbAgeRange);
 		
 		JLabel lblAddNewMarket = new JLabel("Add New Market Segment");
 		lblAddNewMarket.setForeground(Color.PINK);
@@ -140,8 +139,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(cbImportance.getSelectedIndex() == 0 ||
-					cbInterest.getSelectedIndex() == 0 ||
-					(Integer.parseInt(tfAge.getText())<0 || Integer.parseInt(tfAge.getText())>100 ))
+					cbInterest.getSelectedIndex() == 0 || cbAgeRange.getSelectedIndex() == 0)
 				{
 					JOptionPane.showMessageDialog(null, "Error! Please fill mandatory fields.");
 				}
@@ -151,21 +149,21 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				
 				MarketingSegment marketSegment = new MarketingSegment();
 				
-				marketSegment.setAge(Integer.parseInt(tfAge.getText()));
+				marketSegment.setAge(Integer.parseInt(cbAgeRange.getSelectedItem().toString()));
 				marketSegment.setImportance(Integer.parseInt((String) cbImportance.getSelectedItem()));
 				marketSegment.setInterest(Integer.parseInt((String) cbInterest.getSelectedItem()));
 				marketSegment.setLocation(((Location)cbLocation.getSelectedItem()).getLid());
-			//	marketSegment.AddPermission(((Permission)cbPermissions.getSelectedItem()));
+				//marketSegment.setPermission(permission);
+				//marketSegment.AddPermission(cbPermissionByDomain);
 				
-				//cmd.setComVal(marketSegment);
-				//cmd.setComNum(Com.ADD_MARKETSEGMENT);
+				cmd.setComVal(marketSegment);
+				cmd.setComNum(Com.ADD_MARKETSEGMENT);
 
-				//client.handleMessageFromClientUI(cmd);
+				client.handleMessageFromClientUI(cmd);
 
 				JOptionPane.showMessageDialog(null, "Market Segment was successfully created");
 				cbImportance.setSelectedIndex(0);
 				cbInterest.setSelectedIndex(0);
-				tfAge.setText("");
 				LoadData();
 				}
 				
@@ -183,6 +181,8 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		cbPermissionByDomain = new JComboBox<Domain>();
 		cbPermissionByDomain.setBounds(317, 263, 116, 22);
 		add(cbPermissionByDomain);
+		
+		
 		
 		
 		

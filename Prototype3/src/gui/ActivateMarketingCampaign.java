@@ -2,53 +2,28 @@
  * 
  */
 package gui;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-import java.awt.SystemColor;
-
 import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
-
-import javax.swing.JTextField;
-
-import sun.util.calendar.JulianCalendar;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-
-import sun.util.calendar.CalendarUtils;
-
-import javax.swing.text.DateFormatter;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
-
 import client.ChatClient;
-
-import com.sun.xml.internal.bind.v2.TODO;
 import com.toedter.calendar.JDateChooser;
-
 import common.ChatIF;
 import common.Com;
 import common.Command;
 import entities.MarketingPatern;
-import entities.Domain;
-import entities.Location;
 import entities.MarketingCampaign;
-import entities.Type;
-
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-
 import javax.swing.JComboBox;
 
 /**
@@ -61,10 +36,10 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	 */
 	private static final long serialVersionUID = 1L;
 	public JButton btnCancel;
+	public JButton btnCreateCustomerLists;
 	private JDateChooser dcStartDate;
 	private JDateChooser dcEndDate;
-	private int campaignMarketingPatternLen;
-	private JComboBox cbPatern;
+	private JComboBox<MarketingPatern> cbPatern;
 
 	/**
 	 * Create the panel.
@@ -73,12 +48,13 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	private Command cmd;
 	private MarketingCampaign marketingCampaign;
 	
-	private ArrayList<MarketingPatern> campaignMarketingPatternList;
 	
 	public ActivateMarketingCampaign() {
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
+				SetData();
+
 				
 				
 			}
@@ -133,6 +109,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 				}
 				else
 				{
+					/*
 					marketingCampaign=new MarketingCampaign();
 					marketingCampaign.setStartdate(new Date(dcStartDate.getDate().getTime()));
 					marketingCampaign.setEnddate(new Date(dcEndDate.getDate().getTime()));
@@ -141,6 +118,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 					cmd=new Command(Com.ADD_MARKETINGCAMPAIGN,marketingCampaign);
 					client.handleMessageFromClientUI(cmd);
 					JOptionPane.showMessageDialog(null, "Marketing campaign has been activated");
+					*/
 				}
 				
 			}
@@ -165,13 +143,13 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		add(btnCancel);
 		
 		
-		JButton btnCreateCustomerLists = new JButton("Create Customer Lists For SalesMans");
+		btnCreateCustomerLists = new JButton("Create Customer Lists For SalesMans");
 		btnCreateCustomerLists.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCreateCustomerLists.setBackground(new Color(230, 230, 250));
 		btnCreateCustomerLists.setBounds(203, 329, 244, 36);
 		add(btnCreateCustomerLists);
 		
-		cbPatern = new JComboBox();
+		cbPatern = new JComboBox<MarketingPatern>();
 		cbPatern.setBounds(332, 86, 145, 22);
 		add(cbPatern);
 		
@@ -181,11 +159,17 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 
 	}
 	
-	/*private void loadCampaignMarketingPatterns(){
-		comboBox.removeAllItems();
-		cmd=new Command(Com.SEARCH_MARKETINGCAMPAIGN,new Domain());
-		client.handleMessageFromClientUI(cmd);
-	}*/
+
+	private void SetData()
+	{
+		//cbPatern.removeAllItems();
+		//Command cmd = new Command();
+		//MarketingPatern marketingPatern = new MarketingPatern();
+		//cmd.setComVal(marketingPatern);ALEX NEEDS TO TAKE CARE OF THAT!!!!!!!!!!!!!!!!!!!!
+		//cmd.setComNum(Com.SEARCH_MARKETINGPATERN);
+		
+		//client.handleMessageFromClientUI(cmd);
+	}
 	
 		// make a connection to server
 	private void connect(){
@@ -205,21 +189,20 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	/* (non-Javadoc)
 	 * @see common.ChatIF#display(java.lang.Object)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void display(Object message) {
 		// TODO Auto-generated method stub
 		System.out.println("System msg: got Marketing Pattern in marketing patterns");
 		if (message instanceof ArrayList<?>)
-			if (((ArrayList<?>)message).get(0) instanceof MarketingPatern){
-				campaignMarketingPatternList=new ArrayList<MarketingPatern>((ArrayList<MarketingPatern>)message);
-				campaignMarketingPatternLen=campaignMarketingPatternList.size();
-				for (int i=0;i<campaignMarketingPatternLen;i++)
-					cbPatern.addItem(campaignMarketingPatternList.get(i).getPaternid());
-	
-		
-		
-	}
+			if (message instanceof ArrayList<?>) {
+				cbPatern.removeAllItems();
+				for(Object key:((ArrayList<?>)message).toArray()){
+					if(key instanceof MarketingPatern){
+						cbPatern.addItem(((MarketingPatern)key));
+					}
+				}
+				
+			}
 	}
 }
 

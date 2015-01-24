@@ -101,6 +101,10 @@ public class MarketingPatern implements java.io.Serializable{
 		MassageToCustomer = massageToCustomer;
 	}
 	
+	@Override
+	public String toString() {
+		return getMassageToCustomer();
+	}
 	
 	
 	
