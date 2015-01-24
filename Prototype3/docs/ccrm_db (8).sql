@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2015 at 05:45 AM
+-- Generation Time: Jan 24, 2015 at 03:36 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -61,6 +61,29 @@ INSERT INTO `customer` (`Cid`, `Cname`, `Cbd`, `CLocation`, `Cphone`) VALUES
 ('6788', '', '1970-01-01', '', ''),
 ('6788889', '', '2015-01-23', '', ''),
 ('67889', '', '1970-01-01', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_attributes`
+--
+
+DROP TABLE IF EXISTS `customer_attributes`;
+CREATE TABLE IF NOT EXISTS `customer_attributes` (
+  `Customerid` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `Importance` int(11) DEFAULT NULL,
+  `Interest` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `customer_attributes`
+--
+
+INSERT INTO `customer_attributes` (`Customerid`, `Importance`, `Interest`) VALUES
+('123', 2, 3),
+('1233', 2, 3),
+('12334', 2, 3),
+('123345', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -129,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `marketing_campaign` (
 --
 
 INSERT INTO `marketing_campaign` (`Cid`, `Startdate`, `Enddate`, `Paternid`) VALUES
-(1, '2015-01-06', '2015-01-31', NULL),
-(2, '2015-01-13', '2015-01-31', NULL);
+(1, '2015-01-06', '2015-01-31', 1),
+(2, '2015-01-13', '2015-01-31', 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +189,14 @@ CREATE TABLE IF NOT EXISTS `marketing_patern` (
   `Productid` int(11) DEFAULT NULL,
   `Segmentid` int(11) DEFAULT NULL,
   `Message` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `marketing_patern`
+--
+
+INSERT INTO `marketing_patern` (`Paternid`, `Productid`, `Segmentid`, `Message`) VALUES
+(1, 2, 3, 'blabla');
 
 -- --------------------------------------------------------
 
@@ -181,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `marketing_segment` (
   `Locationid` int(11) DEFAULT NULL,
   `Importance` int(11) DEFAULT NULL,
   `Interest` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `marketing_segment`
@@ -195,7 +225,8 @@ INSERT INTO `marketing_segment` (`Segmentid`, `Age`, `Locationid`, `Importance`,
 (6, 12, 1, 1, 1),
 (7, 12, 1, 1, 1),
 (8, 12, 1, 1, 1),
-(9, 12, 1, 1, 1);
+(9, 12, 1, 1, 1),
+(10, 12, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -302,19 +333,25 @@ INSERT INTO `registeredcustomer` (`Cid`, `Cname`, `Cbd`, `Clocation`, `Cphone`, 
 
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
+`Saleid` int(11) NOT NULL,
   `Customerid` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Itemid` int(11) DEFAULT NULL,
   `SaleDate` date DEFAULT '1900-01-01',
+  `CallTime` int(11) DEFAULT NULL,
   `Buy` tinyint(1) DEFAULT '0',
   `Comments` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=REDUNDANT;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=REDUNDANT AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`Customerid`, `Itemid`, `SaleDate`, `Buy`, `Comments`) VALUES
-('123', 11, '1900-01-01', 0, 'dsafsdafsaff');
+INSERT INTO `sales` (`Saleid`, `Customerid`, `Itemid`, `SaleDate`, `CallTime`, `Buy`, `Comments`) VALUES
+(2, '123', 13, '1970-01-01', 32, 1, 'buy stuff good item this'),
+(3, '123', 13, '1970-01-01', 32, 1, 'buy stuff good item this'),
+(4, '123', 13, '1970-01-01', 32, 1, 'buy stuff good item this'),
+(5, '123', 13, '1970-01-01', 32, 1, 'buy stuff good item this'),
+(6, '123', 13, '1970-01-01', 32, 1, 'buy stuff good item this');
 
 -- --------------------------------------------------------
 
@@ -390,6 +427,12 @@ ALTER TABLE `customer`
  ADD PRIMARY KEY (`Cid`);
 
 --
+-- Indexes for table `customer_attributes`
+--
+ALTER TABLE `customer_attributes`
+ ADD PRIMARY KEY (`Customerid`);
+
+--
 -- Indexes for table `domain`
 --
 ALTER TABLE `domain`
@@ -438,6 +481,12 @@ ALTER TABLE `registeredcustomer`
  ADD PRIMARY KEY (`Cid`), ADD UNIQUE KEY `Cid` (`Cid`), ADD KEY `FKCustomer575078` (`Pid`), ADD KEY `Cid_2` (`Cid`), ADD FULLTEXT KEY `CPhone` (`Cphone`);
 
 --
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+ ADD PRIMARY KEY (`Saleid`);
+
+--
 -- Indexes for table `type`
 --
 ALTER TABLE `type`
@@ -477,12 +526,12 @@ MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `marketing_patern`
 --
 ALTER TABLE `marketing_patern`
-MODIFY `Paternid` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `Paternid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `marketing_segment`
 --
 ALTER TABLE `marketing_segment`
-MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `Segmentid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `permission`
 --
@@ -493,6 +542,11 @@ MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 ALTER TABLE `product`
 MODIFY `Pid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+MODIFY `Saleid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `type`
 --

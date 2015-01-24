@@ -20,6 +20,7 @@ public class Sale implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 6668057236242752253L;
 	
+	private int Saleid;
 	private int Itemid;
 	private String Customerid;
 	private Date SaleDate;
@@ -31,6 +32,7 @@ public class Sale implements java.io.Serializable {
 	 * empty constructor
 	 */
 	public Sale(){
+		Saleid=0;
 		Itemid=0;
 		Customerid="";
 		SaleDate=new Date(0);
@@ -41,6 +43,7 @@ public class Sale implements java.io.Serializable {
 	
 	/**
 	 * constructor with:
+	 * @param Saleid the sale id
 	 * @param pid the product id
 	 * @param Customerid the product name
 	 * @param Buy the product photo
@@ -48,13 +51,28 @@ public class Sale implements java.io.Serializable {
 	 * @param SaleDate the product price
 	 * @param Call_Time the sales call time
 	 */
-	public Sale(int Itemid, String Customerid, String Comments, Date SaleDate, boolean Buy,int Call_Time){
+	public Sale(int Saleid, int Itemid, String Customerid, String Comments, Date SaleDate, boolean Buy,int Call_Time){
+		this.setSaleid(Saleid);
 		this.Itemid=Itemid;
 		this.Customerid=Customerid;
 		this.Comments=Comments;
 		this.SaleDate=SaleDate;
 		this.Buy=Buy;
 		this.Call_Time=Call_Time;
+	}
+	
+	/**
+	 * @return the saleid
+	 */
+	public int getSaleid() {
+		return Saleid;
+	}
+
+	/**
+	 * @param saleid the saleid to set
+	 */
+	public void setSaleid(int saleid) {
+		Saleid = saleid;
 	}
 
 	/**
@@ -150,9 +168,4 @@ public class Sale implements java.io.Serializable {
 	public String toString() {
 		return (getCustomerid()+getItemid());
 	}
-
-	
-	
-	
-
 }

@@ -319,6 +319,16 @@ public class EchoServer extends AbstractServer {
 			list = (ArrayList<?>) SaleController.searchInDB(cmd.getValue());
 			this.sendToClient(list, client);
 			break;
+		case DELETE_SALE:
+			action="'delete Sale'";
+			System.out.println("Message received: " + action + " from " + client);
+			SaleController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_SALE:
+			action="'update Sale'";
+			System.out.println("Message received: " + action + " from " + client);
+			SaleController.updateDb(cmd.getValue(), Integer.parseInt(cmd.getExtra()[0]));
+			break;
 			//---Sale end---
 
 			//---MarketSegment---

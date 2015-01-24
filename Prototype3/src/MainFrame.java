@@ -135,6 +135,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				s1.setCustomerid("123");
 				s1.setItemid(13);
 				s1.setSaleDate(new Date(112324));
+				s1.setCallTime(32);
 				
 				Product p1 = new Product();
 				p1.setPdescription("fff44");
@@ -167,9 +168,9 @@ public class MainFrame extends JFrame implements ChatIF{
 				ca.setInterest(3);
 				
 				
-				cmd.setComVal(ca);
+				cmd.setComVal(s1);
 				cmd.setComExtra("2", null);
-				cmd.setComNum(Com.ADD_CUSTOMERATTRIBUTES);
+				cmd.setComNum(Com.ADD_SALE);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}

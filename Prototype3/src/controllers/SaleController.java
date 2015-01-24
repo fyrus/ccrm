@@ -11,7 +11,7 @@ import entities.Sale;
 
 /**
  *controller for the sale class
- *allows saving and retrieving user info from the DB
+ *allows saving and retrieving sale info from the DB
  * @author fyrus
  *
  */
@@ -21,15 +21,16 @@ public class SaleController extends SuperController{
 		Sale tSale = (Sale)value;
 
 		String insert = "INSERT INTO sales"
-				+ "(Itemid, Customerid, SaleDate, Comments, Buy) VALUES"
-				+ "(?,?,?,?,?)";
+				+ "(Itemid, Customerid, SaleDate, CallTime, Comments, Buy) VALUES"
+				+ "(?,?,?,?,?,?)";
 
-		Object []args = new Object[5];
+		Object []args = new Object[6];
 		args[0]=tSale.getItemid();
 		args[1]=tSale.getCustomerid();
 		args[2]=tSale.getSaleDate();
-		args[3]=tSale.getComments();
-		args[4]=tSale.getBuy();
+		args[3]=tSale.getCallTime();
+		args[4]=tSale.getComments();
+		args[5]=tSale.getBuy();
 		if(superAddToDB(insert,args))
 			System.out.println("Sale was added");
 		else
@@ -38,37 +39,37 @@ public class SaleController extends SuperController{
 	}
 
 	/**
-	 * remove customer from DB
-	 * @param value the customer to remove
+	 * remove sale from DB
+	 * @param value the sale to remove
 	 */
 	public static void removeFromDB(Object value) {
-/*
+
 		Sale tSale = (Sale)value;
 		Sale tmp = new Sale();
-		tmp.setcId(tSale.getcId());
+		tmp.setSaleid(tSale.getSaleid());
 
-		if (tSale.getcId().compareTo("") == 0)
+		if (tSale.getSaleid() == 0)
 			return;
 
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("no Sale with id " + tSale.getcId() + " found");
+			System.out.println("no Sale with id " + tSale.getSaleid() + " found");
 		}
 		else{
-			String sqlRemove = "DELETE FROM customer WHERE Cid = " + tSale.getcId();
+			String sqlRemove = "DELETE FROM sales WHERE Saleid = " + tSale.getSaleid();
 			if(superRemoveFromDB(sqlRemove))
-				System.out.println("Sale with id " + tSale.getcId() + " was removed");
+				System.out.println("Sale with id " + tSale.getSaleid() + " was removed");
 			else
-				System.out.println("Sale with id " + tSale.getcId() + " was not removed");
+				System.out.println("Sale with id " + tSale.getSaleid() + " was not removed");
 		}
-		*/
+		
 
 	}
 
 	/**
-	 * search all customers in DB
-	 * @param value the customer to search (can have some values or all)
-	 * @return list of customers if found, null if not
+	 * search all sale in DB
+	 * @param value the sale to search (can have some values or all)
+	 * @return list of sale if found, null if not
 	 */
 	public static Object searchInDB(Object value) {
 
@@ -78,18 +79,22 @@ public class SaleController extends SuperController{
 
 		String sqlSearch = "SELECT * "
 				+ "FROM sales "
-				+ "WHERE Itemid=ifnull(?,Itemid) "
+				+ "WHERE Saleid=ifnull(?,Saleid) "
+				+ "AND Itemid=ifnull(?,Itemid) "
 				+ "AND Customerid=ifnull(?,Customerid) "
 				+ "AND SaleDate=ifnull(?,SaleDate) "
+				+ "AND CallTime=ifnull(?,CallTime) "
 				+ "AND Comments=ifnull(?,Comments) "
 				+ "AND Buy=ifnull(?,Buy) ";
 		
-		Object []args = new Object[5];
-		args[0]=tmp.getItemid();
-		args[1]=tmp.getCustomerid();
-		args[2]=tmp.getSaleDate();
-		args[3]=tmp.getComments();
-		args[4]=tmp.getBuy();
+		Object []args = new Object[7];
+		args[0]=tmp.getSaleid();
+		args[1]=tmp.getItemid();
+		args[2]=tmp.getCustomerid();
+		args[3]=tmp.getSaleDate();
+		args[4]=tmp.getCallTime();
+		args[5]=tmp.getComments();
+		args[6]=tmp.getBuy();
 
 		ResultSet resultSet;
 
@@ -101,9 +106,11 @@ public class SaleController extends SuperController{
 			}
 			while (resultSet.next()) {
 				Sale p = new Sale();
+				p.setSaleid(resultSet.getInt("Saleid"));
 				p.setItemid(resultSet.getInt("Itemid"));
 				p.setCustomerid(resultSet.getString("Customerid"));
 				p.setSaleDate(resultSet.getDate("SaleDate"));
+				p.setCallTime(resultSet.getInt("CallTime"));
 				p.setComments(resultSet.getString("Comments"));
 				p.setBuy(resultSet.getBoolean("Buy"));
 				customerList.add(p);
@@ -117,13 +124,13 @@ public class SaleController extends SuperController{
 	}
 
 	/**
-	 * update a customer in the db
-	 * @param value new customer data to be updated
-	 * @param id id of the customer we updating
+	 * update a sale in the db
+	 * @param value new sale data to be updated
+	 * @param id id of the sale we updating
 	 */
-	public static void updateDb(Object value, String id) {
-/*
-		if (id.compareTo("") == 0)
+	public static void updateDb(Object value, int id) {
+
+		if (id == 0)
 			return;
 		Sale tSale = (Sale)value;
 		String update = "UPDATE customer "
@@ -131,26 +138,29 @@ public class SaleController extends SuperController{
 				+ "WHERE Cid=?";
 
 		Sale tmp = new Sale();
-		tmp.setcId(id);
-		//check if customer exists
+		tmp.setSaleid(id);
+		//check if sale exists
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("Sale with id " + tSale.getcId() + " cannot be found");
+			System.out.println("Sale with id " + tSale.getSaleid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[6];
-			args[0]=tSale.getcId();
-			args[1]=tSale.getcName();
-			args[2]=tSale.getcBirthDate();
-			args[3]=tSale.getcLocation();
-			args[4]=tSale.getcPhone();
-			args[5]=id;
+			Object []args = new Object[8];
+			args[0]=tSale.getSaleid();
+			args[1]=tSale.getItemid();
+			args[2]=tSale.getCustomerid();
+			args[3]=tSale.getSaleDate();
+			args[4]=tSale.getCallTime();
+			args[5]=tSale.getComments();
+			args[6]=tSale.getBuy();
+			args[7]=id;
+			
 			if(superUpdateDb(update,args))
-				System.out.println("Sale with id " + tSale.getcId() + " was updated");
+				System.out.println("Sale with id " + tSale.getSaleid() + " was updated");
 			else
-				System.out.println("Sale with id " + tSale.getcId() + " was not updated");
+				System.out.println("Sale with id " + tSale.getSaleid() + " was not updated");
 		}
-		*/
+		
 
 	}
 
