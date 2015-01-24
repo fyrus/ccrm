@@ -2,7 +2,6 @@
  * 
  */
 package entities;
-import java.util.*;
 /**
  * MarketingCustomer will contain marketing id and customer id
  * @author alex

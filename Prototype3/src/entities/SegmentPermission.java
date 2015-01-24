@@ -2,7 +2,6 @@
  * 
  */
 package entities;
-import java.util.*;
 /**
  * SegmentPermission will contain Segment id and Permission id
  * @author alex

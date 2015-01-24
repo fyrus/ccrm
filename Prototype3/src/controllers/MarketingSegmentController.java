@@ -6,11 +6,7 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import entities.Customer;
 import entities.MarketingSegment;
-import entities.MarketingCustomer;
 import entities.Permission;
 import entities.SegmentPermission;
 

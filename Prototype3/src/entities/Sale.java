@@ -5,8 +5,6 @@ package entities;
 
 import java.sql.Date;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 /**
  * This is the sale class
  * @author Alex

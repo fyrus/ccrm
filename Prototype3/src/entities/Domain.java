@@ -9,6 +9,10 @@ import java.util.*;
  *
  */
 public class Domain implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 710080532546079014L;
 	private int did;
 	private String dName;
 	private List<Type> typeList;
