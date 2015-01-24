@@ -55,6 +55,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private AddNewMarketSegment addNewMarketSegment;
 	private CustomerSaleListByMarketingManager customerSaleListByMarketingManager;
 	private AddUser addUser;
+	private CustomerCharacterizationReport customerCharacterizationReport;
 	private JLabel lblEmployeePortal;
 	
 	public JButton btnExit;
@@ -207,6 +208,7 @@ public class MainWindow extends JFrame implements ChatIF{
 		addNewMarketSegment = new AddNewMarketSegment();
 		customerSaleListByMarketingManager = new CustomerSaleListByMarketingManager();
 		addUser = new AddUser();
+		customerCharacterizationReport= new CustomerCharacterizationReport();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -564,6 +566,18 @@ public class MainWindow extends JFrame implements ChatIF{
 		reportSelector.btnCampaignReactionReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(campaignReactionReportProduce);
+				setVisible(true);
+			}
+		});
+		reportSelector.btnCustomerCharacterizationReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(customerCharacterizationReport);
+				setVisible(true);
+			}
+		});
+		customerCharacterizationReport.btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(reportSelector);
 				setVisible(true);
 			}
 		});

@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * @author Nastya
@@ -51,6 +53,7 @@ public class ReportSelector extends JPanel {
 		add(btnCampaignReactionReport);
 		
 		btnCustomerCharacterizationReport = new JButton("Customer Characterization Report");
+		
 		btnCustomerCharacterizationReport.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCustomerCharacterizationReport.setBackground(new Color(230, 230, 250));
 		btnCustomerCharacterizationReport.setBounds(112, 226, 214, 36);

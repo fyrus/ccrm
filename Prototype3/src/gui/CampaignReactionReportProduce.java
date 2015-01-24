@@ -64,6 +64,7 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 	private Sale sale;
 	private ArrayList<MarketingCustomer> mcList;
 	private ArrayList<Sale> salesList;
+	private int min;
 	
 	private ChatClient client;
 	private Command cmd;
@@ -117,7 +118,7 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 		});
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
-		btnCancel.setBounds(52, 401, 188, 36);
+		btnCancel.setBounds(52, 381, 188, 36);
 		add(btnCancel);
 		
 		campComboBox = new JComboBox<MarketingCampaign>();
@@ -159,7 +160,7 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 		
 		model = new DefaultListModel<String>();
 		JList<String> list = new JList<String>(model);
-		list.setBounds(433, 138, 200, 299);
+		list.setBounds(433, 138, 200, 279);
 		add(list);
 		
 		JLabel lblRejectionComments = new JLabel("Rejection comments");
@@ -171,8 +172,10 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 		btnPro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				model.clear();
 				mcList=new ArrayList<MarketingCustomer>();
 				salesList=new ArrayList<Sale>();
+				min=0;
 				
 				mCamp=(MarketingCampaign)campComboBox.getSelectedItem();
 				mCost=new MarketingCustomer();
@@ -200,8 +203,12 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 				}
 				lblSalesnumber.setText(""+salesList.size());
 				for(Object key:salesList.toArray()){
+					min+=((Sale)key).getCallTime();
+					if (!((Sale)key).getBuy())
+						model.addElement(((Sale)key).getComments());
 					
 				}
+				lblPhonetime.setText(""+(double)min/60+" hours");
 			}
 		});
 
@@ -224,6 +231,7 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 	}
 	
 	private void loadCamp(){
+		campComboBox.removeAll();
 		cmd=new Command(Com.SEARCH_MARKETINGCAMPAIGN,new MarketingCampaign());
 		client.handleMessageFromClientUI(cmd);
 	}
