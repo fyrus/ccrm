@@ -24,30 +24,19 @@ public class UserController extends SuperController{
 				+ "(Uid, Name, Password, Addr, Phone, LoggedIn, Role) VALUES"
 				+ "(?,?,?,?,?,?,?)";
 
-		User tmp = new User();
-		tmp.setUid(tUser.getUid());
+		Object []args = new Object[7];
+		args[0]=tUser.getUid();
+		args[1]=tUser.getName();
+		args[2]=tUser.getPassword();
+		args[3]=tUser.getAddress();
+		args[4]=tUser.getPhone();
+		args[5]=tUser.isLoggedin();
+		args[6]=tUser.getRole();
+		if(superAddToDB(insert,args))
+			System.out.println("User with id " + tUser.getUid() + " was added");
+		else
+			System.out.println("User with id " + tUser.getUid() + " was not added");
 
-		if (tUser.getUid() == 0)
-			return;
-
-		if(searchInDB(tmp) != null)
-		{
-			System.out.println("User with id " + tUser.getUid() + " already exists");
-		}
-		else{
-			Object []args = new Object[7];
-			args[0]=tUser.getUid();
-			args[1]=tUser.getName();
-			args[2]=tUser.getPassword();
-			args[3]=tUser.getAddress();
-			args[4]=tUser.getPhone();
-			args[5]=tUser.isLoggedin();
-			args[6]=tUser.getRole();
-			if(superAddToDB(insert,args))
-				System.out.println("User with id " + tUser.getUid() + " was added");
-			else
-				System.out.println("User with id " + tUser.getUid() + " was not added");
-		}
 	}
 
 	/**
