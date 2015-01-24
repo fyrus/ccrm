@@ -52,6 +52,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	private JComboBox<Location> cbLocation;
 	private JComboBox<Permission> cbPermissionId;
 	private JComboBox<String> cbAgeRange;
+	private ArrayList<Domain> domainList;
 	/**
 	 * Create the panel.
 	 */
@@ -60,7 +61,8 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
 				LoadData();
-				
+				domainList = new ArrayList<Domain>();
+				domainList.removeAll(null);
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -177,14 +179,19 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		
 		cbPermissionId = new JComboBox<Permission>();
 		cbPermissionId.addActionListener(new ActionListener() {
-			@SuppressWarnings("null")
 			public void actionPerformed(ActionEvent e) {
 				
 				Permission selectedPermission = ((Permission)cbPermissionId.getSelectedItem());
 				if(selectedPermission!=null){
-				Domain d = null;
+				
+				Domain d = new Domain();
 				d.setDid(selectedPermission.getDid()); 
-				taDomainOfPermission.setText(d.getdName().toString());
+				Command cmd = new Command();
+				cmd.setComVal(d);
+				cmd.setComNum(Com.SEARCH_DOMAIN);
+				client.handleMessageFromClientUI(cmd);
+				d.setdName(((Domain)domainList.get(0)).getdName());
+				taDomainOfPermission.setText(d.getdName());
 				
 				}
 				
@@ -274,6 +281,9 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				}
 				if(key instanceof Permission){
 					cbPermissionId.addItem(((Permission)key));
+				}
+				if(key instanceof Domain){
+					domainList.add(((Domain)key));
 				}
 
 			}
