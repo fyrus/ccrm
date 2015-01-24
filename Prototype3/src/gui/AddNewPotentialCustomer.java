@@ -159,6 +159,10 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.","New Customer",0); // with "X" icon
 					
 				}
+				
+				else if(tfcID.getText().toString().compareTo("999") >0 || tfcID.getText().toString().compareTo("100")<0 )
+					JOptionPane.showMessageDialog(null, "Error! Customer id is between 100-999","New Customer",0); // with "X" icon
+					
 				else
 				{
 					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),new Date(tfcBD.getDate().getTime()),"",tfcPhone.getText());
@@ -169,6 +173,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 					client.handleMessageFromClientUI(cmd);
 					
 					JOptionPane.showMessageDialog(null, "Customer added to Database.", "New Customer", 1);// with "!" icon
+					LoadData();
 					tfcBD.setDate(null);
 					tfcFName.setText("");
 					tfcID.setText("");
