@@ -88,7 +88,9 @@ public class Domain implements java.io.Serializable{
 	public void setTypeList(List<Type> typeList) {
 		this.typeList = typeList;
 	}
-	
+	/**
+	 * Override toString method for type name display
+	 */
 	@Override
 	public String toString() {
 		return getdName();

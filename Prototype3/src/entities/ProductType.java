@@ -61,4 +61,13 @@ public class ProductType implements java.io.Serializable{
 	public void setTypeid(int Typeid) {
 		this.Typeid = Typeid;
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (""+getProductid()+getTypeid());
+	}
+
 }

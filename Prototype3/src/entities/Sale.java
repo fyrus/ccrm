@@ -123,6 +123,15 @@ public class Sale implements java.io.Serializable {
 		this.Buy = Buy;
 	}
 	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (getCustomerid()+getItemid());
+	}
+
+	
 	
 	
 

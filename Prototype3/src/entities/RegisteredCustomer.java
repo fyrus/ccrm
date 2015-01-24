@@ -68,9 +68,15 @@ public class RegisteredCustomer extends Customer{
 	public int getPermission(){
 		return this.Permissions;
 	}
+
+	
+	/**
+	 * Override toString method for type name display
+	 */
 	@Override
 	public String toString() {
-		return getcId();
+		return (getcName());
 	}
+
 	
 }

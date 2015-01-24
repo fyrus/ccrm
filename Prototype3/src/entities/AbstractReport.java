@@ -60,5 +60,14 @@ public class AbstractReport implements java.io.Serializable {
 	public void setRid(String date){
 		this.rdate=date;
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return ("("+getRid()+") "+getRdate());
+	}
+
 
 }

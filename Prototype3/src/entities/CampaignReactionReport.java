@@ -11,6 +11,11 @@ import java.util.*;
  */
 public class CampaignReactionReport extends AbstractReport {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8076429585980904966L;
+	
 	/*id number of the campaign*/
 	private int cmpId;
 	/*number of potential clients*/
@@ -127,6 +132,14 @@ public class CampaignReactionReport extends AbstractReport {
 	 */
 	public void addNonPurchaseComments(String cmnt){
 		this.nonPurchaseComments.add(cmnt);
+	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return ("("+getCmpId()+") ");
 	}
 	
 	

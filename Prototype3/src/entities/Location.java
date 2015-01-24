@@ -59,7 +59,9 @@ public class Location implements java.io.Serializable {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
+	/**
+	 * Override toString method for type name display
+	 */
 	@Override
 	public String toString() {
 		return getLocation();

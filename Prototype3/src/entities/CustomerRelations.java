@@ -48,6 +48,14 @@ public class CustomerRelations extends User {
 		Customer cust = new Customer(cid,cname,cbd , clocation ,cphone);
 		return cust;
      } 
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 	
 	

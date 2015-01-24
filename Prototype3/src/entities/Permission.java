@@ -46,7 +46,7 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @return the pid
+	 * @return the permission id
 	 */
 	public int getPid() {
 		return pid;
@@ -54,7 +54,7 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @param pid the pid to set
+	 * @param pid the permission id to set
 	 */
 	public void setPid(int pid) {
 		this.pid = pid;
@@ -62,7 +62,7 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @return the cid
+	 * @return the customer id
 	 */
 	public int getCid() {
 		return cid;
@@ -70,7 +70,7 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @param cid the cid to set
+	 * @param cid the customer id to set
 	 */
 	public void setCid(int cid) {
 		this.cid = cid;
@@ -78,7 +78,7 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @return the did
+	 * @return the permission domain
 	 */
 	public int getDid() {
 		return did;
@@ -86,11 +86,20 @@ public class Permission implements java.io.Serializable {
 
 
 	/**
-	 * @param did the did to set
+	 * @param did the permission domain to set
 	 */
 	public void setDid(int did) {
 		this.did = did;
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (""+getCid()+getPid()+getDid());
+	}
+
 	
 	
 	

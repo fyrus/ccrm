@@ -180,5 +180,14 @@ public class User implements java.io.Serializable{
 		this.role = role;
 	}
 	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (getName());
+	}
+
+	
 
 }

@@ -61,4 +61,13 @@ public class SegmentPermission implements java.io.Serializable{
 	public void setPermissionid(int Permissionid) {
 		this.Permissionid = Permissionid;
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (""+getPermissionid()+getSegmentid());
+	}
+
 }

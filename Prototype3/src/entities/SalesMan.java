@@ -9,14 +9,6 @@ package entities;
  *
  */
 
-/*
- * missions to do : 
- * getCustomerListForSales
- * sellProduct(pid : int)
- * +setSCustomerContactEvent(cid : int, eDate Date, pid : int) : boolean
- * +setFCustomerContactEvent(cid : int, pDate : Date, refuseMsg : string)
- * +addMarketingPermission(cid : int, domain : string)
- */
 public class SalesMan extends User {
 
 	/**
@@ -35,15 +27,25 @@ public class SalesMan extends User {
 	
 	/**
 	 * constructor with params:
-	 * @param uid
-	 * @param name
-	 * @param password
-	 * @param address
-	 * @param phone
+	 * @param uid the Sale Man id
+	 * @param name the Sale Man name
+	 * @param password the Sale Man password
+	 * @param address the Sale Man address
+	 * @param phone the Sale Man phone
 	 */
 	public SalesMan(int uid,String name,String password,String address,String phone){
 		super(uid,name,password,address,phone);
 		setRole("SalesMan");
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (getName());
+	}
+
+
 	
 }

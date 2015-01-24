@@ -4,7 +4,7 @@
 package entities;
 import java.util.*;
 /**
- * MarketingCustomer will contain marketing id and custoemr id
+ * MarketingCustomer will contain marketing id and customer id
  * @author alex
  *
  */
@@ -61,4 +61,13 @@ public class MarketingCustomer implements java.io.Serializable{
 	public void setCampaignid(int Campaignid) {
 		this.Campaignid = Campaignid;
 	}
+	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return ("("+getCampaignid()+") "+getCustomerid());
+	}
+
 }

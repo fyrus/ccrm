@@ -91,6 +91,13 @@ public class CustomerCharacterizationReport extends AbstractReport {
 		this.marketingEfficiencyOnClient = marketingEfficiencyOnClient;
 	}
 
-	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return (getCustomerId()+getMarketingEfficiencyOnClient());
+	}
+
 
 }
