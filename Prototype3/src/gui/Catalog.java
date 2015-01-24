@@ -8,18 +8,25 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 import client.ChatClient;
 import common.ChatIF;
@@ -37,6 +44,9 @@ import javax.swing.ListSelectionModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 /**
  * this is the catalog class
@@ -74,6 +84,7 @@ public class Catalog extends JPanel implements ChatIF{
 	private Product product;
 	private Type type;
 	private Domain domain;
+	private File f;
 	
 	final JLabel ImgLabel;
 	/**
@@ -84,7 +95,9 @@ public class Catalog extends JPanel implements ChatIF{
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
-				
+				lblProdprice.setText("0.0");
+				textArea.setText("");
+				ImgLabel.setIcon(null);
 				loadDomains();
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
@@ -135,7 +148,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		ImgLabel = new JLabel("");
 		ImgLabel.setBackground(Color.WHITE);
-		ImgLabel.setBounds(440, 191, 153, 143);
+		ImgLabel.setBounds(492, 191, 153, 143);
 		add(ImgLabel);
 		
 		lblName = new JLabel("Product Name");
@@ -146,6 +159,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		model = new DefaultListModel<Product>();
 		list = new JList<Product>(model);
+									
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(39, 156, 110, 222);
 		add(list);
@@ -153,29 +167,59 @@ public class Catalog extends JPanel implements ChatIF{
 		lblPrice = new JLabel("Price:");
 		lblPrice.setForeground(Color.WHITE);
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblPrice.setBounds(183, 156, 66, 25);
+		lblPrice.setBounds(263, 155, 66, 25);
 		add(lblPrice);
 		
 		lblProdprice = new JLabel("0.0");
 		lblProdprice.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblProdprice.setBounds(246, 156, 90, 25);
+		lblProdprice.setBounds(326, 155, 90, 25);
 		add(lblProdprice);
 		
 		lblDescription = new JLabel("Product Description:");
 		lblDescription.setForeground(Color.WHITE);
 		lblDescription.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblDescription.setBounds(183, 213, 188, 25);
+		lblDescription.setBounds(263, 213, 188, 25);
 		add(lblDescription);
 		
 		textArea = new JTextArea();
-		textArea.setBounds(183, 249, 165, 129);
+		textArea.setBounds(263, 249, 165, 129);
 		add(textArea);
 		
 		lblProductPicture = new JLabel("Product picture:");
 		lblProductPicture.setForeground(Color.WHITE);
 		lblProductPicture.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblProductPicture.setBounds(440, 157, 153, 23);
+		lblProductPicture.setBounds(492, 157, 153, 23);
 		add(lblProductPicture);
+		
+		JButton button = new JButton("--->");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(list.getSelectedValue()!=null){
+					lblProdprice.setText(list.getSelectedValue().getPprice()+"");
+					textArea.setText(list.getSelectedValue().getPdescription());
+					
+					f=new File(list.getSelectedValue().getPphoto());
+					BufferedImage img;
+					try {
+						img = ImageIO.read(f);
+						ImgLabel.setIcon(new ImageIcon(img));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("System error: could not get picture.");
+						ImgLabel.setIcon(null);
+						//e.printStackTrace();
+					}
+				
+					
+				}
+			}
+		});
+		button.setBounds(164, 244, 66, 23);
+		add(button);
+		
+		JLabel lblInfo = new JLabel("Info");
+		lblInfo.setBounds(184, 224, 46, 14);
+		add(lblInfo);
 		
 		
 		
@@ -184,7 +228,7 @@ public class Catalog extends JPanel implements ChatIF{
 		    public void actionPerformed(ActionEvent e) {
 		    	if ((Domain)domainComboBox.getSelectedItem()!=null){
 		    		domain=(Domain)domainComboBox.getSelectedItem();
-		        
+		    		model.clear();
 		    		loadTypes();
 		    	}
 		        
@@ -197,7 +241,7 @@ public class Catalog extends JPanel implements ChatIF{
 		        
 		    		findProducts();
 		    		try {
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -227,6 +271,7 @@ public class Catalog extends JPanel implements ChatIF{
 		}
 	}
 	private void findProducts(){
+		ptList=new ArrayList<ProductType>();
 		ProductType pt=new ProductType();
 		pt.setTypeid(type.getTid());
 		cmd=new Command(Com.SEARCH_PRODUCTTYPE,pt);

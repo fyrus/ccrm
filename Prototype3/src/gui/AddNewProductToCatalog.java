@@ -198,12 +198,14 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 				
 				fc = new JFileChooser();
 				
+				
 				fc.setCurrentDirectory(new java.io.File("D:/"));
 				fc.setDialogTitle("Choose product image");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				if(fc.showOpenDialog(btnBrowse) == JFileChooser.APPROVE_OPTION)
 				{
 					try {
+						
 						BufferedImage img = ImageIO.read(fc.getSelectedFile());
 					
 						ImgLabel.setIcon(new ImageIcon(img));
