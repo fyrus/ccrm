@@ -26,7 +26,6 @@ public class SegmentPermission implements java.io.Serializable{
 	 * New segment permission
 	 * @param Segmentid Segment id
 	 * @param Permissionid Permission id
-	 * @param type list of types in domain
 	 */
 	public SegmentPermission(int Segmentid,int Permissionid){
 		this.Segmentid = Segmentid;

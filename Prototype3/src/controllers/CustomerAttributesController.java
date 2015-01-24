@@ -92,7 +92,8 @@ public class CustomerAttributesController extends SuperController{
 				+ "FROM customer_attributes "
 				+ "WHERE Customerid=ifnull(?,Customerid) "
 				+ "AND Importance=ifnull(?,Importance) "
-				+ "AND Interest=ifnull(?,Interest) ";
+				+ "AND Interest=ifnull(?,Interest) "
+				+ "SORT BY Importance";
 		
 		Object []args = new Object[3];
 		args[0]=tmp.getCustomerid();
