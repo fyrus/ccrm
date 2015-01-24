@@ -56,6 +56,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private CustomerSaleListByMarketingManager customerSaleListByMarketingManager;
 	private AddUser addUser;
 	private CustomerCharacterizationReport customerCharacterizationReport;
+	private AnalyticalSystem analyticalSystem;
 	private JLabel lblEmployeePortal;
 	
 	public JButton btnExit;
@@ -209,6 +210,8 @@ public class MainWindow extends JFrame implements ChatIF{
 		customerSaleListByMarketingManager = new CustomerSaleListByMarketingManager();
 		addUser = new AddUser();
 		customerCharacterizationReport= new CustomerCharacterizationReport();
+		analyticalSystem=new AnalyticalSystem();
+		
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -312,6 +315,13 @@ public class MainWindow extends JFrame implements ChatIF{
 		contentPane.add(btnActivateMarketingCampaign);
 		
 		btnEnterAnalyticalSystem = new JButton("Enter Analytical System");
+		btnEnterAnalyticalSystem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setContentPane(analyticalSystem);
+				setVisible(true);
+				
+			}
+		});
 		btnEnterAnalyticalSystem.setBounds(482, 216, 188, 36);
 		btnEnterAnalyticalSystem.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnEnterAnalyticalSystem.setBackground(new Color(230, 230, 250));
@@ -410,6 +420,12 @@ public class MainWindow extends JFrame implements ChatIF{
 				setContentPane(contentPane);
 				setVisible(true);
 				
+			}
+		});
+		analyticalSystem.btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(contentPane);
+				setVisible(true);
 			}
 		});
 		
