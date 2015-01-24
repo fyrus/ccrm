@@ -51,6 +51,7 @@ public class AddUser extends JPanel implements ChatIF{
 	private JTextField tfName;
 	private JComboBox<Location> cbLocation;
 	private JComboBox<String> cbRole;
+	public JButton btnCancel;
 
 
 	/**
@@ -79,7 +80,7 @@ public class AddUser extends JPanel implements ChatIF{
 		lblAddNewUser.setBounds(12, 13, 94, 25);
 		add(lblAddNewUser);
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
 		btnCancel.setBounds(365, 297, 188, 36);
@@ -168,7 +169,7 @@ public class AddUser extends JPanel implements ChatIF{
 		add(tfName);
 		
 		cbRole = new JComboBox<String>();
-		cbRole.setModel(new DefaultComboBoxModel<String>(new String[] {"Choose Role", "Customer Relations", "Sales Man ", "Marketing Man", "Marketing Manager", "Admin"}));
+		cbRole.setModel(new DefaultComboBoxModel<String>(new String[] {"Choose Role", "CustomerRelations", "SalesMan", "MarketingMan", "MarketingManager", "Admin"}));
 		cbRole.setBounds(404, 60, 166, 29);
 		add(cbRole);
 		

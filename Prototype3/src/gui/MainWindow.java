@@ -2,8 +2,6 @@
  * 
  */
 package gui;
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -22,9 +20,7 @@ import javax.swing.border.MatteBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Dimension;
 
-import javax.swing.UIManager;
 
 import common.*;
 
@@ -58,6 +54,7 @@ public class MainWindow extends JFrame implements ChatIF{
 	private PotentialCustomerSalesList potentialCustomerSalesList;
 	private AddNewMarketSegment addNewMarketSegment;
 	private CustomerSaleListByMarketingManager customerSaleListByMarketingManager;
+	private AddUser addUser;
 	private JLabel lblEmployeePortal;
 	
 	public JButton btnExit;
@@ -209,6 +206,7 @@ public class MainWindow extends JFrame implements ChatIF{
 		potentialCustomerSalesList = new PotentialCustomerSalesList();
 		addNewMarketSegment = new AddNewMarketSegment();
 		customerSaleListByMarketingManager = new CustomerSaleListByMarketingManager();
+		addUser = new AddUser();
 		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -355,6 +353,12 @@ public class MainWindow extends JFrame implements ChatIF{
 		contentPane.add(lblUserName);
 		
 		btnAddUser = new JButton("Add User");
+		btnAddUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(addUser);
+				setVisible(true);
+			}
+		});
 		btnAddUser.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddUser.setBackground(new Color(230, 230, 250));
 		btnAddUser.setBounds(22, 372, 188, 36);
@@ -598,6 +602,14 @@ public class MainWindow extends JFrame implements ChatIF{
 			public void actionPerformed(ActionEvent e) {
 				
 				setContentPane(activateMarketingCampaign);
+				setVisible(true);
+
+			}
+		});
+		addUser.btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				setContentPane(contentPane);
 				setVisible(true);
 
 			}
