@@ -79,8 +79,6 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
-				
-				
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -152,8 +150,15 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 						JOptionPane.showMessageDialog(null, "Error! Incorrect input at price field","New Product",0);
 						canInput=false;
 					}
+					
+					String picpath;
+					if(fc == null)
+						picpath="";
+					else
+						picpath=fc.getSelectedFile().getPath();
+					
 					if (canInput){
-					product=new Product(0,tfpName.getText(),fc.getSelectedFile().getPath(),tfapDescription.getText(),price);
+					product=new Product(0,tfpName.getText(),picpath,tfapDescription.getText(),price);
 					cmd=new Command(Com.ADD_PRODUCT,product);
 					client.handleMessageFromClientUI(cmd);
 					
