@@ -24,6 +24,7 @@ public class Sale implements java.io.Serializable {
 	private String Customerid;
 	private Date SaleDate;
 	private String Comments;
+	private int Call_Time;
 	private boolean Buy;
 	
 	/**
@@ -35,6 +36,7 @@ public class Sale implements java.io.Serializable {
 		SaleDate=new Date(0);
 		Comments="";
 		Buy=false;
+		Call_Time=0;
 	}
 	
 	/**
@@ -44,13 +46,15 @@ public class Sale implements java.io.Serializable {
 	 * @param Buy the product photo
 	 * @param Comments the product description
 	 * @param SaleDate the product price
+	 * @param Call_Time the sales call time
 	 */
-	public Sale(int Itemid, String Customerid, String Comments, Date SaleDate, boolean Buy){
+	public Sale(int Itemid, String Customerid, String Comments, Date SaleDate, boolean Buy,int Call_Time){
 		this.Itemid=Itemid;
 		this.Customerid=Customerid;
 		this.Comments=Comments;
 		this.SaleDate=SaleDate;
 		this.Buy=Buy;
+		this.Call_Time=Call_Time;
 	}
 
 	/**
@@ -121,6 +125,22 @@ public class Sale implements java.io.Serializable {
 	 */
 	public void setBuy(boolean Buy) {
 		this.Buy = Buy;
+	}
+	
+	/**
+	 * 
+	 * @return the sale call time
+	 */
+	public int getCallTime(){
+		return Call_Time;
+	}
+	
+	/**
+	 * 
+	 * @param CallTime the sale call time to set
+	 */
+	public void setCallTime(int CallTime){
+		this.Call_Time=CallTime;
 	}
 	
 	/**
