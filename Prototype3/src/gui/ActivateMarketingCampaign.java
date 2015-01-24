@@ -75,7 +75,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		lblActivateMarketingCampaign.setBounds(12, 13, 253, 25);
 		add(lblActivateMarketingCampaign);
 
-		JLabel lblMarketingPatternId = new JLabel("Choose Campaign Maekrting Pattern:");
+		JLabel lblMarketingPatternId = new JLabel("Choose Marketing Pattern:");
 		lblMarketingPatternId.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMarketingPatternId.setForeground(Color.WHITE);
 		lblMarketingPatternId.setBounds(55, 86, 265, 20);
@@ -104,10 +104,8 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		JButton btnActivate = new JButton("Activate");
 		btnActivate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if( (dcStartDate.getDate().before(new Date()) )
-						|| (dcEndDate.getDate().before(dcStartDate.getDate()))){
-					JOptionPane.showMessageDialog(null, "Error! Please fill mandatory fields.","Activation",0);
-				}
+				if(dcEndDate.getDate().before(dcStartDate.getDate()))
+					JOptionPane.showMessageDialog(null, "Error! End date cannot be before Start date.","Activation",0);
 				else
 				{
 					Command cmd = new Command();
@@ -116,18 +114,15 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 
 					marketingCampaign.setStartdate(new java.sql.Date(dcStartDate.getDate().getTime()));
 					marketingCampaign.setEnddate(new java.sql.Date(dcEndDate.getDate().getTime()));
-					marketingCampaign.setPaternid((cbPatern.getSelectedIndex()));
+					marketingCampaign.setPaternid(((MarketingPatern)cbPatern.getSelectedItem()).getPaternid());
 
 					cmd.setComVal(marketingCampaign);
 					cmd.setComNum(Com.ADD_MARKETINGCAMPAIGN);
 					client.handleMessageFromClientUI(cmd);
 
 					JOptionPane.showMessageDialog(null, "Marketing Campaign was successfully created");
-					
-
 
 					LoadData();
-
 				}
 
 			}
@@ -170,11 +165,11 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 
 
 	private void LoadData(){
-		
+
 
 		cbPatern.removeAllItems();
-		dcEndDate.setDate(new Date());
 		dcStartDate.setDate(new Date());
+		dcEndDate.setDate(new Date());
 
 		Command cmd = new Command();
 		MarketingPatern marketingPatern = new MarketingPatern();
@@ -185,8 +180,8 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 
 
 
-	
-}
+
+	}
 	// make a connection to server
 	private void connect(){
 

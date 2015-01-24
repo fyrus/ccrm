@@ -27,9 +27,10 @@ public class MarketingCampaignController extends SuperController{
 				+ "(?,?,?)";
 
 		try{
-			Object []args = new Object[2];
+			Object []args = new Object[3];
 			args[0]=tMarketingCampaign.getStartdate();
 			args[1]=tMarketingCampaign.getEnddate();
+			args[2]=tMarketingCampaign.getPaternid();
 
 			if(superAddToDB(insert,args)){	//if add to db success
 				ResultSet resultSet;
