@@ -2,7 +2,6 @@
  * 
  */
 package gui;
-
 import javax.swing.JPanel;
 
 import java.awt.Color;
@@ -18,7 +17,6 @@ import javax.swing.event.AncestorListener;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 import client.ChatClient;
 import common.ChatIF;
@@ -29,15 +27,14 @@ import entities.Location;
 import entities.MarketingSegment;
 import entities.Permission;
 
-
-
-
-
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 /**
  * @author Nastia
@@ -51,9 +48,11 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	private ChatClient client;
 
 	public JButton btnCancel;
+	private JTextArea taDomainOfPermission;
 	private JComboBox<Location> cbLocation;
-	private JComboBox<Domain> cbPermissionByDomain;
-
+	private JComboBox<Permission> cbPermissionId;
+	private JComboBox<String> cbAgeRange;
+	private ArrayList<Domain> domainList;
 	/**
 	 * Create the panel.
 	 */
@@ -62,7 +61,8 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
 				LoadData();
-				
+				domainList = new ArrayList<Domain>();
+				domainList.removeAll(null);
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -101,11 +101,11 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		lblCustomerInterestRank.setBounds(38, 225, 269, 16);
 		add(lblCustomerInterestRank);
 		
-		JLabel lblPermissionDomain = new JLabel("Permission Domain:");
-		lblPermissionDomain.setForeground(Color.WHITE);
-		lblPermissionDomain.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblPermissionDomain.setBounds(38, 265, 194, 16);
-		add(lblPermissionDomain);
+		JLabel lblPermissionId = new JLabel("Permission ID:");
+		lblPermissionId.setForeground(Color.WHITE);
+		lblPermissionId.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPermissionId.setBounds(38, 265, 144, 16);
+		add(lblPermissionId);
 		
 		final JComboBox<String> cbImportance = new JComboBox<String>();
 		cbImportance.setModel(new DefaultComboBoxModel<String>(new String[] {"rank", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
@@ -117,7 +117,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		cbInterest.setBounds(317, 219, 116, 22);
 		add(cbInterest);
 		
-		final JComboBox<String> cbAgeRange = new JComboBox<String>();
+		cbAgeRange = new JComboBox<String>();
 		cbAgeRange.setModel(new DefaultComboBoxModel<String>(new String[] {"Select range", "0", "10", "20", "30", "40", "50", "60", "70", "80"}));
 		cbAgeRange.setBounds(317, 83, 116, 22);
 		add(cbAgeRange);
@@ -147,16 +147,15 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				{
 				Command cmd = new Command();
 				
-				MarketingSegment marketSegment = new MarketingSegment();
+				MarketingSegment marketingSegment = new MarketingSegment();
 				
-				marketSegment.setAge(Integer.parseInt(cbAgeRange.getSelectedItem().toString()));
-				marketSegment.setImportance(Integer.parseInt((String) cbImportance.getSelectedItem()));
-				marketSegment.setInterest(Integer.parseInt((String) cbInterest.getSelectedItem()));
-				marketSegment.setLocation(((Location)cbLocation.getSelectedItem()).getLid());
-				//marketSegment.setPermission(permission);
-				//marketSegment.AddPermission(cbPermissionByDomain);
+				marketingSegment.setAge(Integer.parseInt(cbAgeRange.getSelectedItem().toString()));
+				marketingSegment.setImportance(Integer.parseInt((String) cbImportance.getSelectedItem()));
+				marketingSegment.setInterest(Integer.parseInt((String) cbInterest.getSelectedItem()));
+				marketingSegment.setLocation(((Location)cbLocation.getSelectedItem()).getLid());
 				
-				cmd.setComVal(marketSegment);
+				
+				cmd.setComVal(marketingSegment);
 				cmd.setComNum(Com.ADD_MARKETSEGMENT);
 
 				client.handleMessageFromClientUI(cmd);
@@ -178,9 +177,43 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		cbLocation.setBounds(317, 132, 116, 22);
 		add(cbLocation);
 		
-		cbPermissionByDomain = new JComboBox<Domain>();
-		cbPermissionByDomain.setBounds(317, 263, 116, 22);
-		add(cbPermissionByDomain);
+		cbPermissionId = new JComboBox<Permission>();
+		cbPermissionId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Permission selectedPermission = ((Permission)cbPermissionId.getSelectedItem());
+				if(selectedPermission!=null){
+				
+				Domain d = new Domain();
+				d.setDid(selectedPermission.getDid()); 
+				Command cmd = new Command();
+				cmd.setComVal(d);
+				cmd.setComNum(Com.SEARCH_DOMAIN);
+				client.handleMessageFromClientUI(cmd);
+				d.setdName(((Domain)domainList.get(0)).getdName());
+				taDomainOfPermission.setText(d.getdName());
+				
+				}
+				
+				
+			}
+		});
+		cbPermissionId.setBounds(317, 263, 116, 22);
+		add(cbPermissionId);
+		
+		taDomainOfPermission = new JTextArea();
+		taDomainOfPermission.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		taDomainOfPermission.setFont(new Font("Courier New", Font.PLAIN, 10));
+		taDomainOfPermission.setForeground(Color.BLACK);
+		taDomainOfPermission.setBackground(Color.LIGHT_GRAY);
+		taDomainOfPermission.setBounds(460, 265, 175, 22);
+		add(taDomainOfPermission);
+		
+		JLabel lblDomainOfPermission = new JLabel("Domain Of Permission");
+		lblDomainOfPermission.setForeground(Color.WHITE);
+		lblDomainOfPermission.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDomainOfPermission.setBounds(460, 236, 163, 16);
+		add(lblDomainOfPermission);
 		
 		
 		
@@ -194,7 +227,8 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		
 
 				cbLocation.removeAllItems();
-				cbPermissionByDomain.removeAllItems();
+				cbPermissionId.removeAllItems();
+				
 				
 
 				Command cmd = new Command();
@@ -204,6 +238,11 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				cmd.setComNum(Com.SEARCH_LOCATION);
 				client.handleMessageFromClientUI(cmd);
 
+				Permission permission = new Permission();
+				cmd.setComVal(permission);
+				cmd.setComNum(Com.SEARCH_PERMISSION);
+				client.handleMessageFromClientUI(cmd);
+				
 				Domain domain = new Domain();
 				cmd.setComVal(domain);
 				cmd.setComNum(Com.SEARCH_DOMAIN);
@@ -240,10 +279,11 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				if(key instanceof Location){
 					cbLocation.addItem(((Location)key));
 				}
+				if(key instanceof Permission){
+					cbPermissionId.addItem(((Permission)key));
+				}
 				if(key instanceof Domain){
-					cbPermissionByDomain.addItem(((Domain)key));
-
-
+					domainList.add(((Domain)key));
 				}
 
 			}

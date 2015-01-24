@@ -107,14 +107,18 @@ public class AddNewPermissionDetails extends JPanel implements ChatIF{
 		cbRegisteredCustomerId = new JComboBox<RegisteredCustomer>();
 		cbRegisteredCustomerId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				StringBuilder sb = new StringBuilder();
+				RegisteredCustomer registeredCustomer = ((RegisteredCustomer)cbRegisteredCustomerId.getSelectedItem());
+				if(registeredCustomer!=null){
 				sb.append("Selected Customer Details:"+"\n"+"\n"+"\n");
-				sb.append("Customer Name:"+((RegisteredCustomer)cbRegisteredCustomerId.getSelectedItem()).getcName()+"\n");
-				sb.append("Birth Date:"+((RegisteredCustomer)cbRegisteredCustomerId.getSelectedItem()).getcBirthDate().toString()+"\n"+"\n");
-				sb.append("Location:"+((RegisteredCustomer)cbRegisteredCustomerId.getSelectedItem()).getcLocation()+"\n");
-				sb.append("Phone Number:"+((RegisteredCustomer)cbRegisteredCustomerId.getSelectedItem()).getcPhone()+"\n"+"\n");
+				sb.append("Customer Name:"+registeredCustomer.getcName()+"\n");
+				sb.append("Birth Date:"+registeredCustomer.getcBirthDate().toString()+"\n"+"\n");
+				sb.append("Location:"+registeredCustomer.getcLocation()+"\n");
+				sb.append("Phone Number:"+registeredCustomer.getcPhone()+"\n"+"\n");
 				
 				taCustomerDetails.setText(sb.toString());
+				}
 				
 			
 			}
