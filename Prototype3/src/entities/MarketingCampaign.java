@@ -44,8 +44,8 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	/**
 	 * constructor with params:
-	 * @param cmpid
-	 * @param startdate
+	 * @param cmpid - The campaign id 
+	 * @param startdate - The campaign start day
 	 */
 	public MarketingCampaign(int cid, Date startdate, Date enddate, int paternid){
 		this.cid=cid;
@@ -57,9 +57,9 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	/**
 	 * If the new campaign have this information.
-	 * @param cmpid
-	 * @param startdate
-	 * @param cust
+	 * @param cmpid The campaign id 
+	 * @param startdate The campaign start day
+	 * @param cust The campaign customers
 	 */
 	public MarketingCampaign(int cid, Date startdate, Date enddate, ArrayList<Customer> cust, int paternid){
 		this.cid=cid;
@@ -71,7 +71,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @return the cid
+	 * @return the campaign id
 	 */
 	public int getCid() {
 		return cid;
@@ -79,18 +79,15 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @param cid the cid to set
+	 * @param cid the campaign id to set
 	 */
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-	
-	/**
-	 * @return the mcid
-	 */
+
 
 	/**
-	 * @return the startdate
+	 * @return the campaign start date
 	 */
 	public Date getStartdate() {
 		return startdate;
@@ -98,14 +95,14 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @param startdate the startdate to set
+	 * @param startdate the campaign start date to set
 	 */
 	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
 	
 	/**
-	 * @return the enddate
+	 * @return the campaign end date
 	 */
 	public Date getEnddate() {
 		return enddate;
@@ -113,7 +110,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @param enddate the enddate to set
+	 * @param enddate the campaign end date to set
 	 */
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
@@ -121,7 +118,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @return the cust
+	 * @return the campaign customers
 	 */
 	public ArrayList<Customer> getCust() {
 		return cust;
@@ -129,7 +126,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @param cust the cust to set
+	 * @param cust the campaign customers to set
 	 */
 	public void setCust(ArrayList<Customer> cust) {
 		this.cust = cust;
@@ -137,7 +134,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	
 	
 	/**
-	 * add customer to Array
+	 * add customer to Customers Array
 	 * @param customer
 	 */
 	public void AddCustomer(Customer customer){
@@ -146,7 +143,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @return the paternid
+	 * @return the patern id
 	 */
 	public int getPaternid() {
 		return paternid;
@@ -154,7 +151,7 @@ public class MarketingCampaign implements java.io.Serializable {
 
 
 	/**
-	 * @param paternid the paternid to set
+	 * @param paternid the patern id to set
 	 */
 	public void setPaternid(int paternid) {
 		this.paternid = paternid;
