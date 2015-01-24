@@ -65,12 +65,11 @@ public class CustomerCharacterizationReport extends JPanel implements ChatIF{
 		addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
-				//model.clear();
-				customerList=new ArrayList<RegisteredCustomer>();
-				customerAttList=new ArrayList<CustomerAttributes>();
+				model.clear();
+				lblIdofcustomer.setText("");
+				lblPhoneofcustomer.setText("");
+				loadCostumers();
 				
-				cmd=new Command(Com.SEARCH_CUSTOMERATTRIBUTES,new CustomerAttributes());
-				client.handleMessageFromClientUI(cmd);
 				
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
@@ -106,7 +105,7 @@ public class CustomerCharacterizationReport extends JPanel implements ChatIF{
 				customer=new RegisteredCustomer();
 				customer.setcId(list.getSelectedValue().getCustomerid());
 				cmd=new Command(Com.SEARCH_REGISTEREDCUSTOMER,customer);
-				
+				client.handleMessageFromClientUI(cmd);
 			}
 		});
 		btnShowDetails.setBounds(261, 218, 107, 23);
@@ -124,13 +123,13 @@ public class CustomerCharacterizationReport extends JPanel implements ChatIF{
 		lblCustomerPhone.setBounds(375, 107, 136, 23);
 		add(lblCustomerPhone);
 		
-		lblIdofcustomer = new JLabel("idofcustomer");
+		lblIdofcustomer = new JLabel("");
 		lblIdofcustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblIdofcustomer.setBounds(521, 59, 114, 21);
 		add(lblIdofcustomer);
 		
 		
-		lblPhoneofcustomer = new JLabel("phoneofcustomer");
+		lblPhoneofcustomer = new JLabel("");
 		lblPhoneofcustomer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPhoneofcustomer.setBounds(521, 108, 136, 20);
 		add(lblPhoneofcustomer);
@@ -138,7 +137,7 @@ public class CustomerCharacterizationReport extends JPanel implements ChatIF{
 		
 	}
 	
-private void connect(){
+	private void connect(){
 		
 		try 
 	    {
@@ -152,6 +151,11 @@ private void connect(){
 	    }
 		
 	}
+	
+	private void loadCostumers(){
+		cmd=new Command(Com.SEARCH_CUSTOMERATTRIBUTES,new CustomerAttributes());
+		client.handleMessageFromClientUI(cmd);
+	}
 
 /* (non-Javadoc)
  * @see common.ChatIF#display(java.lang.Object)
@@ -163,10 +167,9 @@ private void connect(){
 			for(Object key:((ArrayList<?>)message).toArray()){
 				if(key instanceof CustomerAttributes){
 					model.addElement((CustomerAttributes)key);
-					//customerAttList.add((CustomerAttributes)key);
 				}
 				if(key instanceof RegisteredCustomer){
-					lblIdofcustomer.setText(((RegisteredCustomer)key).getcId());
+					lblIdofcustomer.setText(((RegisteredCustomer)key).getcName());
 					lblPhoneofcustomer.setText(((RegisteredCustomer)key).getcPhone());
 				}
 			}

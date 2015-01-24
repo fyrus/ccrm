@@ -231,7 +231,7 @@ public class CampaignReactionReportProduce extends JPanel implements ChatIF{
 	}
 	
 	private void loadCamp(){
-		campComboBox.removeAll();
+		campComboBox.removeAllItems();
 		cmd=new Command(Com.SEARCH_MARKETINGCAMPAIGN,new MarketingCampaign());
 		client.handleMessageFromClientUI(cmd);
 	}

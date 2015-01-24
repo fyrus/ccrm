@@ -55,7 +55,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	private JTextField tfcLName;
 	private JTextField tfcPhone;
 	public JButton btnCancel;
-	private Customer customer; 
+	private RegisteredCustomer customer; 
 	private JComboBox<Location> cbCustomerLocation;
 	private ChatClient client;
 	private Command cmd;
@@ -159,16 +159,12 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.","New Customer",0); // with "X" icon
 					
 				}
-				
-				else if(tfcID.getText().toString().compareTo("999") >0 || tfcID.getText().toString().compareTo("100")<0 )
-					JOptionPane.showMessageDialog(null, "Error! Customer id is between 100-999","New Customer",0); // with "X" icon
-					
 				else
 				{
-					customer=new Customer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),new Date(tfcBD.getDate().getTime()),"",tfcPhone.getText());
+					customer=new RegisteredCustomer(tfcID.getText(),tfcFName.getText()+" "+tfcLName.getText(),new Date(tfcBD.getDate().getTime()),"",tfcPhone.getText());
 					customer.setcLocation(((Location)cbCustomerLocation.getSelectedItem()).getLocation());
 					cmd=new Command();
-					cmd.setComNum(Com.ADD_CUSTOMER);
+					cmd.setComNum(Com.ADD_REGISTEREDCUSTOMER);
 					cmd.setComVal(customer);
 					client.handleMessageFromClientUI(cmd);
 					
