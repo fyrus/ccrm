@@ -159,13 +159,16 @@ public class NewSalesManEvent extends JPanel implements ChatIF{
 				
 				
 				StringBuilder sb = new StringBuilder();
+				RegisteredCustomer regCus = ((RegisteredCustomer)cbCustomerId.getSelectedItem());
+				if(regCus!=null){
 				sb.append("Selected Customer Details:"+"\n"+"\n"+"\n");
-				sb.append("Customer Name:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcName()+"\n");
-				sb.append("Birth Date:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcBirthDate().toString()+"\n"+"\n");
-				sb.append("Location:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcLocation()+"\n");
-				sb.append("Phone Number:"+((RegisteredCustomer)cbCustomerId.getSelectedItem()).getcPhone()+"\n"+"\n");
+				sb.append("Customer Name:"+regCus.getcName()+"\n");
+				sb.append("Birth Date:"+regCus.getcBirthDate().toString()+"\n"+"\n");
+				sb.append("Location:"+regCus.getcLocation()+"\n");
+				sb.append("Phone Number:"+regCus.getcPhone()+"\n"+"\n");
 				
 				taCustomerDetails.setText(sb.toString());
+				}
 				
 			}
 		});

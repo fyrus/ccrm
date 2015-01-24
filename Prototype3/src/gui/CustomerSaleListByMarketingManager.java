@@ -38,6 +38,7 @@ import entities.Domain;
 import entities.Permission;
 import entities.RegisteredCustomer;
 import entities.User;
+import javax.swing.JSeparator;
 
 /**
  * @author Nastia
