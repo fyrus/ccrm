@@ -23,50 +23,42 @@ public class MarketingCampaignController extends SuperController{
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 
 		String insert = "INSERT INTO Marketing_Campaign"
-				+ "(Startdate, Enddate) VALUES"
-				+ "(?,?)";
+				+ "(Startdate, Enddate, Paternid) VALUES"
+				+ "(?,?,?)";
 
-		String sqlstr = "SELECT * FROM Marketing_Campaign WHERE Cid=" + tMarketingCampaign.getCid();
-		if(superSearchInDB(sqlstr,null) != null){
-			System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " already exists");
-		}
-		else{
-			try{
-				Object []args = new Object[2];
-				args[0]=tMarketingCampaign.getStartdate();
-				args[1]=tMarketingCampaign.getEnddate();
+		try{
+			Object []args = new Object[2];
+			args[0]=tMarketingCampaign.getStartdate();
+			args[1]=tMarketingCampaign.getEnddate();
 
-				if(superAddToDB(insert,args)){	//if add to db success
-					ResultSet resultSet;
-					sqlstr = "SELECT Cid FROM Marketing_Campaign "
-							+"ORDER BY Cid DESC "
-							+"LIMIT 1";
-					resultSet = superSearchInDB(sqlstr, null);	//get the new Cid
-					resultSet.next();
-					int mcid = resultSet.getInt("Cid");
-					System.out.println("MarketingCampaign with id " + mcid + " was added");
-					
-					ArrayList<Customer> cust = tMarketingCampaign.getCust();
-					MarketingCustomer mc = new MarketingCustomer();
-					
-					//insert all the customers for the campaign
-					for(Object key:cust.toArray()){
-						mc.setCustomerid(((Customer)key).getcId());
-						mc.setCampaignid(mcid);
-						MarketingCustomerController.addToDB(mc);
-					}
+			if(superAddToDB(insert,args)){	//if add to db success
+				ResultSet resultSet;
+				insert = "SELECT Cid FROM Marketing_Campaign "
+						+"ORDER BY Cid DESC "
+						+"LIMIT 1";
+				resultSet = superSearchInDB(insert, null);	//get the new Cid
+				resultSet.next();
+				int id = resultSet.getInt("Cid");
+				System.out.println("MarketingCampaign with id " + id + " was added");
+
+				ArrayList<Customer> cust = tMarketingCampaign.getCust();
+				MarketingCustomer mc = new MarketingCustomer();
+
+				//insert all the customers for the campaign
+				for(Object key:cust.toArray()){
+					mc.setCustomerid(((Customer)key).getcId());
+					mc.setCampaignid(id);
+					MarketingCustomerController.addToDB(mc);
 				}
-				else
-					System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not added");
 			}
-			catch (SQLException e) {
-				System.out.println("ERROR: Could search MarketingCampaign in DB");
-				e.printStackTrace();
-				return;
-			}
+			else
+				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not added");
 		}
-
-
+		catch (SQLException e) {
+			System.out.println("ERROR: Could search MarketingCampaign in DB");
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/**
@@ -92,7 +84,7 @@ public class MarketingCampaignController extends SuperController{
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was removed");
 			else
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was not removed");
-			
+
 			//remove the campaign from marketing customers table
 			sqlRemove = "DELETE FROM marketing_customers WHERE Campaignid = " + tMarketingCampaign.getCid();
 			if(superRemoveFromDB(sqlRemove))
@@ -117,12 +109,14 @@ public class MarketingCampaignController extends SuperController{
 				+ "FROM Marketing_Campaign "
 				+ "WHERE Cid=ifnull(?,Cid) "
 				+ "AND Startdate=ifnull(?,Startdate) "
-				+ "AND Enddate=ifnull(?,Enddate) ";
+				+ "AND Enddate=ifnull(?,Enddate) "
+				+ "AND Paternid=ifnull(?,Paternid) ";
 
-		Object []args = new Object[3];
+		Object []args = new Object[4];
 		args[0]=tmp.getCid();
 		args[1]=tmp.getStartdate();
 		args[2]=tmp.getEnddate();
+		args[3]=tmp.getPaternid();
 
 		ResultSet resultSet;
 
@@ -135,6 +129,7 @@ public class MarketingCampaignController extends SuperController{
 				p.setCid(resultSet.getInt("Cid"));
 				p.setStartdate(resultSet.getDate("Startdate"));
 				p.setEnddate(resultSet.getDate("Enddate"));
+				p.setPaternid(resultSet.getInt("Paternid"));
 				MarketingCampaignList.add(p);
 			}
 			return MarketingCampaignList;
@@ -151,8 +146,8 @@ public class MarketingCampaignController extends SuperController{
 			return;
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 		String update = "UPDATE Marketing_Campaign "
-				+ "SET Cid=?, Startdate=?, Enddate=?"
-				+ "WHERE Pid=?";
+				+ "SET Cid=?, Startdate=?, Enddate=?, Paternid=?"
+				+ "WHERE Cid=?";
 		MarketingCampaign tmp = new MarketingCampaign();
 		tmp.setCid(id);
 		//check if MarketingCampaign exists
@@ -161,11 +156,12 @@ public class MarketingCampaignController extends SuperController{
 			System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[4];
+			Object []args = new Object[5];
 			args[0]=tmp.getCid();
 			args[1]=tmp.getStartdate();
 			args[2]=tmp.getEnddate();
-			args[3]=id;
+			args[3]=tmp.getPaternid();
+			args[4]=id;
 			if(superUpdateDb(update,args))
 				System.out.println("MarketingCampaign with id " + tMarketingCampaign.getCid() + " was updated");
 			else

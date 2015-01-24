@@ -146,7 +146,7 @@ public class MainFrame extends JFrame implements ChatIF{
 				Location l1 = new Location();
 				//l1.setLid(Integer.parseInt(tfId.getText()));
 				
-				MarketSegment ms = new MarketSegment();
+				MarketingSegment ms = new MarketingSegment();
 				ms.setAge(12);
 				ms.setImportance(1);
 				ms.setInterest(1);

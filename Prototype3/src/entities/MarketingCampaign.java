@@ -26,6 +26,7 @@ public class MarketingCampaign implements java.io.Serializable {
 	private int cid;
 	private Date startdate;
 	private Date enddate;
+	private int paternid;
 	private ArrayList<Customer> cust;
 	
 	
@@ -36,6 +37,7 @@ public class MarketingCampaign implements java.io.Serializable {
 		cid=0;
 		startdate=new Date(0);
 		enddate=new Date(0);
+		paternid=0;
 		cust=new ArrayList<Customer>();
 	}
 	
@@ -45,11 +47,12 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param cmpid
 	 * @param startdate
 	 */
-	public MarketingCampaign(int cid, Date startdate, Date enddate){
+	public MarketingCampaign(int cid, Date startdate, Date enddate, int paternid){
 		this.cid=cid;
 		this.startdate=startdate;
 		this.enddate=enddate;
 		this.cust=new ArrayList<Customer>();
+		this.paternid=paternid;
 	}
 	
 	/**
@@ -58,11 +61,12 @@ public class MarketingCampaign implements java.io.Serializable {
 	 * @param startdate
 	 * @param cust
 	 */
-	public MarketingCampaign(int cid, Date startdate, Date enddate,ArrayList<Customer> cust){
+	public MarketingCampaign(int cid, Date startdate, Date enddate, ArrayList<Customer> cust, int paternid){
 		this.cid=cid;
 		this.startdate=startdate;
 		this.enddate=enddate;
 		this.cust=cust;
+		this.paternid=paternid;
 	}
 
 
@@ -138,6 +142,22 @@ public class MarketingCampaign implements java.io.Serializable {
 	 */
 	public void AddCustomer(Customer customer){
 		cust.add(customer);
+	}
+
+
+	/**
+	 * @return the paternid
+	 */
+	public int getPaternid() {
+		return paternid;
+	}
+
+
+	/**
+	 * @param paternid the paternid to set
+	 */
+	public void setPaternid(int paternid) {
+		this.paternid = paternid;
 	}
 	
 

@@ -26,7 +26,7 @@ import common.Com;
 import common.Command;
 import entities.Domain;
 import entities.Location;
-import entities.MarketSegment;
+import entities.MarketingSegment;
 import entities.Permission;
 
 
@@ -149,7 +149,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				{
 				Command cmd = new Command();
 				
-				MarketSegment marketSegment = new MarketSegment();
+				MarketingSegment marketSegment = new MarketingSegment();
 				
 				marketSegment.setAge(Integer.parseInt(tfAge.getText()));
 				marketSegment.setImportance(Integer.parseInt((String) cbImportance.getSelectedItem()));

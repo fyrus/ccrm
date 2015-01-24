@@ -301,16 +301,16 @@ public class EchoServer extends AbstractServer {
 		case ADD_MARKETSEGMENT:
 			action="'add MarketSegment'";
 			System.out.println("Message received: " + action + " from " + client);
-			MarketSegmentController.addToDB(cmd.getValue());
+			MarketingSegmentController.addToDB(cmd.getValue());
 			break;
 		case SEARCH_MARKETSEGMENT:
 			action="'search MarketSegment'";
 			System.out.println("Message received: " + action + " from " + client);
-			list = (ArrayList<?>) MarketSegmentController.searchInDB(cmd.getValue());
+			list = (ArrayList<?>) MarketingSegmentController.searchInDB(cmd.getValue());
 			this.sendToClient(list, client);
 			break;
 			//---MarketSegment end---
-			
+
 			//---ProductType---
 		case ADD_PRODUCTTYPE:
 			action="'add ProductType'";
@@ -324,6 +324,20 @@ public class EchoServer extends AbstractServer {
 			this.sendToClient(list, client);
 			break;
 			//---ProductType end---
+
+			//---MarketingPatern---
+		case ADD_MARKETINGPATERN:
+			action="'add MarketingPatern'";
+			System.out.println("Message received: " + action + " from " + client);
+			MarketingPaternController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_MARKETINGPATERN:
+			action="'search MarketingPatern'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) MarketingPaternController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+			//---MarketingPatern end---
 
 
 		default:

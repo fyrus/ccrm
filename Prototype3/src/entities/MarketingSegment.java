@@ -10,7 +10,7 @@ import java.util.*;
  * @author Yossi
  *
  */
-public class MarketSegment implements java.io.Serializable {
+public class MarketingSegment implements java.io.Serializable {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class MarketSegment implements java.io.Serializable {
 	/**
 	 * empty constructor
 	 */
-	public MarketSegment(){
+	public MarketingSegment(){
 		segmentid=0;
 		age=0;
 		locationid=0;
@@ -46,7 +46,7 @@ public class MarketSegment implements java.io.Serializable {
 	 * @param interest
 	 * @param permission
 	 */
-	public MarketSegment(int segmentid, int age, int locationid, int importance,
+	public MarketingSegment(int segmentid, int age, int locationid, int importance,
 			int interest, ArrayList<Permission> permission) {
 		this.segmentid = segmentid;
 		this.age = age;

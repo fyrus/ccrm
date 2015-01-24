@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entities.Customer;
-import entities.MarketSegment;
+import entities.MarketingSegment;
 import entities.MarketingCustomer;
 import entities.Permission;
 import entities.SegmentPermission;
@@ -20,24 +20,24 @@ import entities.SegmentPermission;
  * @author fyrus
  *
  */
-public class MarketSegmentController extends SuperController{
+public class MarketingSegmentController extends SuperController{
 
 	public static void addToDB(Object value) {
-		MarketSegment tMarketSegment = (MarketSegment)value;
+		MarketingSegment tMarketingSegment = (MarketingSegment)value;
 
-		String insert = "INSERT INTO market_segment"
+		String insert = "INSERT INTO marketing_segment"
 				+ "(age,locationid,importance,interest) VALUES"
 				+ "(?,?,?,?)";
 
 		Object []args = new Object[4];
-		args[0]=tMarketSegment.getAge();
-		args[1]=tMarketSegment.getLocation();
-		args[2]=tMarketSegment.getImportance();
-		args[3]=tMarketSegment.getInterest();
+		args[0]=tMarketingSegment.getAge();
+		args[1]=tMarketingSegment.getLocation();
+		args[2]=tMarketingSegment.getImportance();
+		args[3]=tMarketingSegment.getInterest();
 		try{
 			if(superAddToDB(insert,args)){
 				ResultSet resultSet;
-				String sqlstr = "SELECT Segmentid FROM market_segment "
+				String sqlstr = "SELECT Segmentid FROM marketing_segment "
 						+"ORDER BY Segmentid DESC "
 						+"LIMIT 1";
 				resultSet = superSearchInDB(sqlstr, null);	//get the new Segmentid
@@ -46,10 +46,10 @@ public class MarketSegmentController extends SuperController{
 				System.out.println("MarketSegment with id " + id + " added");
 
 				//add the permissions
-				ArrayList<Permission> per = tMarketSegment.getPermission();
+				ArrayList<Permission> per = tMarketingSegment.getPermission();
 				SegmentPermission mc = new SegmentPermission();
 				
-				//insert all the customers for the campaign
+				//insert all the permissions for the segment
 				for(Object key:per.toArray()){
 					mc.setPermissionid(((Permission)key).getPid());
 					mc.setSegmentid(id);
@@ -74,18 +74,18 @@ public class MarketSegmentController extends SuperController{
 	 */
 	public static void removeFromDB(Object value) {
 
-		MarketSegment tMarketSegment = (MarketSegment)value;
-		MarketSegment tmp = new MarketSegment();
+		MarketingSegment tMarketingSegment = (MarketingSegment)value;
+		MarketingSegment tmp = new MarketingSegment();
 
-		tmp.setSegmentid(tMarketSegment.getSegmentid());
+		tmp.setSegmentid(tMarketingSegment.getSegmentid());
 
 		if(searchInDB(tmp) == null)
 		{
 			System.out.println("no MarketSegment found");
 		}
 		else{
-			String sqlRemove = "DELETE FROM market_segment "
-					+ "WHERE Segmentid=" + tMarketSegment.getSegmentid();
+			String sqlRemove = "DELETE FROM marketing_segment "
+					+ "WHERE Segmentid=" + tMarketingSegment.getSegmentid();
 			if(superRemoveFromDB(sqlRemove))
 				System.out.println("MarketSegment was removed");
 			else
@@ -101,12 +101,12 @@ public class MarketSegmentController extends SuperController{
 	 */
 	public static Object searchInDB(Object value) {
 
-		MarketSegment tmp = (MarketSegment)value;
+		MarketingSegment tmp = (MarketingSegment)value;
 
-		ArrayList<MarketSegment> marketsegmentList = new ArrayList<MarketSegment>();
+		ArrayList<MarketingSegment> marketsegmentList = new ArrayList<MarketingSegment>();
 
 		String sqlSearch = "SELECT * "
-				+ "FROM market_segment "
+				+ "FROM marketing_segment "
 				+ "WHERE Segmentid=ifnull(?,Segmentid) "
 				+ "AND age=ifnull(?,age) "
 				+ "AND locationid=ifnull(?,locationid) "
@@ -138,7 +138,7 @@ public class MarketSegmentController extends SuperController{
 				return null;
 			}
 			while (resultSet.next()) {
-				MarketSegment p = new MarketSegment();
+				MarketingSegment p = new MarketingSegment();
 				p.setAge(resultSet.getInt("Age"));
 				p.setImportance(resultSet.getInt("importance"));
 				p.setInterest(resultSet.getInt("interest"));
@@ -163,7 +163,7 @@ public class MarketSegmentController extends SuperController{
 		/*
 		if (id.compareTo("") == 0)
 			return;
-		MarketSegment tMarketSegment = (MarketSegment)value;
+		MarketSegment tMarketingSegment = (MarketSegment)value;
 		String update = "UPDATE segment permission "
 				+ "SET Cid=? ,Cname=? ,Cbd=? ,Clocation=? ,Cphone=?"
 				+ "WHERE Cid=?";
@@ -173,20 +173,20 @@ public class MarketSegmentController extends SuperController{
 		//check if segment permission exists
 		if(searchInDB(tmp) == null)
 		{
-			System.out.println("MarketSegment with id " + tMarketSegment.getcId() + " cannot be found");
+			System.out.println("MarketSegment with id " + tMarketingSegment.getcId() + " cannot be found");
 		}
 		else{
 			Object []args = new Object[6];
-			args[0]=tMarketSegment.getcId();
-			args[1]=tMarketSegment.getcName();
-			args[2]=tMarketSegment.getcBirthDate();
-			args[3]=tMarketSegment.getcLocation();
-			args[4]=tMarketSegment.getcPhone();
+			args[0]=tMarketingSegment.getcId();
+			args[1]=tMarketingSegment.getcName();
+			args[2]=tMarketingSegment.getcBirthDate();
+			args[3]=tMarketingSegment.getcLocation();
+			args[4]=tMarketingSegment.getcPhone();
 			args[5]=id;
 			if(superUpdateDb(update,args))
-				System.out.println("MarketSegment with id " + tMarketSegment.getcId() + " was updated");
+				System.out.println("MarketSegment with id " + tMarketingSegment.getcId() + " was updated");
 			else
-				System.out.println("MarketSegment with id " + tMarketSegment.getcId() + " was not updated");
+				System.out.println("MarketSegment with id " + tMarketingSegment.getcId() + " was not updated");
 		}*/
 
 	}

@@ -23,27 +23,18 @@ public class ProductController extends SuperController{
 		String insert = "INSERT INTO Product"
 				+ "(Pname,Pdesc,Pphoto,Pprice) VALUES"
 				+ "(?,?,?,?)";
-		
-		Product tmp = new Product();
-		tmp.setPid(tProduct.getPid());
-		
-		String sqlstr = "SELECT * FROM product WHERE Pid=" + tProduct.getPid();
-		if(superSearchInDB(sqlstr,null) != null)
-		{
-			System.out.println("Product with id " + tProduct.getPid() + " already exists");
-		}
-		else{
-			Object []args = new Object[4];
-			args[0]=tProduct.getPname();
-			args[1]=tProduct.getPdescription();
-			args[2]=tProduct.getPphoto();
-			args[3]=tProduct.getPprice();
-			
-			if(superAddToDB(insert,args))
-				System.out.println("Product with id " + tProduct.getPid() + " was added");
-			else
-				System.out.println("Product with id " + tProduct.getPid() + " was not added");
-		}
+
+		Object []args = new Object[4];
+		args[0]=tProduct.getPname();
+		args[1]=tProduct.getPdescription();
+		args[2]=tProduct.getPphoto();
+		args[3]=tProduct.getPprice();
+
+		if(superAddToDB(insert,args))
+			System.out.println("Product with id " + tProduct.getPid() + " was added");
+		else
+			System.out.println("Product with id " + tProduct.getPid() + " was not added");
+
 	}
 
 	/**
@@ -51,11 +42,11 @@ public class ProductController extends SuperController{
 	 * @param value the Product to remove
 	 */
 	public static void removeFromDB(Object value) {
-		
+
 		Product tProduct = (Product)value;
 		Product tmp = new Product();
 		tmp.setPid(tProduct.getPid());
-		
+
 		if (tProduct.getPid() == 0)
 			return;
 
@@ -82,7 +73,7 @@ public class ProductController extends SuperController{
 		Product tmp = (Product)value;
 
 		ArrayList<Product> ProductList = new ArrayList<Product>();
-		
+
 		String sqlSearch = "SELECT * "
 				+ "FROM product "
 				+ "WHERE Pid=ifnull(?,Pid) "
@@ -97,9 +88,9 @@ public class ProductController extends SuperController{
 		args[2]=tmp.getPdescription();
 		args[3]=tmp.getPphoto();
 		args[4]=tmp.getPprice();
-		
+
 		ResultSet resultSet;
-		
+
 		try {
 			resultSet = superSearchInDB(sqlSearch, args);
 			if(resultSet == null)
@@ -122,7 +113,7 @@ public class ProductController extends SuperController{
 	}
 
 	public static void updateDb(Object value, int id) {
-		
+
 		if (id == 0)
 			return;
 		Product tProduct = (Product)value;

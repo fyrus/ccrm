@@ -38,7 +38,7 @@ import com.toedter.calendar.JDateChooser;
 import common.ChatIF;
 import common.Com;
 import common.Command;
-import entities.CampaignMarketingPattern;
+import entities.MarketingPatern;
 import entities.Domain;
 import entities.Location;
 import entities.MarketingCampaign;
@@ -64,7 +64,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	private JDateChooser dcStartDate;
 	private JDateChooser dcEndDate;
 	private int campaignMarketingPatternLen;
-	private JComboBox comboBox;
+	private JComboBox cbPatern;
 
 	/**
 	 * Create the panel.
@@ -73,7 +73,7 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 	private Command cmd;
 	private MarketingCampaign marketingCampaign;
 	
-	private ArrayList<CampaignMarketingPattern> campaignMarketingPatternList;
+	private ArrayList<MarketingPatern> campaignMarketingPatternList;
 	
 	public ActivateMarketingCampaign() {
 		addAncestorListener(new AncestorListener() {
@@ -136,10 +136,8 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 					marketingCampaign=new MarketingCampaign();
 					marketingCampaign.setStartdate(new Date(dcStartDate.getDate().getTime()));
 					marketingCampaign.setEnddate(new Date(dcEndDate.getDate().getTime()));
+					marketingCampaign.setPaternid(((MarketingPatern)cbPatern.getSelectedItem()).getPaternid());
 					
-					for(int i=0;i<campaignMarketingPatternLen;i++)
-						if (campaignMarketingPatternList.get(i).equals(comboBox.getSelectedItem()))
-							marketingCampaign.setCid(campaignMarketingPatternList.get(i).getCmpid());
 					cmd=new Command(Com.ADD_MARKETINGCAMPAIGN,marketingCampaign);
 					client.handleMessageFromClientUI(cmd);
 					JOptionPane.showMessageDialog(null, "Marketing campaign has been activated");
@@ -173,9 +171,9 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		btnCreateCustomerLists.setBounds(203, 329, 244, 36);
 		add(btnCreateCustomerLists);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(332, 86, 145, 22);
-		add(comboBox);
+		cbPatern = new JComboBox();
+		cbPatern.setBounds(332, 86, 145, 22);
+		add(cbPatern);
 		
 		
 		
@@ -213,11 +211,11 @@ public class ActivateMarketingCampaign extends JPanel implements ChatIF{
 		// TODO Auto-generated method stub
 		System.out.println("System msg: got Marketing Pattern in marketing patterns");
 		if (message instanceof ArrayList<?>)
-			if (((ArrayList<?>)message).get(0) instanceof CampaignMarketingPattern){
-				campaignMarketingPatternList=new ArrayList<CampaignMarketingPattern>((ArrayList<CampaignMarketingPattern>)message);
+			if (((ArrayList<?>)message).get(0) instanceof MarketingPatern){
+				campaignMarketingPatternList=new ArrayList<MarketingPatern>((ArrayList<MarketingPatern>)message);
 				campaignMarketingPatternLen=campaignMarketingPatternList.size();
 				for (int i=0;i<campaignMarketingPatternLen;i++)
-					comboBox.addItem(campaignMarketingPatternList.get(i).getCmpid());
+					cbPatern.addItem(campaignMarketingPatternList.get(i).getPaternid());
 	
 		
 		
