@@ -7,19 +7,19 @@ import java.util.Properties;
 
 public class DbConn {
 	/** The name of the MySQL account to use (or empty for anonymous) */
-	private final static String userName = "root";
+	private final static String userName = DbParametrs.getUserName();
 
 	/** The password for the MySQL account (or empty for anonymous) */
-	private final static String password = "Braude";
+	private final static String password = DbParametrs.getPassword();
 
 	/** The name of the computer running MySQL */
-	private final static String serverName = "localhost";
+	private final static String serverName = DbParametrs.getServerName();
 
 	/** The port of the MySQL server (default is 3306) */
-	private final static int portNumber = 3306;
+	private final static int portNumber = DbParametrs.getPortNumber();
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
-	private final static String dbName = "ccrm_db";
+	private final static String dbName = DbParametrs.getDbName();
 	
 	
 	/**
