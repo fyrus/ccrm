@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import java.awt.Dimension;
@@ -34,11 +33,8 @@ import client.ChatClient;
 import common.ChatIF;
 import common.Com;
 import common.Command;
-import entities.Domain;
-import entities.Location;
 import entities.MarketingPatern;
 import entities.MarketingSegment;
-import entities.Permission;
 import entities.Product;
 
 /**
