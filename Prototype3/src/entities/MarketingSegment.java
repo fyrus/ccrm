@@ -148,4 +148,9 @@ public class MarketingSegment implements java.io.Serializable {
 		this.permission.add(permission);
 	}
 	
+	@Override
+	public String toString() {
+		return (" "+getSegmentid()+" ");
+	}
+	
 }

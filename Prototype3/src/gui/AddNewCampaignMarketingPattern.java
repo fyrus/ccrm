@@ -20,28 +20,59 @@ import javax.swing.JTextPane;
 import java.awt.Dimension;
 
 import javax.swing.border.LineBorder;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+
+import client.ChatClient;
+import common.ChatIF;
+import common.Com;
+import common.Command;
+import entities.Domain;
+import entities.Location;
+import entities.MarketingPatern;
+import entities.MarketingSegment;
+import entities.Permission;
+import entities.Product;
 
 /**
  * @author Nastia
  *
  */
-public class AddNewCampaignMarketingPattern extends JPanel {
+public class AddNewCampaignMarketingPattern extends JPanel implements ChatIF {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField tfcmpID;
-	private JTextField tfpID;
-	private JTextField tfmsID;
+	private ChatClient client;
+
+	
 	public JButton btnCancel;
+	private JComboBox<Product> cbProductId;
+	private JComboBox<MarketingSegment> cbMarketSegmentId;
+	private JTextPane tfamsgToCustomer;
 
 	/**
 	 * Create the panel.
 	 */
 	public AddNewCampaignMarketingPattern() {
+		addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+				if (client==null) connect();
+				LoadData();
+				
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		setSize(new Dimension(700, 480));
 		setBackground(Color.GRAY);
 		setLayout(null);
@@ -52,22 +83,16 @@ public class AddNewCampaignMarketingPattern extends JPanel {
 		lblAddNewCampaign.setBounds(12, 13, 345, 25);
 		add(lblAddNewCampaign);
 		
-		JLabel lblId = new JLabel("Pattern ID:");
-		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblId.setBounds(35, 99, 105, 16);
-		add(lblId);
-		
 		JLabel lblProduct = new JLabel("Product ID:");
 		lblProduct.setForeground(Color.WHITE);
 		lblProduct.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblProduct.setBounds(35, 164, 105, 16);
+		lblProduct.setBounds(35, 87, 105, 16);
 		add(lblProduct);
 		
 		JLabel lblMarketSegment = new JLabel("Market Segment ID:");
 		lblMarketSegment.setForeground(Color.WHITE);
 		lblMarketSegment.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMarketSegment.setBounds(35, 233, 149, 16);
+		lblMarketSegment.setBounds(35, 158, 149, 16);
 		add(lblMarketSegment);
 		
 		JLabel lblMessageToCustomer = new JLabel("Message To Customers");
@@ -76,22 +101,7 @@ public class AddNewCampaignMarketingPattern extends JPanel {
 		lblMessageToCustomer.setBounds(392, 83, 187, 25);
 		add(lblMessageToCustomer);
 		
-		tfcmpID = new JTextField();
-		tfcmpID.setBounds(188, 97, 144, 22);
-		add(tfcmpID);
-		tfcmpID.setColumns(10);
-		
-		tfpID = new JTextField();
-		tfpID.setBounds(188, 162, 144, 22);
-		add(tfpID);
-		tfpID.setColumns(10);
-		
-		tfmsID = new JTextField();
-		tfmsID.setBounds(188, 231, 144, 22);
-		add(tfmsID);
-		tfmsID.setColumns(10);
-		
-		final JTextPane tfamsgToCustomer = new JTextPane();
+		tfamsgToCustomer = new JTextPane();
 		tfamsgToCustomer.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		tfamsgToCustomer.setBounds(369, 121, 210, 139);
 		add(tfamsgToCustomer);
@@ -99,9 +109,7 @@ public class AddNewCampaignMarketingPattern extends JPanel {
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tfcmpID.setText("");
-				tfmsID.setText("");
-				tfpID.setText("");
+				
 				tfamsgToCustomer.setText("");
 			}
 		});
@@ -113,14 +121,29 @@ public class AddNewCampaignMarketingPattern extends JPanel {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tfamsgToCustomer.getText().equals("") ||tfcmpID.getText().equals("") ||
-						tfmsID.getText().equals("") || tfpID.getText().equals(""))
+				if(tfamsgToCustomer.getText().equals(""))
+						
 				{
-					JOptionPane.showMessageDialog(null, "Error! Please fill ALL mandatory fields.");
-					tfamsgToCustomer.setText("");
-					tfcmpID.setText("");
-					tfmsID.setText("");
-					tfpID.setText("");
+					JOptionPane.showMessageDialog(null, "Error! Message to customer is empty.","New Pattern",0);
+					
+				}
+				else{
+					Command cmd = new Command();
+					
+					MarketingPatern marketingPatern = new MarketingPatern();
+					
+					marketingPatern.setMassageToCustomer(tfamsgToCustomer.getText());
+					marketingPatern.setProductid(Integer.parseInt(cbProductId.getSelectedItem().toString()));
+					marketingPatern.setSegmentid((cbMarketSegmentId).getSelectedIndex());
+					
+					cmd.setComVal(marketingPatern);
+					cmd.setComNum(Com.ADD_MARKETINGPATERN);
+					client.handleMessageFromClientUI(cmd);
+
+					JOptionPane.showMessageDialog(null, "Campaign Marketing Pattern was successfully created");
+				
+					
+					LoadData();
 				}
 					
 			}
@@ -129,6 +152,81 @@ public class AddNewCampaignMarketingPattern extends JPanel {
 		btnAdd.setBackground(new Color(230, 230, 250));
 		btnAdd.setBounds(103, 297, 188, 36);
 		add(btnAdd);
+		
+		cbProductId = new JComboBox<Product>();
+		cbProductId.setBounds(184, 85, 144, 22);
+		add(cbProductId);
+		
+		cbMarketSegmentId = new JComboBox<MarketingSegment>();
+		cbMarketSegmentId.setBounds(184, 156, 144, 22);
+		add(cbMarketSegmentId);
 
+	}
+	
+	private void LoadData(){
+		
+
+		tfamsgToCustomer.setText("");
+		cbMarketSegmentId.removeAllItems();
+		cbProductId.removeAllItems();
+		
+		
+
+		Command cmd = new Command();
+
+		MarketingSegment marketingSegment = new MarketingSegment();
+		cmd.setComVal(marketingSegment);
+		cmd.setComNum(Com.SEARCH_MARKETSEGMENT);
+		client.handleMessageFromClientUI(cmd);
+
+		Product product = new Product();
+		cmd.setComVal(product);
+		cmd.setComNum(Com.SEARCH_PRODUCT);
+		client.handleMessageFromClientUI(cmd);
+		
+		
+
+}
+
+
+
+
+// make a connection to server
+private void connect(){
+
+try 
+{
+	client= new ChatClient(Login.IP,Login.D_PORT,this);
+} 
+catch(IOException exception) 
+{
+	System.out.println("Error: Can't setup connection!"
+			+ " Terminating client.");
+	System.exit(1);
+}
+
+}
+
+	/* (non-Javadoc)
+	 * @see common.ChatIF#display(java.lang.Object)
+	 */
+	@Override
+	public void display(Object message) {
+		// TODO Auto-generated method stub
+		if (message instanceof ArrayList<?>) {
+			for(Object key:((ArrayList<?>)message).toArray()){
+				if(key instanceof Product){
+					((Product) key).setStringby(1);
+					cbProductId.addItem((Product)key);
+				}
+				if(key instanceof MarketingSegment){
+					cbMarketSegmentId.addItem((MarketingSegment)key);
+				}
+				
+
+			}
+
+		}
+		
 	}
 }

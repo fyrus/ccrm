@@ -16,6 +16,8 @@ public class Product implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 6668057226242752253L;
 	
+	private int stringby;
+	
 	private int pid;
 	
 	private String pname;
@@ -28,7 +30,7 @@ public class Product implements java.io.Serializable {
 	 */
 	public Product(){
 		pid=0;
-		
+		setStringby(0);
 		pname="";
 		pdescription="";
 		pprice=0;
@@ -126,15 +128,33 @@ public class Product implements java.io.Serializable {
 
 	
 	
+	
+
+	/**
+	 * @return the stringby
+	 */
+	public int getStringby() {
+		return stringby;
+	}
+
+	/**
+	 * @param stringby the stringby to set
+	 */
+	public void setStringby(int stringby) {
+		this.stringby = stringby;
+	}
+	
 	/**
 	 * Override toString method for type name display
 	 */
+	
 	@Override
 	public String toString() {
+		if(this.getStringby() == 1)
+			return(this.getPid()+"");
 		return (getPname());
+		
 	}
-	
-	
 	
 
 }
