@@ -156,10 +156,20 @@ public class MainFrame extends JFrame implements ChatIF{
 				pt.setProductid(1);
 				pt.setTypeid(1);
 				
+				MarketingPatern mp = new MarketingPatern();
+				mp.setMassageToCustomer("blabla");
+				mp.setProductid(2);
+				mp.setSegmentid(3);
 				
-				cmd.setComVal(pt);
+				CustomerAttributes ca = new CustomerAttributes();
+				ca.setCustomerid(tfId.getText());
+				ca.setImportance(2);
+				ca.setInterest(3);
+				
+				
+				cmd.setComVal(ca);
 				cmd.setComExtra("2", null);
-				cmd.setComNum(Com.ADD_PRODUCTTYPE);
+				cmd.setComNum(Com.ADD_CUSTOMERATTRIBUTES);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}

@@ -115,6 +115,30 @@ public class EchoServer extends AbstractServer {
 			break;
 			//---Customer end---
 
+			//---CustomerAttributes---
+		case ADD_CUSTOMERATTRIBUTES:
+			action="'add CustomerAttributes'";
+			System.out.println("Message received: " + action + " from " + client);
+			CustomerAttributesController.addToDB(cmd.getValue());
+			break;
+		case SEARCH_CUSTOMERATTRIBUTES:
+			action="'search CustomerAttributes'";
+			System.out.println("Message received: " + action + " from " + client);
+			list = (ArrayList<?>) CustomerAttributesController.searchInDB(cmd.getValue());
+			this.sendToClient(list, client);
+			break;
+		case DELETE_CUSTOMERATTRIBUTES:
+			action="'delete CustomerAttributes'";
+			System.out.println("Message received: " + action + " from " + client);
+			CustomerAttributesController.removeFromDB(cmd.getValue());
+			break;
+		case UPDATE_CUSTOMERATTRIBUTES:
+			action="'update CustomerAttributes'";
+			System.out.println("Message received: " + action + " from " + client);
+			CustomerAttributesController.updateDb(cmd.getValue(), cmd.getExtra()[0]);
+			break;
+			//---CustomerAttributes end---
+
 			//---Domain---
 		case ADD_DOMAIN:
 			action="'add domain'";

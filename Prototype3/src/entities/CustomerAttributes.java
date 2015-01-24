@@ -15,7 +15,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = -8722679810771117532L;
 	
-	private String cid;
+	private String customerid;
 	private int importance;
 	private int interest;
 	
@@ -23,7 +23,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	 * empty constructor
 	 */
 	public CustomerAttributes(){
-		cid="";
+		customerid="";
 		importance=0;
 		interest=0;
 	}
@@ -31,12 +31,12 @@ public class CustomerAttributes implements java.io.Serializable{
 	
 	/**
 	 * constructor with params
-	 * @param cid - the Customer id
+	 * @param customerid - the Customer id
 	 * @param importance - The importance level of the customer
 	 * @param intrest - the interesting level of the customer
 	 */
-	public CustomerAttributes(String cid,int importance,int intrest){
-		this.cid=cid;
+	public CustomerAttributes(String customerid,int importance,int intrest){
+		this.customerid=customerid;
 		this.importance=importance;
 		this.interest=intrest;		
 	}
@@ -45,23 +45,23 @@ public class CustomerAttributes implements java.io.Serializable{
 	/**
 	 * @return the customer id
 	 */
-	public String getCid() {
-		return cid;
+	public String getCustomerid() {
+		return customerid;
 	}
 
 
 	/**
-	 * @param cid the customer id to set
+	 * @param customerid the customer id to set
 	 */
-	public void setCid(String cid) {
-		this.cid = cid;
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
 	}
 
 
 	/**
 	 * @return the importance level of the customer
 	 */
-	public int getImportence() {
+	public int getImportance() {
 		return importance;
 	}
 
@@ -69,7 +69,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	/**
 	 * @param importence the importance level of the customer to set
 	 */
-	public void setImportence(int importance) {
+	public void setImportance(int importance) {
 		this.importance = importance;
 	}
 
@@ -77,7 +77,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	/**
 	 * @return the interest customer level
 	 */
-	public int getinterest() {
+	public int getInterest() {
 		return interest;
 	}
 
@@ -85,7 +85,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	/**
 	 * @param interest the interest customer level to set
 	 */
-	public void setinterest(int interest) {
+	public void setInterest(int interest) {
 		this.interest = interest;
 	}
 	
@@ -94,7 +94,7 @@ public class CustomerAttributes implements java.io.Serializable{
 	 */
 	@Override
 	public String toString() {
-		return getCid();
+		return getCustomerid();
 	}
 	
 	
