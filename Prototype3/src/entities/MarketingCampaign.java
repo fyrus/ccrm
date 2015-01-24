@@ -157,5 +157,13 @@ public class MarketingCampaign implements java.io.Serializable {
 		this.paternid = paternid;
 	}
 	
+	/**
+	 * Override toString method for type name display
+	 */
+	@Override
+	public String toString() {
+		return ("Campaign id:"+getCid());
+	}
+	
 
 }
