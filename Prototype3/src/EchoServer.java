@@ -394,6 +394,7 @@ public class EchoServer extends AbstractServer {
 	 *            [0] The port number to listen on. Defaults to 5555 if no
 	 *            argument is entered.
 	 */
+	/*
 	public static void main(String[] args) {
 		int port = 0; // Port to listen on
 
@@ -411,6 +412,6 @@ public class EchoServer extends AbstractServer {
 			System.out.println("ERROR - Could not listen for clients!");
 			ex.printStackTrace();
 		}
-	}
+	}*/
 }
 // End of EchoServer class

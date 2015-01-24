@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextField;
 
 /**
  * @author Nastia
@@ -47,6 +48,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 	public JButton btnCancel;
 	private ChatClient client;
 	private JComboBox<Location> cbLocation;
+	private JTextField tfAddLocation;
 
 	/**
 	 * Create the panel.
@@ -76,44 +78,36 @@ public class ManageLocations extends JPanel implements ChatIF{
 		lblManageLocations.setBounds(12, 13, 176, 25);
 		add(lblManageLocations);
 		
-		final JComboBox <String> cbValidLocations = new JComboBox<String>();
-		cbValidLocations.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		cbValidLocations.setForeground(Color.BLACK);
-		cbValidLocations.setModel(new DefaultComboBoxModel<String>(new String[] {"Choose Location", "Acre", "Afula", "Arad", "Ariel", "Ashdod", "Ashkelon", "Bat Yam", "Beersheba", "Beit Shean", "Beit Shemesh", "Beitar Illit", "Bnei Brak", "Dimona", "Eilat", "Elad", "Givat Shmuel", "Givatayim", "Hadera", "Haifa", "Herzliya", "Hod HaSharon", "Holon", "Jerusalem", "Karmiel", "Kiryat Ata", "Kiryat Bialik", "Kiryat Gat", "Kiryat Malakhi", "Kiryat Motzkin", "Kiryat Ono", "Kiryat Shmona", "Kiryat Yam", "Kfar Saba", "Lod", "Maale Adumim", "Maalot-Tarshiha", "Migdal HaEmek", "Modiin-Maccabim-Reut", "Modiin Illit", "Nahariya", "Nazareth Illit ", "Nesher", "Ness Ziona", "Netanya", "Netivot", "Ofakim", "Or Akiva", "Or Yehuda", "Petah Tikva", "Raanana", "Ramat Gan", "Ramat HaSharon", "Ramla", "Rehovot", "Rishon LeZion", "Rosh HaAyin", "Safed", "Sderot", "Tel Aviv-Yaffo", "Tiberias", "Tirat Carmel", "Yavne", "Yehud-Monosson", "Yokneam"}));
-		cbValidLocations.setBounds(294, 290, 264, 50);
-		add(cbValidLocations);
-		
 		JButton btnAddNewLocation = new JButton("Add New Location");
 		btnAddNewLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
-				if(cbValidLocations.getSelectedIndex() == 0)
-					JOptionPane.showMessageDialog(null, "Error! Select Location to add.","New Location",0);	
+				boolean exists=false;
+				for(int i=0;i<cbLocation.getItemCount();i++)
+					if(((Location)cbLocation.getItemAt(i)).getLocation().equals(tfAddLocation.getText()))
+						exists=true;
+				if(exists)
+					JOptionPane.showMessageDialog(null, "Error! Location exists.\nEnter new Location","New Location",0);	
 				else{
-					
-				String NewLocationName = cbValidLocations.getSelectedItem().toString();
-				Command cmd = new Command();
-				Location l = new Location();
-				
-				
-				
-				l.setLocation(NewLocationName);
-				cmd.setComVal(l);
-				cmd.setComNum(Com.ADD_LOCATION);
+					String NewLocationName = tfAddLocation.getText();
+					Command cmd = new Command();
+					Location l = new Location();
 
-				client.handleMessageFromClientUI(cmd);
-				JOptionPane.showMessageDialog(null, "New Location has been added to Database.");
-				cbValidLocations.setSelectedIndex(0);
-				SetData();
-				
+					l.setLocation(NewLocationName);
+					cmd.setComVal(l);
+					cmd.setComNum(Com.ADD_LOCATION);
+
+					client.handleMessageFromClientUI(cmd);
+					JOptionPane.showMessageDialog(null, "New Location has been added to Database.");
+					SetData();
+
 				}
-				
+
 			}
 		});
 		btnAddNewLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddNewLocation.setBackground(new Color(230, 230, 250));
-		btnAddNewLocation.setBounds(50, 124, 188, 36);
+		btnAddNewLocation.setBounds(50, 220, 188, 36);
 		add(btnAddNewLocation);
 		
 		JButton btnDeleteLocation = new JButton("Delete Location");
@@ -137,7 +131,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 		});
 		btnDeleteLocation.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnDeleteLocation.setBackground(new Color(230, 230, 250));
-		btnDeleteLocation.setBounds(50, 215, 188, 36);
+		btnDeleteLocation.setBounds(50, 134, 188, 36);
 		add(btnDeleteLocation);
 		
 		btnCancel = new JButton("Cancel");
@@ -159,17 +153,23 @@ public class ManageLocations extends JPanel implements ChatIF{
 		add(lblCurrentExistingLocations);
 		
 		
-		JLabel lblChooseLocationTo = new JLabel("Choose Location To Add");
-		lblChooseLocationTo.setForeground(Color.WHITE);
-		lblChooseLocationTo.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblChooseLocationTo.setBounds(337, 261, 194, 16);
-		add(lblChooseLocationTo);
+		JLabel lblAddLocation = new JLabel("Insert new location to add");
+		lblAddLocation.setForeground(Color.WHITE);
+		lblAddLocation.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblAddLocation.setBounds(329, 185, 194, 16);
+		add(lblAddLocation);
 		
 		JLabel lblSelectAndPress = new JLabel("(Select and press Delete Location Button to delete)");
 		lblSelectAndPress.setForeground(Color.WHITE);
 		lblSelectAndPress.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSelectAndPress.setBounds(271, 95, 353, 16);
 		add(lblSelectAndPress);
+		
+		tfAddLocation = new JTextField();
+		tfAddLocation.setFont(new Font("Tahoma", Font.BOLD, 16));
+		tfAddLocation.setBounds(294, 220, 264, 36);
+		add(tfAddLocation);
+		tfAddLocation.setColumns(10);
 		
 		
 		
@@ -178,6 +178,7 @@ public class ManageLocations extends JPanel implements ChatIF{
 	
 	private void SetData()
 	{
+		tfAddLocation.setText("");
 		cbLocation.removeAllItems();
 		Command cmd = new Command();
 		Location l = new Location();

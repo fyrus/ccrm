@@ -8,6 +8,7 @@ import javax.imageio.stream.ImageInputStreamImpl;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JLabel;
@@ -42,6 +43,7 @@ import common.Command;
 import client.ChatClient;
 import entities.Domain;
 import entities.Product;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -167,12 +169,8 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		});
 		btnAdd.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAdd.setBackground(new Color(230, 230, 250));
-		btnAdd.setBounds(103, 297, 188, 36);
+		btnAdd.setBounds(50, 265, 188, 36);
 		add(btnAdd);
-		
-		ImgLabel = new JLabel("");
-		ImgLabel.setBounds(500, 114, 128, 128);
-		add(ImgLabel);
 		
 		btnCancel = new JButton("Back");
 		btnCancel.addActionListener(new ActionListener() {
@@ -185,7 +183,7 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		});
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
-		btnCancel.setBounds(365, 297, 188, 36);
+		btnCancel.setBounds(272, 265, 188, 36);
 		add(btnCancel);
 		
 		
@@ -205,10 +203,10 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 				if(fc.showOpenDialog(btnBrowse) == JFileChooser.APPROVE_OPTION)
 				{
 					try {
-						
-						BufferedImage img = ImageIO.read(fc.getSelectedFile());
-					
-						ImgLabel.setIcon(new ImageIcon(img));
+						ImageIcon icon = new ImageIcon(ImageIO.read(fc.getSelectedFile()));
+						Image img = icon.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+						ImageIcon newIcon = new ImageIcon(img);
+						ImgLabel.setIcon(newIcon);
 						
 					} catch (IOException e1) {
 						JOptionPane.showConfirmDialog(null, "Image upload failed. Try again");
@@ -222,6 +220,10 @@ public class AddNewProductToCatalog extends JPanel implements ChatIF{
 		btnBrowse.setBackground(new Color(230, 230, 250));
 		btnBrowse.setBounds(500, 82, 116, 25);
 		add(btnBrowse);
+		
+		ImgLabel = new JLabel("");
+		ImgLabel.setBounds(490, 114, 200, 200);
+		add(ImgLabel);
 		
 		
 

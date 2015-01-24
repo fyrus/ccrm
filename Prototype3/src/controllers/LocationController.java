@@ -74,7 +74,8 @@ public class LocationController extends SuperController{
 		String sqlSearch = "SELECT * "
 				+ "FROM location "
 				+ "WHERE Lid=ifnull(?,Lid) "
-				+ "AND Location LIKE ifnull(?,Location) ";
+				+ "AND Location LIKE ifnull(?,Location) "
+				+ "ORDER BY Location";
 		
 		Object []args = new Object[2];
 		args[0]=tmp.getLid();
