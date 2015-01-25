@@ -6,6 +6,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -134,7 +135,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		btnBack.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnBack.setBackground(new Color(230, 230, 250));
-		btnBack.setBounds(471, 392, 188, 36);
+		btnBack.setBounds(477, 407, 188, 36);
 		add(btnBack);
 		
 		domainComboBox = new JComboBox<Domain>();
@@ -148,7 +149,7 @@ public class Catalog extends JPanel implements ChatIF{
 		
 		ImgLabel = new JLabel("");
 		ImgLabel.setBackground(Color.WHITE);
-		ImgLabel.setBounds(492, 191, 153, 143);
+		ImgLabel.setBounds(471, 191, 200, 200);
 		add(ImgLabel);
 		
 		lblName = new JLabel("Product Name");
@@ -199,10 +200,11 @@ public class Catalog extends JPanel implements ChatIF{
 					textArea.setText(list.getSelectedValue().getPdescription());
 					
 					f=new File(list.getSelectedValue().getPphoto());
-					BufferedImage img;
 					try {
-						img = ImageIO.read(f);
-						ImgLabel.setIcon(new ImageIcon(img));
+						ImageIcon icon = new ImageIcon(ImageIO.read(f));
+						Image img = icon.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
+						ImageIcon newIcon = new ImageIcon(img);
+						ImgLabel.setIcon(newIcon);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						System.out.println("System error: could not get picture.");

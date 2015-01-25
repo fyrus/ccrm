@@ -36,7 +36,7 @@ public class EditCatalog extends JPanel {
 	 * Create the panel.
 	 */
 		public EditCatalog() {
-		setSize(new Dimension(700, 480));
+		setSize(new Dimension(234, 339));
 		frame = new JPanel();
 		frame.setBounds(100, 100, 450, 300);
 		//this.setSize(380, 300);
@@ -52,31 +52,31 @@ public class EditCatalog extends JPanel {
 		btnCancel = new JButton("Cancel");
 		btnCancel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnCancel.setBackground(new Color(230, 230, 250));
-		btnCancel.setBounds(417, 352, 188, 36);
+		btnCancel.setBounds(22, 284, 188, 36);
 		add(btnCancel);
 		
 		btnAssignProductTo = new JButton("Assign Product To Type");
 		btnAssignProductTo.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAssignProductTo.setBackground(new Color(230, 230, 250));
-		btnAssignProductTo.setBounds(417, 109, 188, 36);
+		btnAssignProductTo.setBounds(22, 190, 188, 36);
 		add(btnAssignProductTo);
 		
 		btnAddNewProduct = new JButton("Add New Product");
 		btnAddNewProduct.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddNewProduct.setBackground(new Color(230, 230, 250));
-		btnAddNewProduct.setBounds(46, 65, 188, 36);
+		btnAddNewProduct.setBounds(22, 143, 188, 36);
 		add(btnAddNewProduct);
 		
 		btnAddNewType = new JButton("Add New Type");
 		btnAddNewType.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddNewType.setBackground(new Color(230, 230, 250));
-		btnAddNewType.setBounds(46, 141, 188, 36);
+		btnAddNewType.setBounds(22, 96, 188, 36);
 		add(btnAddNewType);
 		
 		btnAddNewDomain = new JButton("Add New Domain");
 		btnAddNewDomain.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnAddNewDomain.setBackground(new Color(230, 230, 250));
-		btnAddNewDomain.setBounds(46, 214, 188, 36);
+		btnAddNewDomain.setBounds(22, 49, 188, 36);
 		add(btnAddNewDomain);
 		
 		btnViewCatalog = new JButton("View Catalog");
@@ -86,7 +86,7 @@ public class EditCatalog extends JPanel {
 		});
 		btnViewCatalog.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.PINK));
 		btnViewCatalog.setBackground(new Color(230, 230, 250));
-		btnViewCatalog.setBounds(417, 187, 188, 36);
+		btnViewCatalog.setBounds(22, 237, 188, 36);
 		add(btnViewCatalog);
 		frame.setVisible(true);
 
