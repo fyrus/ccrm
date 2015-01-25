@@ -21,8 +21,8 @@ public class ProductController extends SuperController{
 		Product tProduct = (Product)value;
 
 		String insert = "INSERT INTO Product"
-				+ "(Pname,Pdesc,Pphoto,Pprice) VALUES"
-				+ "(?,?,?,?)";
+				+ "(Pid,Pname,Pdesc,Pphoto,Pprice) VALUES"
+				+ "(null,?,?,?,?)";
 
 		Object []args = new Object[4];
 		args[0]=tProduct.getPname();

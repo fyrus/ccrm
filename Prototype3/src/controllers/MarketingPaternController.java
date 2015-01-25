@@ -21,8 +21,8 @@ public class MarketingPaternController extends SuperController{
 		MarketingPatern tMarketingPatern = (MarketingPatern)value;
 
 		String insert = "INSERT INTO marketing_patern"
-				+ "(Productid,Segmentid,Message) VALUES"
-				+ "(?,?,?)";
+				+ "(Paternid,Productid,Segmentid,Message) VALUES"
+				+ "(null,?,?,?)";
 
 		Object []args = new Object[3];
 		args[0]=tMarketingPatern.getProductid();

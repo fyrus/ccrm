@@ -21,8 +21,8 @@ public class SaleController extends SuperController{
 		Sale tSale = (Sale)value;
 
 		String insert = "INSERT INTO sales"
-				+ "(Itemid, Customerid, SaleDate, CallTime, Comments, Buy) VALUES"
-				+ "(?,?,?,?,?,?)";
+				+ "(Saleid,Itemid, Customerid, SaleDate, CallTime, Comments, Buy) VALUES"
+				+ "(null,?,?,?,?,?,?)";
 
 		Object []args = new Object[6];
 		args[0]=tSale.getItemid();

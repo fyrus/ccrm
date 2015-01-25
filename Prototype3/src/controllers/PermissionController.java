@@ -21,8 +21,8 @@ public class PermissionController extends SuperController{
 		Permission tPermission = (Permission)value;
 
 		String sqlinsert = "INSERT INTO Permission"
-				+ "(Cid, Did) VALUES"
-				+ "(?,?)";
+				+ "(Pid,Cid, Did) VALUES"
+				+ "(null,?,?)";
 
 			Object []args = new Object[2];
 			args[0]=tPermission.getCid();

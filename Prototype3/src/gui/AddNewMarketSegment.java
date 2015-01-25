@@ -52,7 +52,7 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 	private JComboBox<Location> cbLocation;
 	private JComboBox<Permission> cbPermissionId;
 	private JComboBox<String> cbAgeRange;
-	private ArrayList<Domain> domainList;
+	private ArrayList<Domain> domainList = new ArrayList<Domain>();
 	/**
 	 * Create the panel.
 	 */
@@ -61,8 +61,6 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 			public void ancestorAdded(AncestorEvent arg0) {
 				if (client==null) connect();
 				LoadData();
-				domainList = new ArrayList<Domain>();
-				domainList.removeAll(null);
 			}
 			public void ancestorMoved(AncestorEvent arg0) {
 			}
@@ -192,7 +190,6 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				client.handleMessageFromClientUI(cmd);
 				d.setdName(((Domain)domainList.get(0)).getdName());
 				taDomainOfPermission.setText(d.getdName());
-				
 				}
 				
 				
@@ -214,13 +211,6 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 		lblDomainOfPermission.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDomainOfPermission.setBounds(460, 236, 163, 16);
 		add(lblDomainOfPermission);
-		
-		
-		
-		
-		
-		
-
 	}
 
 	private void LoadData(){
@@ -243,10 +233,10 @@ public class AddNewMarketSegment extends JPanel implements ChatIF {
 				cmd.setComNum(Com.SEARCH_PERMISSION);
 				client.handleMessageFromClientUI(cmd);
 				
-				Domain domain = new Domain();
+			/*	Domain domain = new Domain();
 				cmd.setComVal(domain);
 				cmd.setComNum(Com.SEARCH_DOMAIN);
-				client.handleMessageFromClientUI(cmd);
+				client.handleMessageFromClientUI(cmd);*/
 
 	}
 

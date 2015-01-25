@@ -22,8 +22,8 @@ public class MarketingSegmentController extends SuperController{
 		MarketingSegment tMarketingSegment = (MarketingSegment)value;
 
 		String insert = "INSERT INTO marketing_segment"
-				+ "(age,locationid,importance,interest) VALUES"
-				+ "(?,?,?,?)";
+				+ "(Segmentid,age,locationid,importance,interest) VALUES"
+				+ "(null,?,?,?,?)";
 
 		Object []args = new Object[4];
 		args[0]=tMarketingSegment.getAge();

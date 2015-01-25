@@ -114,7 +114,6 @@ public class SereverGui extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int port = 0; // Port to listen on
 				
-				DbParametrs dbp = new DbParametrs();
 				DbParametrs.setDbName(tfDbName.getText());
 				DbParametrs.setPassword(tfPassword.getText());
 				DbParametrs.setPortNumber(3306);

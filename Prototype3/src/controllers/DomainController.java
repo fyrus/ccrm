@@ -21,28 +21,17 @@ public class DomainController extends SuperController{
 		Domain tDomain = (Domain)value;
 
 		String insert = "INSERT INTO domain"
-				+ "(Dname) VALUES"
-				+ "(?)";
-		
-		Domain tmp = new Domain();
-		tmp.setDid(tDomain.getDid());
-		
-		if (tDomain.getdName().compareTo("") == 0)
-			return;
+				+ "(Did,Dname) VALUES"
+				+ "(null,?)";
 
-		String sqlstr = "SELECT * FROM domain WHERE Dname='" + tDomain.getdName() + "'";
-		if(superSearchInDB(sqlstr,null) != null)
-		{
-			System.out.println("Domain with name " + tDomain.getdName() + " already exists");
-		}
-		else{
-			Object []args = new Object[1];
-			args[0]=tDomain.getdName();
-			if(superAddToDB(insert,args))
-				System.out.println("Domain with name " + tDomain.getdName() + " was added");
-			else
-				System.out.println("Domain with name " + tDomain.getdName() + " was not added");
-		}
+		Object []args = new Object[1];
+		args[0]=tDomain.getdName();
+		
+		if(superAddToDB(insert,args))
+			System.out.println("Domain with name " + tDomain.getdName() + " was added");
+		else
+			System.out.println("Domain with name " + tDomain.getdName() + " was not added");
+
 	}
 
 	/**
@@ -50,11 +39,11 @@ public class DomainController extends SuperController{
 	 * @param value the domain to remove
 	 */
 	public static void removeFromDB(Object value) {
-		
+
 		Domain tDomain = (Domain)value;
 		Domain tmp = new Domain();
 		tmp.setDid(tDomain.getDid());
-		
+
 		if (tDomain.getDid() == 0)
 			return;
 
@@ -81,18 +70,18 @@ public class DomainController extends SuperController{
 		Domain tmp = (Domain)value;
 
 		ArrayList<Domain> domainList = new ArrayList<Domain>();
-		
+
 		String sqlSearch = "SELECT * "
 				+ "FROM domain "
 				+ "WHERE Did=ifnull(?,Did) "
 				+ "AND Dname LIKE ifnull(?,Dname) ";
-		
+
 		Object []args = new Object[2];
 		args[0]=tmp.getDid();
 		args[1]=tmp.getdName();
-		
+
 		ResultSet resultSet;
-		
+
 		try {
 			resultSet = superSearchInDB(sqlSearch, args);
 			if(resultSet == null)
@@ -112,7 +101,7 @@ public class DomainController extends SuperController{
 	}
 
 	public static void updateDb(Object value, int id) {
-		
+
 		if (id == 0)
 			return;
 		Domain tDomain = (Domain)value;

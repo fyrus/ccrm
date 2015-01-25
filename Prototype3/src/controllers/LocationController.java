@@ -21,8 +21,8 @@ public class LocationController extends SuperController{
 		Location tLocation = (Location)value;
 
 		String insert = "INSERT INTO location"
-				+ "(Location) VALUES"
-				+ "(?)";
+				+ "(Lid,Location) VALUES"
+				+ "(null,?)";
 		
 		Object []args = new Object[1];
 		args[0]=tLocation.getLocation();

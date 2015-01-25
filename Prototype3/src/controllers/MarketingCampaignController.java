@@ -23,8 +23,8 @@ public class MarketingCampaignController extends SuperController{
 		MarketingCampaign tMarketingCampaign = (MarketingCampaign)value;
 
 		String insert = "INSERT INTO Marketing_Campaign"
-				+ "(Startdate, Enddate, Paternid) VALUES"
-				+ "(?,?,?)";
+				+ "(Cid,Startdate, Enddate, Paternid) VALUES"
+				+ "(null,?,?,?)";
 
 		try{
 			Object []args = new Object[3];

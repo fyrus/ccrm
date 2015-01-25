@@ -21,8 +21,8 @@ public class TypeController extends SuperController{
 		Type tType = (Type)value;
 
 		String sqlinsert = "INSERT INTO Type"
-				+ "(Tname, Did) VALUES"
-				+ "(?,?)";
+				+ "(Tid,Tname, Did) VALUES"
+				+ "(null,?,?)";
 
 			Object []args = new Object[2];
 			args[0]=tType.getTname();
