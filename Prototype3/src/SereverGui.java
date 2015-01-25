@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -9,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-import dbconn.DbParametrs;
+import dbconn.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,7 @@ public class SereverGui extends JFrame {
 	private JTextField tfPassword;
 	private JTextField tfDbName;
 	
-	private EchoServer sv;
+	private EchoServer sv=null;
 
 	/**
 	 * Launch the application.
@@ -49,7 +50,7 @@ public class SereverGui extends JFrame {
 			public void run() {
 				try {
 					SereverGui frame = new SereverGui();
-					frame.setVisible(true);			
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -134,6 +135,15 @@ public class SereverGui extends JFrame {
 
 				/** The name of the database we are testing with (this default is installed with MySQL) */
 				//private final static String dbName = "ccrm_db";
+				
+				try {
+					DbConn.getConnection();
+					System.out.println("Connected to database");
+				} catch (SQLException e) {
+					System.out.println("ERROR: Could not connect to the database");
+					e.printStackTrace();
+					System.exit(0);	//exit
+				}
 
 				try {
 					port = Integer.parseInt(tfPort.getText()); // Get port from command line
@@ -158,7 +168,9 @@ public class SereverGui extends JFrame {
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					sv.close();
+					if(sv != null)
+						sv.close();	//stop listening
+					System.exit(0);	//exit
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
