@@ -132,7 +132,7 @@ public class UserController extends SuperController{
 			return;
 		User tUser = (User)value;
 		String update = "UPDATE user "
-				+ "SET Uid=? ,Name=? ,Password=? ,Addr=? ,Phone=? ,LoggedIn=?, Role=?"
+				+ "SET Uid=? ,Name=? ,Password=? ,Addr=? ,Phone=? ,LoggedIn=?, Role=? "
 				+ "WHERE Uid=?";
 
 		User tmp = new User();
@@ -143,15 +143,15 @@ public class UserController extends SuperController{
 			System.out.println("User with id " + tUser.getUid() + " cannot be found");
 		}
 		else{
-			Object []args = new Object[7];
+			Object []args = new Object[8];
 			args[0]=tUser.getUid();
 			args[1]=tUser.getName();
 			args[2]=tUser.getPassword();
 			args[3]=tUser.getAddress();
 			args[4]=tUser.getPhone();
 			args[5]=tUser.isLoggedin();
-			args[5]=tUser.getRole();
-			args[5]=id;
+			args[6]=tUser.getRole();
+			args[7]=id;
 			if(superUpdateDb(update,args))
 				System.out.println("User with id " + tUser.getUid() + " was updated");
 			else

@@ -175,10 +175,11 @@ public class MainFrame extends JFrame implements ChatIF{
 				u1.setPassword("123");
 				u1.setPhone("6575467");
 				u1.setRole("not admin");
+				u1.setUid(1);
 				
 				cmd.setComVal(u1);
-				cmd.setComExtra("2", null);
-				cmd.setComNum(Com.ADD_USER);
+				cmd.setComExtra("1", null);
+				cmd.setComNum(Com.UPDATE_USER);
 				//cmd.setComExtra(tfId.getText(), null);
 				client.handleMessageFromClientUI(cmd);
 			}
