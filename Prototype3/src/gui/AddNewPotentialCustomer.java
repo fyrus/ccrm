@@ -55,6 +55,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 	private JTextField tfcLName;
 	private JTextField tfcPhone;
 	public JButton btnCancel;
+	public JButton btnAdd;
 	private RegisteredCustomer customer; 
 	private JComboBox<Location> cbCustomerLocation;
 	private ChatClient client;
@@ -150,7 +151,7 @@ public class AddNewPotentialCustomer extends JPanel implements ChatIF{
 		lblAddNewPotential.setBounds(22, 13, 267, 25);
 		add(lblAddNewPotential);
 		
-		JButton btnAdd = new JButton("Add");
+		btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if( tfcFName.getText().equals("") || tfcID.getText().equals("") ||
